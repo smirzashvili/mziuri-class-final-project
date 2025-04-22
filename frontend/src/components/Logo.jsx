@@ -1,12 +1,10 @@
 import React from 'react'
-import LogoImg from '../assets/images/logo.png'
 
-function Logo({hasAnimation}) {
+function Logo({ hasAnimation }) {
   return (
-    <img 
-      className={`logo ${hasAnimation ? 'animated' : ''}`}
-      src={LogoImg} 
-    />
+    <svg className={`logo ${hasAnimation ? 'animated' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133.000000 100.000000" width="133.000000pt" height="100.000000pt" version="1.0" preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,100.000000) scale(0.100000,-0.100000)" stroke="none">
+      <path d="M540 796 c-36 -58 -77 -126 -92 -150 l-26 -43 -79 76 c-44 44 -105 90 -140 109 l-62 33 24 -53 c77 -170 74 -333 -12 -508 -21 -41 -39 -79 -41 -83 -2 -4 26 -7 64 -5 l67 3 19 55 c27 78 39 135 46 215 l7 70 49 -68 c47 -66 49 -67 68 -50 11 10 36 39 55 66 19 26 37 46 40 43 5 -5 -16 -330 -23 -362 -4 -17 5 -28 46 -54 28 -18 54 -30 57 -26 10 10 15 745 6 794 l-8 44 -65 -106z"></path><path d="M650 483 c0 -233 4 -423 8 -423 4 0 30 14 56 31 l48 30 -5 47 c-12 97 -19 347 -10 337 5 -5 31 -38 58 -73 l47 -64 49 73 c30 45 50 67 53 58 2 -8 7 -46 10 -86 4 -67 38 -213 54 -240 4 -7 37 -15 73 -19 l66 -6 -37 75 c-55 113 -74 205 -68 335 4 87 11 123 36 189 30 80 30 83 9 72 -60 -31 -152 -106 -197 -160 l-49 -59 -24 37 c-70 114 -139 221 -157 243 l-20 25 0 -422z"></path></g>
+    </svg>
   )
 }
 
