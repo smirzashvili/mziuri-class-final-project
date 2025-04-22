@@ -1,0 +1,24 @@
+#logo {
+    filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
+    &.animated {
+        animation-name: reminder;
+        animation-duration: 4000ms;
+        animation-iteration-count: infinite;
+        animation-delay: 500ms;
+    }
+    
+    @keyframes reminder {
+        0% {
+            opacity: 1;
+        }
+        30% {
+            opacity: 1;
+        }
+        50%{
+            opacity: 0;
+        } 
+        100% {
+            opacity: 1;
+        }
+    }
+}
