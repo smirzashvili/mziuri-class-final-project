@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../components/Logo';
+import Button from '../components/Button';
 
 const Intro = () => {
 
@@ -10,7 +11,7 @@ const Intro = () => {
     <div id='intro'>
         <Logo hasAnimation={true}/>
         <h2>this website is created for introduce musicians by sharing their skills</h2>
-        <button onClick={() => navigate("/explore")}>Get Started</button>
+        <Button onClick={() => navigate("/explore")}>Get Started</Button>
     </div>
   )
 };
