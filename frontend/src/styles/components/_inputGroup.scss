@@ -1,0 +1,15 @@
+.inputGroup {
+    @include flexbox(column, flex-start, flex-start, 10px);
+
+    & > .label {
+
+    }
+
+    & > .input {
+
+    }
+
+    & > .error {
+        color: red;
+    }
+}

@@ -8,9 +8,9 @@ const Intro = () => {
 
   return (
     <div className='intro'>
-        <Logo hasAnimation={true}/>
-        <h2>this website is created for introduce musicians by sharing their skills</h2>
-        <Button onClick={() => navigate("/login")}>Get Started</Button>
+      <Logo hasAnimation={true}/>
+      <h2>this website is created for introduce musicians by sharing their skills</h2>
+      <Button onClick={() => navigate("/login")}>Get Started</Button>
     </div>
   )
 };

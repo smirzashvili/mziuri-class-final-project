@@ -3,7 +3,7 @@ import './styles/main.scss'
 import { Route, Routes } from 'react-router-dom'
 import { Sidebar, Main, Footer } from './layouts'
 import { About, Chat, Contact, Explore, Intro, NotFound, Profile, SignIn, SignUp, Terms } from './routes'
-import {Loading} from './components'
+import { Loading } from './components'
 
 function App() {
 

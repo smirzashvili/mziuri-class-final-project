@@ -12,6 +12,27 @@ body {
 }
 
 .app {
-    // background-color: #ebebeb;
     height: 100vh;
+
+    //login state visual changes
+    &.loggedIn {
+        .sidebar {
+            width: 18vw;
+            min-width: 325px;
+    
+            .bottom_part {
+                button {
+                    transform: rotate(360deg) translateX(0px);
+                    margin: 0px 20px;
+                }
+            }
+        }
+        .main {
+            margin-left: max(18vw, 325px);
+        }
+        .footer {
+            margin-left: max(18vw, 325px);
+            @include dimension(calc(100% - max(18vw, 325px)), auto);
+        }
+    }
 }
