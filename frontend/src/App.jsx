@@ -1,14 +1,9 @@
 import { useEffect, useState } from 'react'
 import './styles/main.scss'
-import Sidebar from './layouts/Sidebar'
-import Footer from './layouts/Footer'
-import Main from './layouts/Main'
-import { Link, Route, Routes, useLocation, useNavigate, useNavigation } from 'react-router-dom'
-import About from './routes/About'
-import Intro from './routes/Intro'
-import Contact from './routes/Contact'
-import Loading from './components/Loading'
-import { useLoader } from './hooks/useLoader'
+import { Route, Routes } from 'react-router-dom'
+import { Sidebar, Main, Footer } from './layouts'
+import { About, Chat, Contact, Explore, Intro, NotFound, Profile, SignIn, SignUp, Terms } from './routes'
+import {Loading} from './components'
 
 function App() {
 
@@ -18,8 +13,15 @@ function App() {
       <Main>
         <Routes>
           <Route path='/' element={<Intro />} />
-          <Route path='/about' element={<About />} />
+          <Route path="/login" element={<SignIn />}/>
+          <Route path="/registration" element={<SignUp /> }/>
+          <Route path="/explore" element={<Explore /> }/>
+          <Route path="/chat" element={<Chat /> }/>
+          <Route path="/profile" element={<Profile /> } />
+          <Route path="/terms" element={<Terms /> }/>
+          <Route path="/about" element={<About />}/>
           <Route path='/contact' element={<Contact />} />
+          <Route path="*" element={<NotFound />}/>
         </Routes>
       </Main>
       <Footer />
