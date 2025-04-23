@@ -1,0 +1,27 @@
+.sidebar {
+    @include dimension(5vw, 100vh);
+    background-color: white;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    padding: 3vh 0vw;
+    @include flexbox(column, space-between, flex-start);
+
+    .logo {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+    }
+
+    &.loggedIn {
+        width: 18vw;
+        min-width: 325px;
+
+        .bottom_part {
+            button {
+                transform: rotate(360deg) translateX(0px);
+                margin: 0px 20px;
+            }
+        }
+    }
+}

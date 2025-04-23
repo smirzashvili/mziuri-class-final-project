@@ -15,9 +15,6 @@ function App() {
   return (
     <div className={`app`}>
       <Sidebar />
-      <Link to='/'>Intro</Link>
-      <Link to='/about'>about</Link>
-      <Link to='/contact'>contact</Link>
       <Main>
         <Routes>
           <Route path='/' element={<Intro />} />

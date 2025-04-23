@@ -4,8 +4,13 @@
 @import './abstracts/reset';
 @import './abstracts/animations';
 
+@import './layouts/sidebar';
+@import './layouts/main';
+@import './layouts/footer';
+
 @import './components/loading';
 @import './components/logo';
 @import './components/button';
 
 @import './routes/intro';
+

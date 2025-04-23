@@ -1,0 +1,13 @@
+.footer {
+    @include dimension(calc(100% - 5vw), auto);
+    margin-left: 5vw;
+    background-color: white;
+    padding: 25px 0;
+    @include flexbox(row, center, center);
+    gap: 120px;
+    
+    &.loggedIn {
+        margin-left: max(18vw, 325px);
+        @include dimension(calc(100% - max(18vw, 325px)), auto);
+    }
+}
