@@ -8,7 +8,7 @@ const Intro = () => {
   const navigate = useNavigate()
 
   return (
-    <div id='intro'>
+    <div className='intro'>
         <Logo hasAnimation={true}/>
         <h2>this website is created for introduce musicians by sharing their skills</h2>
         <Button onClick={() => navigate("/explore")}>Get Started</Button>
