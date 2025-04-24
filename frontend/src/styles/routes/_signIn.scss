@@ -8,6 +8,10 @@
 
         & > .form {
             width: 45%;
+
+            & > .button {
+                width: 100%;
+            }
         }
 
         .dontHaveAcc > a {

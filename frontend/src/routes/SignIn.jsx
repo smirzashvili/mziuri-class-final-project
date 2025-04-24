@@ -77,7 +77,7 @@ function SignIn() {
           >
             <img onClick={() => setIsPasswordVisible(!isPasswordVisible)} src={isPasswordVisible ? Eye : EyeClosed} className='end' alt="" />
           </InputGroup>
-          <Button type="submit">Login</Button>
+          <Button type="submit" variant="secondary" >Login</Button>
           <div className='additionalContainer'>
             <p className='dontHaveAcc'>Don't have an account? <Link to="/registration">Register</Link></p>
           </div>

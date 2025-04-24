@@ -1,12 +1,12 @@
 import React from 'react'
 
-function Button(props) {
+function Button({variant, ...props}) {
   return (
     <button
-        className='button'
-        {...props}
+      className={`button ${variant}`}
+      {...props}
     >
-        {props.children}
+      {props.children}
     </button>
   )
 }

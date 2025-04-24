@@ -16,7 +16,7 @@ function InputGroup({ type = "text", label, name, value, onChange, error, childr
         {/* icons */}
         {children}
       </div>
-      <span className={`error ${error ? 'visible' : ''}`}>{error || '.hghhj'}</span>
+      <span className={`error ${error ? 'visible' : ''}`}>{error || '.'}</span>
     </div>
   )
 }
