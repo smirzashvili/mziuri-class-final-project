@@ -6,9 +6,12 @@ import { About, Chat, Contact, Explore, Intro, NotFound, Profile, SignIn, SignUp
 import { Loading } from './components'
 
 function App() {
-
+  const [loggedIn, setLoggedIn] = useState(false)
+  // useEffect(() => {
+  //   let timer = setTimeout(() => setLoggedIn(!loggedIn), 1000)
+  // })
   return (
-    <div className={`app`}>
+    <div className={`app ${loggedIn ? 'loggedIn' : ''}`}>
       <Sidebar />
       <Main>
         <Routes>

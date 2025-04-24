@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { Button, InputGroup, Form } from '../components'
+import { Link } from 'react-router-dom'
+import { validateEmail, validatePassword } from '../utils/validations'
 
 function SignIn() {
   const [state, setState] = useState({
-    username: "",
+    email: "",
     password: "",
   })
-  const [error, setError] = useState()
+  const [errorMessages, setErrorMessages] = useState({})
 
   const handleChange = (e) => {
     setState({
@@ -17,40 +19,63 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const data = {
-      username: state.username,
-      password: state.password,
-    }
-    try {
-      setError("")
-    } catch (err) {
-      setError("Something went wrong!")
+
+    const errors = validate()
+    if(Object.keys(errors).length === 0) {
+      // const data = {
+      //   email: state.email,
+      //   password: state.password,
+      // }
+      // try {
+      //   //
+      //   setErrorMessages({})
+      // } catch (err) {
+        
+      // }
+    } else {
+      setErrorMessages(errors)
     }
   }
+
+  const validate = () => {
+    const errors = {};
+
+    const emailError = validateEmail(state.email);
+    const passwordError = validatePassword(state.password);
+
+    if (emailError) errors.email = emailError;
+    if (passwordError) errors.password = passwordError;
+
+    return errors;
+  };
 
   return (
     <div className='signIn'>
       <div className='formContainer'>
-        <h1 className='title'>Login</h1>
         <Form onSubmit={(e) => handleSubmit(e)}>
+          <div className='titlesContainer'>
+            <h1 className='title'>Welcome Back!</h1>
+            <h3 className='subtitle'>Sign in to continue your journey</h3>
+          </div>
           <InputGroup
-            label="Username"
-            name="username"
-            value={state.username}
+            label="Email"
+            name="email"
+            value={state.email}
             onChange={(e) => handleChange(e)}
-            error={error}
+            error={errorMessages.email}
           />
           <InputGroup
             label="Password"
             name="password"
             value={state.password}
             onChange={(e) => handleChange(e)}
-            error={error}
+            error={errorMessages.password}
           />
-          <Button>Login</Button>
+          <Button type="submit">Login</Button>
+          <div className='additionalContainer'>
+            <p className='dontHaveAcc'>Don't have an account? <Link to="/registration">Register</Link></p>
+          </div>
         </Form>
-
-        <a href="/registration">Register</a>
       </div>
 
       <div className='mediaContainer'>

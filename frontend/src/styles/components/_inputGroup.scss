@@ -1,15 +1,24 @@
 .inputGroup {
-    @include flexbox(column, flex-start, flex-start, 10px);
-
+    @include flexbox(column, flex-start, flex-start, 8px);
+    width: 100%;
     & > .label {
 
     }
 
     & > .input {
-
+        width: 100%;
+        padding: 12px 2px;
     }
 
     & > .error {
+        font-size: 14px;
         color: red;
+        opacity: 0;
+        visibility: hidden;
+
+        &.visible {
+            opacity: 1;
+            visibility: visible;
+        }
     }
 }

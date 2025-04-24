@@ -1,3 +1,21 @@
 .form {
-    @include flexbox(column, flex-start, flex-start, 20px);
+    @include flexbox(column, flex-start, flex-start, 10px);
+
+    & > .titlesContainer {
+        margin-bottom: 16px;
+
+        & > .title {
+            font-size: 36px;
+        }
+        
+        & > .subtitle {
+            color: $text-color-lighter;
+            font-weight: 500;
+            font-size: 18px;
+        }
+    }
+
+    & > .additionalContainer {
+        margin-top: 8px;
+    }
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Form({onSubmit, children}) {
+function Form({onSubmit, children, ...props}) {
   return (
-    <form onSubmit={onSubmit} className="form">
+    <form onSubmit={onSubmit} className="form"  {...props}>
       {children}
     </form>
   )

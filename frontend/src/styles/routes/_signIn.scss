@@ -5,6 +5,14 @@
     .formContainer {
         @include dimension(50%, 100%);
         @include flexbox(column, center, center, 25px);
+
+        & > .form {
+            width: 45%;
+        }
+
+        .dontHaveAcc > a {
+            color: $primary-green;
+        }
     }
 
     .mediaContainer {

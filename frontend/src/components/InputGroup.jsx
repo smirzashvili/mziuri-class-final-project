@@ -12,7 +12,7 @@ function InputGroup({ type = "text", label, name, value, onChange, error }) {
         value={value}
         onChange={onChange}
       />
-      {error && <span className='error'>{error}</span>}
+      <span className={`error ${error ? 'visible' : ''}`}>{error || '.hghhj'}</span>
     </div>
   )
 }
