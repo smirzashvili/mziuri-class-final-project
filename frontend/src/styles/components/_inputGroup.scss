@@ -4,10 +4,28 @@
     & > .label {
 
     }
-
-    & > .input {
+    & > .inputBox {
         width: 100%;
-        padding: 12px 2px;
+        position: relative;
+
+        & > .input {
+            width: 100%;
+            padding: 12px 2px;
+        }
+
+        & > img {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            
+            &.end {
+                right: 10px;
+            }
+            &.start {
+                left: 10px;
+            }
+        }
     }
 
     & > .error {

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Button, InputGroup, Form } from '../components'
 import { Link } from 'react-router-dom'
 import { validateEmail, validatePassword } from '../utils/validations'
+import Eye from '../assets/icons/eye.svg'
+import EyeClosed from '../assets/icons/eye-closed.svg'
 
 function SignIn() {
   const [state, setState] = useState({
@@ -9,6 +11,7 @@ function SignIn() {
     password: "",
   })
   const [errorMessages, setErrorMessages] = useState({})
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const handleChange = (e) => {
     setState({
@@ -65,12 +68,15 @@ function SignIn() {
             error={errorMessages.email}
           />
           <InputGroup
+            type={isPasswordVisible ? 'text' : 'password'}
             label="Password"
             name="password"
             value={state.password}
             onChange={(e) => handleChange(e)}
             error={errorMessages.password}
-          />
+          >
+            <img onClick={() => setIsPasswordVisible(!isPasswordVisible)} src={isPasswordVisible ? Eye : EyeClosed} className='end' alt="" />
+          </InputGroup>
           <Button type="submit">Login</Button>
           <div className='additionalContainer'>
             <p className='dontHaveAcc'>Don't have an account? <Link to="/registration">Register</Link></p>
