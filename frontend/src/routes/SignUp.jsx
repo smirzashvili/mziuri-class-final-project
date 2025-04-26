@@ -98,6 +98,24 @@ function SignUp() {
     });
   };
 
+  const handleFileDelete = (index) => {
+    const updatedFiles = [...uploadedMedias];
+    updatedFiles[index] = null;
+  
+    // Move all nulls to the end
+    updatedFiles.sort((a, b) => {
+      if (a === null) return 1;
+      if (b === null) return -1;
+      return 0;
+    });
+  
+    setUploadedMedias(updatedFiles);
+    setState({
+      ...state,
+      media: updatedFiles
+    });
+  };
+
   return (
     <div className='signUp'>
       <div className='formContainer'>
@@ -262,11 +280,16 @@ function SignUp() {
                   <label key={index} className={`${file ? 'uploaded' : ''}`}>
                     {
                       file ? (
-                        file.type.startsWith('video') ? (
-                          <video src={URL.createObjectURL(file)} autoPlay />
-                        ) : (
-                          <img src={URL.createObjectURL(file)} alt={`uploaded ${index}`} />
-                        )
+                        <>
+                          {
+                            file.type.startsWith('video') ? (
+                              <video src={URL.createObjectURL(file)} autoPlay />
+                            ) : (
+                              <img src={URL.createObjectURL(file)} alt={`uploaded ${index}`} />
+                            )
+                          }
+                          <div className='deleteIcon' onClick={(() => handleFileDelete(index))}>D</div>
+                        </>
                       ) : (
                         <input
                           type="file"
@@ -274,8 +297,6 @@ function SignUp() {
                           name="media"
                           id="media"
                           onChange={(e) => handleFileUpload(e, index)}
-                          // value={state.media}
-                          // onChange={handleChange}
                         />
                       )
                     }
