@@ -3,7 +3,7 @@ import React from 'react'
 function Button({variant, ...props}) {
   return (
     <button
-      className={`button ${variant}`}
+      className={`button ${variant ? variant : ''}`}
       {...props}
     >
       {props.children}

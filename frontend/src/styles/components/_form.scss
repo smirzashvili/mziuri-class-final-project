@@ -1,11 +1,12 @@
 .form {
-    @include flexbox(column, flex-start, flex-start, 10px);
+    @include flexbox(column, flex-start, flex-start, 5px);
 
     & > .titlesContainer {
         margin-bottom: 16px;
 
         & > .title {
             font-size: 36px;
+            margin-bottom: 6px;
         }
         
         & > .subtitle {
@@ -13,6 +14,12 @@
             font-weight: 500;
             font-size: 18px;
         }
+    }
+
+    & > .widthDivider {
+        width: 100%;
+        display: flex;
+        gap: 8px;        
     }
 
     & > .additionalContainer {

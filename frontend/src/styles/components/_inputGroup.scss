@@ -2,7 +2,6 @@
     @include flexbox(column, flex-start, flex-start, 8px);
     width: 100%;
     & > .label {
-
     }
     & > .inputBox {
         width: 100%;
@@ -10,21 +9,60 @@
 
         & > .input {
             width: 100%;
-            padding: 12px 2px;
+            padding: 12px 6px;
+
+        }
+        & > .select {
+            width: 100%;
+            padding: 12px 6px;
+            //dropdown icon
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("../../../src/assets/icons/arrow-down.svg");
+            background-repeat: no-repeat;
+            background-position-x: calc(100% - 4px);
+            background-position-y: 50%;
+
+            &.placeholder-selected {
+                color: rgb(118, 118, 118);
+            }
+
+            & > option {
+                color: black;
+            }
+        }
+        & > .textarea {
+            width: 100%;
+            padding: 12px 6px;
+            resize: none;
         }
 
-        & > img {
+        .checkbox {
+            margin-right: 8px;
+            accent-color: $primary-green;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        & > .icon {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
+            width: 20px;
             cursor: pointer;
             
             &.end {
-                right: 10px;
+                right: 8px;
             }
             &.start {
-                left: 10px;
+                left: 8px;
             }
+        }
+
+        & > label {
+            display: flex;
+            align-items: center;
         }
     }
 

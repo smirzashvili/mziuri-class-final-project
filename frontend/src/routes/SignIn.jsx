@@ -60,22 +60,30 @@ function SignIn() {
             <h1 className='title'>Welcome Back!</h1>
             <h3 className='subtitle'>Sign in to continue your journey</h3>
           </div>
-          <InputGroup
-            label="Email"
-            name="email"
-            value={state.email}
-            onChange={(e) => handleChange(e)}
-            error={errorMessages.email}
-          />
-          <InputGroup
-            type={isPasswordVisible ? 'text' : 'password'}
-            label="Password"
-            name="password"
-            value={state.password}
-            onChange={(e) => handleChange(e)}
-            error={errorMessages.password}
-          >
-            <img onClick={() => setIsPasswordVisible(!isPasswordVisible)} src={isPasswordVisible ? Eye : EyeClosed} className='end' alt="" />
+          <InputGroup label="Email" name="email" error={errorMessages.email}>
+            <input
+              type="text"
+              className="input"
+              name="email"
+              id="email"
+              value={state.email}
+              placeholder="you@example.com"
+              onChange={handleChange}
+            />
+          </InputGroup>
+          <InputGroup label="Password" name="password" error={errorMessages.password}>
+            <>
+              <input
+                type={isPasswordVisible ? 'text' : 'password'}
+                className="input"
+                name="password"
+                id="password"
+                placeholder="enter your password"
+                value={state.password}
+                onChange={(e) => handleChange(e)}
+              />
+              <img onClick={() => setIsPasswordVisible(!isPasswordVisible)} src={isPasswordVisible ? Eye : EyeClosed} className='icon end' alt="" />
+            </>
           </InputGroup>
           <Button type="submit" variant="secondary" >Login</Button>
           <div className='additionalContainer'>
