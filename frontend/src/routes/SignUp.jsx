@@ -23,28 +23,31 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
     const errors = validate()
-    if (Object.keys(errors).length === 0) {
-      let isLastStep = activeStep === 3
-      if(!isLastStep) {
-        setActiveStep(activeStep + 1)
-        setErrorMessages({})
-        return
-      }
-      alert('reg')
-      // const data = {
-      //   email: state.email,
-      //   password: state.password,
-      // }
-      // try {
-      //   //
-      //   setErrorMessages({})
-      // } catch (err) {
-
-      // }
-    } else {
+    if (Object.keys(errors).length > 0) {
       setErrorMessages(errors)
+      return
     }
+
+    const isLastStep = activeStep === 3
+    if(!isLastStep) {
+      setActiveStep(activeStep + 1)
+      setErrorMessages({})
+      return
+    }
+
+    alert('reg')
+    // const data = {
+    //   email: state.email,
+    //   password: state.password,
+    // }
+    // try {
+    //   //
+    //   setErrorMessages({})
+    // } catch (err) {
+
+    // }
   }
 
   const validate = () => {
@@ -79,17 +82,9 @@ function SignUp() {
   const handleFileUpload = (e, index) => {
     const file = e.target.files[0];
     if (!file) return;
-    if(!(file.type.startsWith('video') || file.type.startsWith('image'))) return;
 
     const updatedFiles = [...uploadedMedias];
-    updatedFiles[index] = file;
-
-    //move all nulls to the end
-    updatedFiles.sort((a, b) => {
-      if (a === null) return 1;
-      if (b === null) return -1;
-      return 0;
-    });
+    updatedFiles[uploadedMedias.findIndex(item => item === null)] = file; //set at first null index
 
     setUploadedMedias(updatedFiles);
     setState({
@@ -100,14 +95,8 @@ function SignUp() {
 
   const handleFileDelete = (index) => {
     const updatedFiles = [...uploadedMedias];
-    updatedFiles[index] = null;
-  
-    // Move all nulls to the end
-    updatedFiles.sort((a, b) => {
-      if (a === null) return 1;
-      if (b === null) return -1;
-      return 0;
-    });
+    updatedFiles.splice(index, 1); // remove 1 item at 'index'
+    updatedFiles.push(null); // add a null at the end
   
     setUploadedMedias(updatedFiles);
     setState({
@@ -121,7 +110,7 @@ function SignUp() {
       <div className='formContainer'>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <div className='titlesContainer'>
-            <h1 className='title'>Create an account</h1>
+            <h1 className='title'>Create an account <span className='stepIndicator'>( {activeStep} of 3 )</span></h1>
             <h3 className='subtitle'>Join MelodyMatch and start connecting with musicians</h3>
           </div>
           {activeStep === 1 ?
@@ -288,7 +277,7 @@ function SignUp() {
                               <img src={URL.createObjectURL(file)} alt={`uploaded ${index}`} />
                             )
                           }
-                          <div className='deleteIcon' onClick={(() => handleFileDelete(index))}>D</div>
+                          <div className='deleteIcon' onClick={(e) => {e.stopPropagation();handleFileDelete(index)}}>D</div>
                         </>
                       ) : (
                         <input
@@ -307,8 +296,8 @@ function SignUp() {
           </>
           }
           <div className='widthDivider'>
-            {activeStep > 1 && <Button type="button" onClick={() => setActiveStep(activeStep - 1)}>Back</Button>}          
-            <Button type="submit" variant="secondary">{activeStep !==3 ? 'Continue' : 'Complete'}</Button>
+            {activeStep > 1 && <Button type="button" variant="secondary" onClick={() => setActiveStep(activeStep - 1)}>Back</Button>}          
+            <Button type="submit">{activeStep !==3 ? 'Continue' : 'Complete'}</Button>
           </div>
           <div className='additionalContainer'>
             <p className='alreadyHaveAcc'>Already have an account? <Link to="/login">Login</Link></p>

@@ -48,7 +48,7 @@ export const validateMedias = (arr) => {
         for (let i = 0; i < arr.length; i++) {
             const file = arr[i];
             if (file && !(file.type.startsWith('image/') || file.type.startsWith('video/'))) {
-                return `No image or video at slot ${i + 1}`;
+                return `Unsupported file format at slot ${i + 1}`;
             }
         }
     }
@@ -58,5 +58,15 @@ export const validateMedias = (arr) => {
     
     if (!arr || filteredArr?.length < 2) {
         return 'You must upload 2 or more videos/photos';
+    }
+};
+
+export const validateSingleMedia = (file, index) => {
+    if(!file) {
+        return 'Unexpected error occured';
+    }
+
+    if(!(file.type.startsWith('image/') || file.type.startsWith('video/'))) {
+        return `Unsupported file format at slot ${index + 1}`;
     }
 };
