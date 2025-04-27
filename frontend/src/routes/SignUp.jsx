@@ -277,7 +277,7 @@ function SignUp() {
                               <img src={URL.createObjectURL(file)} alt={`uploaded ${index}`} />
                             )
                           }
-                          <div className='deleteIcon' onClick={(e) => {e.stopPropagation();handleFileDelete(index)}}>D</div>
+                          <div className='deleteIcon' onClick={() => handleFileDelete(index)}>D</div>
                         </>
                       ) : (
                         <input

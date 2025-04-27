@@ -1,22 +1,58 @@
 .button {
     border: 1px solid black;
-    padding: 10px 20px;
+    border: none;
+    background: none;
+    padding: 10px 34px;
     transition: 200ms;
     cursor: pointer;
-    background: none;
-    
+    position: relative;
+    color: white;
+    overflow: hidden;
+    // background-color: $primary-green;
+    background-image: linear-gradient(90deg, 
+        transparent 0px, transparent 20px, 
+        $primary-green 20px, $primary-green calc(100% - 20px),
+        transparent calc(100% - 20px), transparent 100%, 
+    );
+    min-width: 100px;
+
+    .cut-left {
+        position: absolute;
+        width: 20px;
+        height: 100%;
+        left: -10px;
+        top: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 0 5rem $primary-green;
+    }
+    .cut-right {
+        position: absolute;
+        width: 20px;
+        height: 100%;
+        right: -10px;
+        top: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 0 5rem $primary-green;
+    }
+
+    & > span {
+        position: relative;
+        // padding: 1rem 0;
+    }
+
     &:hover {
-        background-color: $secondary-green;
-        color: white;
+        opacity: .8;
+        // background-color: $secondary-green;
+        // color: white;
     }
 
     &.secondary {
-        background-color: $secondary-green;
+        // background-color: $secondary-green;
 
-        &:hover {
-            background-color: white;
-            color: $text-color;
-        }
+        // &:hover {
+        //     background-color: white;
+        //     color: $text-color;
+        // }
     }
 
 }

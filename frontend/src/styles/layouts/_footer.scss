@@ -4,4 +4,5 @@
     background-color: white;
     padding: 25px 0;
     @include flexbox(row, center, center, 120px);
+    border-top: 1px solid #e5e7eb;
 }

@@ -47,8 +47,13 @@ h1, h2 {
     font-weight: 600;
 }
 
+textarea {
+    resize: none;
+}
+
 ::selection {
     background-color: $secondary-green;
+    color: white;
 }
 
 .app {

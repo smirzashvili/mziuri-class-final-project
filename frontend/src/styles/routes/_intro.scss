@@ -1,7 +1,7 @@
 .intro {
     @include dimension(100%, 100%);
     @include flexbox(column, center, center, 30px);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 1;

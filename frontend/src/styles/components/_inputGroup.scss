@@ -1,20 +1,25 @@
 .inputGroup {
     @include flexbox(column, flex-start, flex-start, 8px);
     width: 100%;
+
     & > .label {
+        
     }
+
     & > .inputBox {
         width: 100%;
         position: relative;
 
-        & > .input {
+        & > .input,
+        & > .select,
+        & > .textarea {
             width: 100%;
             padding: 12px 6px;
-
+            background: transparent;
+            border: 1px solid rgb(118, 118, 118);;
         }
+
         & > .select {
-            width: 100%;
-            padding: 12px 6px;
             //dropdown icon
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -30,11 +35,6 @@
             & > option {
                 color: black;
             }
-        }
-        & > .textarea {
-            width: 100%;
-            padding: 12px 6px;
-            resize: none;
         }
 
         .checkbox {
