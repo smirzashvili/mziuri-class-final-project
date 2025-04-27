@@ -1,4 +1,4 @@
-export { default as About } from './Intro';
+export { default as About } from './About';
 export { default as Chat } from './Chat';
 export { default as Contact } from './Contact';
 export { default as Explore } from './Explore';

@@ -15,7 +15,7 @@ function Sidebar() {
           <Logo hasAnimation={false}/>
         </Link>
 
-        <IconButton icon={Navigation} onClick={() => setIsNavbarVisible(true)} size={24} />
+        <IconButton icon={Navigation} onClick={() => setIsNavbarVisible(true)} size={20} />
 
         <div className='buttonsContainer'>
           <Button onClick={() => navigate("/login")}>Login</Button>
