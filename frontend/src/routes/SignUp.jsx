@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, InputGroup, Form } from '../components'
+import { Button, InputGroup, Form, IconButton } from '../components'
 import { Link } from 'react-router-dom'
 import { validateCheckbox, validateConfirmPassword, validateEmail, validateFullName, validateMedias, validatePassword, validateSelect } from '../utils/validations'
 import Eye from '../assets/icons/eye.svg'
@@ -10,7 +10,7 @@ function SignUp() {
   const [errorMessages, setErrorMessages] = useState({})
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false)
-  const [activeStep, setActiveStep] = useState(3)
+  const [activeStep, setActiveStep] = useState(1)
   const [uploadedMedias, setUploadedMedias] = useState(Array(9).fill(null));
 
   const handleChange = (e) => {
@@ -149,7 +149,7 @@ function SignUp() {
                     value={state.password}
                     onChange={(e) => handleChange(e)}
                   />
-                  <img onClick={() => setIsPasswordVisible(!isPasswordVisible)} src={isPasswordVisible ? Eye : EyeClosed} className='icon end' alt="" />
+                  <IconButton icon={isPasswordVisible ? Eye : EyeClosed} onClick={() => setIsPasswordVisible(!isPasswordVisible)} size={20} additionalClassnames={'end'} type="button"/>
                 </>
               </InputGroup>
               <InputGroup label="Confirm Password" name="confirmPassword" error={errorMessages.confirmPassword}>
@@ -163,7 +163,7 @@ function SignUp() {
                     value={state.confirmPassword}
                     onChange={(e) => handleChange(e)}
                   />
-                  <img onClick={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)} src={isConfirmPasswordVisible ? Eye : EyeClosed} className='icon end' alt="" />
+                  <IconButton icon={isConfirmPasswordVisible ? Eye : EyeClosed} onClick={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)} size={20} additionalClassnames={'end'} type="button" />
                 </>
               </InputGroup>
             </div>
@@ -205,7 +205,7 @@ function SignUp() {
             </InputGroup>
 
             <InputGroup label="" name="terms" error={errorMessages.terms}>
-              <label>
+              <label className='termsLabel'>
                 <input
                   type="checkbox"
                   className='checkbox'

@@ -15,10 +15,17 @@
             height: auto;
         }
     }
+    
+    & > .iconButton {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 
     .buttonsContainer {
         .button {
-            transform: rotate(-90deg) translateX(16px);
+            transform: rotate(-90deg) translateX(24px);
             transform-origin: center;
         }
     }

@@ -7,7 +7,7 @@ function Loading() {
   const {loading} = useLoader()
   
   return (
-    <div className={`loading ${loading ? 'fade-in' : 'fade-out'}`}>
+    <div className={`loadingScreen ${loading ? 'fade-in' : 'fade-out'}`}>
       <Logo hasAnimation={false}/>
       <div className="progress">
         <div></div>

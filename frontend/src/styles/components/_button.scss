@@ -3,7 +3,7 @@
     border: none;
     background: none;
     padding: 10px 34px;
-    transition: 200ms;
+    transition: transform 200ms, background-color 200ms, opacity 200ms;
     cursor: pointer;
     position: relative;
     color: white;

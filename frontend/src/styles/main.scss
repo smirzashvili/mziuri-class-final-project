@@ -8,11 +8,13 @@
 @import './layouts/main';
 @import './layouts/footer';
 
-@import './components/loading';
+@import './components/loadingScreen';
 @import './components/logo';
 @import './components/button';
 @import './components/form';
 @import './components/inputGroup';
+@import './components/navigationScreen';
+@import './components/iconButton';
 
 @import './routes/intro';
 @import './routes/signIn';

@@ -1,0 +1,19 @@
+.iconButton {
+    // background-color: red;
+    border: none;
+    background: none;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 200ms;
+
+    &:hover {
+        opacity: .8;
+    }
+
+    & > img {
+        // width: ;
+    }
+}

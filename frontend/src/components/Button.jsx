@@ -6,8 +6,8 @@ function Button({variant, ...props}) {
       className={`button ${variant ? variant : ''}`}
       {...props}
     >
-      <div class="cut-left"></div>
-      <div class="cut-right"></div>
+      <div className="cut-left"></div>
+      <div className="cut-right"></div>
       <span>{props.children}</span>
     </button>
   )

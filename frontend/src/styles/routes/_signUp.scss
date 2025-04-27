@@ -24,6 +24,11 @@
                 }
             }
         }
+        .termsLabel {
+            display: flex;
+            align-items: center;
+            margin: -12px 0 -8px 0;
+        }
         .terms > a {
             color: $primary-green;
         }

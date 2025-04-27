@@ -45,12 +45,10 @@
             cursor: pointer;
         }
 
-        & > .icon {
+        & > .iconButton {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 20px;
-            cursor: pointer;
             
             &.end {
                 right: 8px;
@@ -58,11 +56,6 @@
             &.start {
                 left: 8px;
             }
-        }
-
-        & > label {
-            display: flex;
-            align-items: center;
         }
     }
 

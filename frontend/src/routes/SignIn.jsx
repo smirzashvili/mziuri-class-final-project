@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, InputGroup, Form } from '../components'
+import { Button, InputGroup, Form, IconButton } from '../components'
 import { Link } from 'react-router-dom'
 import { validateEmail, validatePassword } from '../utils/validations'
 import Eye from '../assets/icons/eye.svg'
@@ -82,7 +82,7 @@ function SignIn() {
                 value={state.password}
                 onChange={(e) => handleChange(e)}
               />
-              <img onClick={() => setIsPasswordVisible(!isPasswordVisible)} src={isPasswordVisible ? Eye : EyeClosed} className='icon end' alt="" />
+              <IconButton icon={isPasswordVisible ? Eye : EyeClosed} onClick={() => setIsPasswordVisible(!isPasswordVisible)} size={20} additionalClassnames={'end'} type="button" />            
             </>
           </InputGroup>
           <Button type="submit" variant="secondary" >Login</Button>

@@ -51,6 +51,10 @@ textarea {
     resize: none;
 }
 
+ul {
+    list-style: none;
+}
+
 ::selection {
     background-color: $secondary-green;
     color: white;

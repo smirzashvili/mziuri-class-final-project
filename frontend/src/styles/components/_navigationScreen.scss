@@ -1,0 +1,62 @@
+.navigationScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // flex-direction: column;
+    z-index: 9;
+    background-color: white;
+    // opacity: .8;
+
+    & > button {
+        position: absolute;
+        top: 50%;
+        left: 2.5vw;
+        transform: translate(-50%, -50%);
+    }
+
+    .links {
+        @include flexbox(column, center, center);
+        width: 50%;
+        height: 100%;
+        margin-left: 5vw;
+        text-align: start;
+
+        ul {
+            counter-reset: section; /* Increment the value of section counter by 1 */
+        }
+        
+        li {
+            font-size: 10vh;
+            margin: 5vh;
+            color: $text-color;
+            
+            &:before {
+                counter-increment: section; /* Increment the value of section counter by 1 */
+                content: "0" counter(section);
+                font-size: 14px;
+                vertical-align: top;
+                line-height: 40px;
+                color: rgb(118, 118, 118);
+                font-weight: bold;
+                transition: 500ms;
+            }
+            
+            a {
+                transition: 300ms;
+                text-transform: capitalize;
+        
+                &:hover {
+                    opacity: 0.6;
+                }
+            }
+        }
+    }
+
+    
+}
