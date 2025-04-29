@@ -1,22 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { capitalize } from '../utils/textFormat';
+import { navigationRoutes } from '../data/data';
+import { IconButton } from '../components'
+import Close from '../assets/icons/close.svg'
 
 const NavigationScreen = ({setVisible}) => {
 
-  const routes = ['profile', 'about', 'contact', '404']
-
   return (
     <nav className='navigationScreen'>
-        <button onClick={() => setVisible(false)}>
-            close
-        </button>
+        <IconButton icon={Close} onClick={() => setVisible(false)} size={24} />                    
         <div className='links'>
             <ul>
                 {
-                    routes.map((item, index) => (
+                    navigationRoutes.map((item, index) => (
                         <li key={index}>
-                            <Link to={`/${item}`} onClick={() => setVisible(false)}>{capitalize(item)}</Link>
+                            <Link to={item.link} onClick={() => setVisible(false)}>{item.text}</Link>
                         </li>
                     ))
                 }

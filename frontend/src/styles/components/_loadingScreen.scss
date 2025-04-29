@@ -18,9 +18,7 @@
         visibility: visible;
 
         .progress > div {
-            width: 0%;
-            animation-name: fill;
-            animation-duration: 300ms;
+            width: 100%;
         }
     }
 
@@ -40,12 +38,7 @@
             width: 0%;
             height: 100%;
             border-radius: 2px;
-        }
-    }
-
-    @keyframes fill {
-        to { 
-          width: 100%;
+            transition-duration: 280ms;
         }
     }
 }
