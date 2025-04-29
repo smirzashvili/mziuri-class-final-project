@@ -1,30 +1,22 @@
-@import './abstracts/fonts';
-@import './abstracts/variables';
-@import './abstracts/mixins';
-@import './abstracts/animations';
+@use './abstracts/fonts';
+@use './abstracts/variables';
+@use './abstracts/mixins';
+@use './abstracts/animations';
 
-@import './abstracts/reset';
+@use './abstracts/reset';
 
-@import './layouts/sidebar';
-@import './layouts/main';
-@import './layouts/footer';
+@use './layouts/sidebar';
+@use './layouts/main';
+@use './layouts/footer';
 
-@import './components/loadingScreen';
-@import './components/logo';
-@import './components/button';
-@import './components/form';
-@import './components/inputGroup';
-@import './components/navigationScreen';
-@import './components/iconButton';
+@use './routes/intro';
+@use './routes/signIn';
+@use './routes/signUp';
 
-@import './routes/intro';
-@import './routes/signIn';
-@import './routes/signUp';
-
-// @import './routes/intro';
-// @import './routes/intro';
-// @import './routes/intro';
-// @import './routes/intro';
-// @import './routes/intro';
-// @import './routes/intro';
-// @import './routes/intro';
+@use './components/loadingScreen';
+@use './components/logo';
+@use './components/button';
+@use './components/form';
+@use './components/inputGroup';
+@use './components/navigationScreen';
+@use './components/iconButton';

@@ -1,3 +1,5 @@
+@use '../abstracts' as *;
+
 .intro {
     @include dimension(100%, 100%);
     @include flexbox(column, center, center, 30px);

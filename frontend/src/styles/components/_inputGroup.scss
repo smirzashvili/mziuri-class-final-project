@@ -1,3 +1,5 @@
+@use '../abstracts' as *;
+
 .inputGroup {
     @include flexbox(column, flex-start, flex-start, 8px);
     width: 100%;

@@ -1,3 +1,5 @@
+@use '../abstracts' as *;
+
 .sidebar {
     @include dimension(5vw, 100vh);
     background-color: white;

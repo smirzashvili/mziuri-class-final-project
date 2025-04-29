@@ -283,7 +283,7 @@ function SignUp() {
                         <>
                           {
                             file.type.startsWith('video') ? (
-                              <video src={URL.createObjectURL(file)} autoPlay />
+                              <video src={URL.createObjectURL(file)} autoPlay muted />
                             ) : (
                               <img src={URL.createObjectURL(file)} alt={`uploaded ${index}`} />
                             )

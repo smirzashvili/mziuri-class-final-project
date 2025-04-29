@@ -1,3 +1,5 @@
+@use '../abstracts' as *;
+
 .footer {
     @include dimension(calc(100% - 5vw), auto);
     margin-left: 5vw;

@@ -1,3 +1,5 @@
+@use '../abstracts' as *;
+
 .signUp {
     @include dimension(100%, 100%);
     @include flexbox();
