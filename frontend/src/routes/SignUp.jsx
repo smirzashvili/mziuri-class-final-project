@@ -52,32 +52,43 @@ function SignUp() {
 
   const validate = () => {
     const errors = {};
-
-    const fullNameError = validateFullName(state.fullName);
-    const emailError = validateEmail(state.email);
-    const passwordError = validatePassword(state.password);
-    const confirmPasswordError = validateConfirmPassword(state.confirmPassword);
-    const cityError = validateSelect(state.city);
-    const genderError = validateSelect(state.gender);
-    const termsError = validateCheckbox(state.terms);
-    const genreError = validateSelect(state.favoriteGenre);
-    const instrumentError = validateSelect(state.favoriteInstrument);
-    // const bioError = validateBio(state.bio);
-    const mediaError = validateMedias(state.media);
-
-    if (fullNameError) errors.fullName = fullNameError;
-    if (emailError) errors.email = emailError;
-    if (passwordError) errors.password = passwordError;
-    if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
-    if (cityError) errors.city = cityError;
-    if (genderError) errors.gender = genderError;
-    if (termsError) errors.terms = termsError;
-    if (genreError) errors.favoriteGenre = genreError;
-    if (instrumentError) errors.favoriteInstrument = instrumentError;
-    if (mediaError) errors.media = mediaError;
-
+  
+    if (activeStep === 1) {
+      const fullNameError = validateFullName(state.fullName);
+      const emailError = validateEmail(state.email);
+      const passwordError = validatePassword(state.password);
+      const confirmPasswordError = validateConfirmPassword(state.confirmPassword);
+      const cityError = validateSelect(state.city);
+      const genderError = validateSelect(state.gender);
+      const termsError = validateCheckbox(state.terms);
+  
+      if (fullNameError) errors.fullName = fullNameError;
+      if (emailError) errors.email = emailError;
+      if (passwordError) errors.password = passwordError;
+      if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
+      if (cityError) errors.city = cityError;
+      if (genderError) errors.gender = genderError;
+      if (termsError) errors.terms = termsError;
+    }
+  
+    if (activeStep === 2) {
+      const genreError = validateSelect(state.favoriteGenre);
+      const instrumentError = validateSelect(state.favoriteInstrument);
+      // const bioError = validateBio(state.bio);
+  
+      if (genreError) errors.favoriteGenre = genreError;
+      if (instrumentError) errors.favoriteInstrument = instrumentError;
+      // if (bioError) errors.bio = bioError;
+    }
+  
+    if (activeStep === 3) {
+      const mediaError = validateMedias(state.media);
+      if (mediaError) errors.media = mediaError;
+    }
+  
     return errors;
   };
+  
 
   const handleFileUpload = (e, index) => {
     const file = e.target.files[0];

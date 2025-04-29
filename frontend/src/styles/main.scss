@@ -1,8 +1,9 @@
 @import './abstracts/fonts';
 @import './abstracts/variables';
 @import './abstracts/mixins';
-@import './abstracts/reset';
 @import './abstracts/animations';
+
+@import './abstracts/reset';
 
 @import './layouts/sidebar';
 @import './layouts/main';
