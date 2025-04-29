@@ -4,8 +4,12 @@ import { Route, Routes } from 'react-router-dom'
 import { Sidebar, Main, Footer } from './layouts'
 import { About, Chat, Contact, Explore, Intro, NotFound, Profile, SignIn, SignUp, Terms } from './routes'
 import { LoadingScreen } from './components'
+import useDocumentTitle from './hooks/useDocumentTitle'
 
 function App() {
+
+  useDocumentTitle()
+
   const [loggedIn, setLoggedIn] = useState(false)
   // useEffect(() => {
   //   let timer = setTimeout(() => setLoggedIn(!loggedIn), 1000)
