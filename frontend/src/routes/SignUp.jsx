@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import { validateCheckbox, validateConfirmPassword, validateEmail, validateFullName, validateMedias, validatePassword, validateSelect } from '../utils/validations'
 import Eye from '../assets/icons/eye.svg'
 import EyeClosed from '../assets/icons/eye-closed.svg'
+import Close from '../assets/icons/close.svg'
 
 function SignUp() {
   const [state, setState] = useState({})
   const [errorMessages, setErrorMessages] = useState({})
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false)
-  const [activeStep, setActiveStep] = useState(1)
+  const [activeStep, setActiveStep] = useState(3)
   const [uploadedMedias, setUploadedMedias] = useState(Array(9).fill(null));
 
   const handleChange = (e) => {
@@ -27,7 +28,7 @@ function SignUp() {
     const errors = validate()
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors)
-      // return
+      return
     }
 
     const isLastStep = activeStep === 3
@@ -275,7 +276,7 @@ function SignUp() {
             <div className='uploadMediaContainer'>
               <InputGroup label="Upload 2 or more videos/photos" name="media" error={errorMessages.media}>
                 {uploadedMedias.map((file, index) => (
-                  <label key={index} className={`${file ? 'uploaded' : ''}`}>
+                  <label key={index} className={`${file ? 'uploaded' : ''}`} htmlFor={`media-${index}`}>
                     {
                       file ? (
                         <>
@@ -286,14 +287,14 @@ function SignUp() {
                               <img src={URL.createObjectURL(file)} alt={`uploaded ${index}`} />
                             )
                           }
-                          <div className='deleteIcon' onClick={() => handleFileDelete(index)}>D</div>
+                          <IconButton icon={Close} onClick={(e) => {e.preventDefault();  e.preventDefault(); handleFileDelete(index)}} size={14} type="button"/>
                         </>
                       ) : (
                         <input
                           type="file"
                           className="input"
                           name="media"
-                          id="media"
+                          id={`media-${index}`}
                           onChange={(e) => handleFileUpload(e, index)}
                         />
                       )

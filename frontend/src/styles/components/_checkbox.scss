@@ -2,11 +2,11 @@
 
 .checkbox {
     margin-right: 8px;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     cursor: pointer;
     background-color: transparent;
-    border: 1px solid transparent;
+    outline: 1px solid transparent;
     transition: 200ms;
     position: relative;
     display: inline-block;
@@ -25,18 +25,18 @@
 
         &:checked + .checkmark {
             background-color: $primary-green;
-            border-color: $primary-green;
+            outline-color: $primary-green;
         
             &::after {
               content: '';
               position: absolute;
-              left: 5px;
-              top: 2px;
+              top: 50%;
+              left: 50%;
               width: 4px;
               height: 9px;
               border: solid white;
               border-width: 0 2px 2px 0;
-              transform: rotate(45deg);
+              transform: translate(-50%,-50%) rotate(45deg);
             }
         }
     }
@@ -45,9 +45,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        height: 16px;
-        width: 16px;
-        border: 1px solid $primary-green;
+        height: 14px;
+        width: 14px;
+        outline: 1px solid $primary-green;
         background-color: transparent;
         transition: 200ms;
         z-index: 1;

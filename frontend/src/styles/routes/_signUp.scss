@@ -79,17 +79,22 @@
                     &.uploaded {
                         cursor: unset;
 
-                        & > .deleteIcon {
-                            cursor: pointer;
+                        & > .iconButton {
                             position: absolute;
                             bottom: 0;
                             right: 0;
-                            width: 24px;
-                            height: 24px;
+                            width: 20px;
+                            height: 20px;
                             background-color: white;
-                            color: black;
-                            font-size: 24px;
-                            text-align: end;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            opacity: 0;
+                            visibility: hidden;
+                        }
+                        &:hover > .iconButton {
+                            opacity: 1;
+                            visibility: visible;
                         }
                     }
                 }
