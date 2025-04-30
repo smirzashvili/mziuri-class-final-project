@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, InputGroup, Form, IconButton } from '../components'
+import { Button, InputGroup, Form, IconButton, Checkbox } from '../components'
 import { Link } from 'react-router-dom'
 import { validateCheckbox, validateConfirmPassword, validateEmail, validateFullName, validateMedias, validatePassword, validateSelect } from '../utils/validations'
 import Eye from '../assets/icons/eye.svg'
@@ -217,12 +217,10 @@ function SignUp() {
 
             <InputGroup label="" name="terms" error={errorMessages.terms}>
               <label className='termsLabel'>
-                <input
+                <Checkbox
                   type="checkbox"
-                  className='checkbox'
                   name="terms"
-                  checked={state.terms || false} // safer in case it's undefined
-                  // onClick={() => state.terms = !state.terms}
+                  checked={state.terms || false}
                   onChange={(e) => handleChange(e)}
                 />
                 <span className='terms'>I agree to the MelodyMatch's <Link to="/terms">Terms and Conditions</Link></span>

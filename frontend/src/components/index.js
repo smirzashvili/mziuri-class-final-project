@@ -5,3 +5,4 @@ export { default as Form } from './Form';
 export { default as InputGroup } from './InputGroup';
 export { default as NavigationScreen } from './NavigationScreen';
 export { default as IconButton } from './IconButton';
+export { default as Checkbox } from './Checkbox';
