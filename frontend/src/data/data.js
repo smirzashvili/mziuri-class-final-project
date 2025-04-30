@@ -5,7 +5,7 @@ export const navigationRoutes = [
     },
     {
         text: 'Introduction',
-        link: '/404'
+        link: '/'
     },
     {
         text: 'Terms & Conditions',

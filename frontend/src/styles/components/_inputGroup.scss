@@ -39,6 +39,10 @@
             }
         }
 
+        & > .textarea {
+            height: 200%;
+        }
+
         & > .iconButton {
             position: absolute;
             top: 50%;

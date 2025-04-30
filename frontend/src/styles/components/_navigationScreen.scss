@@ -12,8 +12,24 @@
     // align-items: center;
     // flex-direction: column;
     z-index: 9;
-    background-color: white;
-    // opacity: .8;
+    background-color: rgba(white, 0.8);
+    backdrop-filter: blur(4px);
+    transition: none;
+    opacity: 0;
+    visibility: hidden;
+    
+    &.fade-in {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity .5s ease-in-out;
+
+        & > .links li {
+            transform: translate(0, 0);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: unset;
+        }
+    }
 
     & > button {
         position: absolute;
@@ -22,42 +38,60 @@
         transform: translate(-50%, -50%);
     }
 
-    .links {
+    & > .links {
         @include flexbox(column, center, center);
         width: 50%;
         height: 100%;
         margin-left: 5vw;
         text-align: start;
 
-        ul {
+        & > ul {
             counter-reset: section; /* Increment the value of section counter by 1 */
-        }
-        
-        li {
-            font-size: 85px;
-            margin: 4vh 0;
-            color: $text-color;
-            
-            &:before {
-                counter-increment: section; /* Increment the value of section counter by 1 */
-                content: "0" counter(section);
-                font-size: 14px;
-                vertical-align: top;
-                line-height: 40px;
-                color: $darker-grey;
-                font-weight: bold;
-                transition: 500ms;
-            }
-            
-            a {
-                transition: 300ms;
-                text-transform: capitalize;
-        
+
+            & > li {
+                font-size: 85px;
+                margin: 3vh 0;
+                color: $text-color;
+                transform: translateX(-100px);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: 350ms;
+                @for $i from 1 through 10 {
+                    &:nth-child(#{$i}) {
+                      transition-delay: #{($i - 1) * 50}ms;
+                    }
+                }
+
                 &:hover {
-                    opacity: 0.6;
+                    &:before {
+                        color: $primary-green;
+                    }
+                }
+
+                &:before {
+                    counter-increment: section; /* Increment the value of section counter by 1 */
+                    content: "0" counter(section);
+                    font-size: 14px;
+                    vertical-align: top;
+                    line-height: 40px;
+                    color: $darker-grey;
+                    font-weight: bold;
+                    transition: 200ms;
+                    margin-right: 5px;
+                }
+
+                & > a {
+                    transition: 300ms;
+                    text-transform: capitalize;
+
+                    &:hover {
+                        opacity: 1;
+                    }
                 }
             }
         }
+        
     }
 
     

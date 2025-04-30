@@ -105,7 +105,9 @@ function SignUp() {
     });
   };
 
-  const handleFileDelete = (index) => {
+  const handleFileDelete = (e, index) => {
+    e.preventDefault();
+
     const updatedFiles = [...uploadedMedias];
     updatedFiles.splice(index, 1); // remove 1 item at 'index'
     updatedFiles.push(null); // add a null at the end
@@ -287,7 +289,7 @@ function SignUp() {
                               <img src={URL.createObjectURL(file)} alt={`uploaded ${index}`} />
                             )
                           }
-                          <IconButton icon={Close} onClick={(e) => {e.preventDefault();  e.preventDefault(); handleFileDelete(index)}} size={14} type="button"/>
+                          <IconButton icon={Close} onClick={(e) => handleFileDelete(e, index)} size={14} type="button"/>
                         </>
                       ) : (
                         <input

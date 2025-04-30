@@ -21,7 +21,7 @@ function Sidebar() {
           <Button onClick={() => navigate("/login")}>Login</Button>
         </div>
       </aside>
-      {isNavbarVisible && <NavigationScreen setVisible={setIsNavbarVisible} />}   
+      <NavigationScreen visible={isNavbarVisible} setVisible={setIsNavbarVisible} />  
     </>
   )
 }

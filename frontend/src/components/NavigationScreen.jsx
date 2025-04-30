@@ -5,10 +5,10 @@ import { navigationRoutes } from '../data/data';
 import { IconButton } from '../components'
 import Close from '../assets/icons/close.svg'
 
-const NavigationScreen = ({setVisible}) => {
+const NavigationScreen = ({visible, setVisible}) => {
 
   return (
-    <nav className='navigationScreen'>
+    <nav className={`navigationScreen ${visible ? 'fade-in' : ''}`}>
         <IconButton icon={Close} onClick={() => setVisible(false)} size={24} />                    
         <div className='links'>
             <ul>
