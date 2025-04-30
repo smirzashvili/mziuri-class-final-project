@@ -18,7 +18,7 @@
             width: 100%;
             padding: 12px 6px;
             background: transparent;
-            border: 1px solid rgb(118, 118, 118);;
+            border: 1px solid $border-grey;
         }
 
         & > .select {
@@ -31,7 +31,7 @@
             background-position-y: 50%;
 
             &.placeholder-selected {
-                color: rgb(118, 118, 118);
+                color: $darker-grey;
             }
 
             & > option {

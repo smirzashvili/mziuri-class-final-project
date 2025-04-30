@@ -1,14 +1,12 @@
 import React from 'react'
 
-function Button({variant, ...props}) {
+function Button({additionalClassnames, ...props}) {
   return (
     <button
-      className={`button ${variant ? variant : ''}`}
+      className={`button ${additionalClassnames ? additionalClassnames : ''}`}
       {...props}
     >
-      <div className="cut-left"></div>
-      <div className="cut-right"></div>
-      <span>{props.children}</span>
+      {props.children}
     </button>
   )
 }

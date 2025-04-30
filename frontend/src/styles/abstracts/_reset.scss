@@ -41,9 +41,14 @@ svg {
 a {
     text-decoration: none;
     color: unset;
-    
+    transition: 200ms;
+
     &:visited {
         color: unset;
+    }
+
+    &:not(.logoContainer):hover {
+        opacity: .7;
     }
 }
 

@@ -9,7 +9,7 @@
     padding: 24px 0.5vw;
     @include flexbox(column, space-between, center, 0);
     transition: 200ms;
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid $border-grey;
     
     .logoContainer {
         .logo {

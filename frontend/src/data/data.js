@@ -4,6 +4,14 @@ export const navigationRoutes = [
         link: '/profile'
     },
     {
+        text: 'Introduction',
+        link: '/404'
+    },
+    {
+        text: 'Terms & Conditions',
+        link: '/terms'
+    },
+    {
         text: 'About',
         link: '/about'
     },
@@ -11,12 +19,4 @@ export const navigationRoutes = [
         text: 'Contact',
         link: '/contact'
     },
-    {
-        text: 'Terms & Conditions',
-        link: '/terms'
-    },
-    {
-        text: '404',
-        link: '/404'
-    }
 ]

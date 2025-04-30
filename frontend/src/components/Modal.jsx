@@ -13,7 +13,7 @@ function Modal({children, isModalOpen, setIsModalOpen}) {
       <div className='modal__content'>
         {children}
         
-        <Button onClick={() => setIsModalOpen(false)} content='X' isModal/>
+        <Button onClick={() => setIsModalOpen(false)}>X</Button>
       </div>
     </div>,
     document.getElementById('modal-root')

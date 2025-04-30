@@ -1,60 +1,25 @@
 @use '../abstracts' as *;
 
 .button {
-    border: 1px solid black;
     border: none;
-    background: none;
-    padding: 10px 34px;
-    transition: transform 200ms, background-color 200ms, opacity 200ms;
+    padding: 10px 24px;
+    transition: 200ms;
     cursor: pointer;
-    position: relative;
+    background: $primary-green;
     color: white;
-    overflow: hidden;
-    // background-color: $primary-green;
-    background-image: linear-gradient(90deg, 
-        transparent 0px, transparent 20px, 
-        $primary-green 20px, $primary-green calc(100% - 20px),
-        transparent calc(100% - 20px), transparent 100%, 
-    );
-    min-width: 100px;
-
-    .cut-left {
-        position: absolute;
-        width: 20px;
-        height: 100%;
-        left: -10px;
-        top: 0;
-        border-radius: 50%;
-        box-shadow: 0 0 0 5rem $primary-green;
-    }
-    .cut-right {
-        position: absolute;
-        width: 20px;
-        height: 100%;
-        right: -10px;
-        top: 0;
-        border-radius: 50%;
-        box-shadow: 0 0 0 5rem $primary-green;
-    }
-
-    & > span {
-        position: relative;
-        // padding: 1rem 0;
-    }
 
     &:hover {
-        opacity: .8;
-        // background-color: $secondary-green;
-        // color: white;
+        background-color: $darker-green;
     }
 
     &.secondary {
-        // background-color: $secondary-green;
+        background-color: transparent;
+        color: black;
+        border: 1px solid $border-grey;
 
-        // &:hover {
-        //     background-color: white;
-        //     color: $text-color;
-        // }
+        &:hover {
+            background-color: #e7edf3;
+        }
     }
 
 }

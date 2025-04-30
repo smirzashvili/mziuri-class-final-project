@@ -1,0 +1,53 @@
+@use '../abstracts' as *;
+
+.fancyButton {
+    border: 1px solid black;
+    border: none;
+    background: none;
+    padding: 10px 34px;
+    transition: transform 200ms, background-color 200ms, opacity 200ms;
+    cursor: pointer;
+    position: relative;
+    color: white;
+    overflow: hidden;
+    background-image: linear-gradient(90deg, 
+        transparent 0px, transparent 20px, 
+        $primary-green 20px, $primary-green calc(100% - 20px),
+        transparent calc(100% - 20px), transparent 100%, 
+    );
+    min-width: 100px;
+
+    & > .cut-left {
+        position: absolute;
+        width: 20px;
+        height: 100%;
+        left: -10px;
+        top: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 0 5rem $primary-green;
+        transition: 200ms;
+    }
+    & > .cut-right {
+        position: absolute;
+        width: 20px;
+        height: 100%;
+        right: -10px;
+        top: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 0 5rem $primary-green;
+        transition: 200ms;
+    }
+
+    & > span {
+        position: relative;
+    }
+
+    &:hover {
+        .cut-left {
+            box-shadow: 0 0 0 5rem $darker-green;
+        }
+        .cut-right {
+            box-shadow: 0 0 0 5rem $darker-green;
+        }
+    }
+}

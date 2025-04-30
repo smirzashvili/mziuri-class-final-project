@@ -27,7 +27,7 @@ function SignUp() {
     const errors = validate()
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors)
-      return
+      // return
     }
 
     const isLastStep = activeStep === 3
@@ -307,7 +307,7 @@ function SignUp() {
           </>
           }
           <div className='widthDivider'>
-            {activeStep > 1 && <Button type="button" variant="secondary" onClick={() => setActiveStep(activeStep - 1)}>Back</Button>}          
+            {activeStep > 1 && <Button type="button" additionalClassnames="secondary" onClick={() => setActiveStep(activeStep - 1)}>Back</Button>}          
             <Button type="submit">{activeStep !==3 ? 'Continue' : 'Complete'}</Button>
           </div>
           <div className='additionalContainer'>
