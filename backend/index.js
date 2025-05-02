@@ -7,6 +7,7 @@ import connectDB from './db/connection.js'
 import UsersRouter from './routes/users.js';
 import { rateLimit } from 'express-rate-limit'
 import helmet from "helmet";
+import compression from 'compression';
 
 const app = express()
 
@@ -30,6 +31,7 @@ app.use(helmet())
 app.use(express.json())
 app.use(cookieParser()); //to access cookies in node.js
 app.use(logger)
+app.use(compression())
 
 // app.use('/api/todos', auth, TodosRouter)
 app.use('/api/users', UsersRouter)
