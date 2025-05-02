@@ -64,9 +64,14 @@
                 }
 
                 &:hover {
+                    & > a {
+                        text-shadow: $primary-green 0px 6px 16px;
+                    }
+
                     &:before {
                         color: $primary-green;
-                    }
+                        opacity: 0;
+                    }  
                 }
 
                 &:before {
@@ -77,7 +82,7 @@
                     line-height: 40px;
                     color: $darker-grey;
                     font-weight: bold;
-                    transition: 200ms;
+                    transition: 500ms;
                     margin-right: 5px;
                 }
 

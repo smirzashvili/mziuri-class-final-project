@@ -1,0 +1,55 @@
+@use '../abstracts' as *;
+
+.about {
+    width: 60%;
+    @include flexbox(column, center, center, 42px);
+    background: white;
+    padding: 40px;
+    margin: 80px 0;
+    border: 1px solid $border-grey;
+    box-shadow: $border-grey 0px 0px 16px;
+    
+    & > .title {
+        font-size: 40px;
+        line-height: 32px;
+    }
+
+    & > .content {
+        @include flexbox(column, center, flex-start, 16px);
+
+        h3 {
+            font-size: 24px;
+        }
+
+        p {
+            color: $darker-grey;
+            margin-bottom: 15px;
+            line-height: 24px;
+        }
+
+        ul {
+            width: 100%;
+            
+            & > li {
+                margin: 16px 0;
+                width: 100%;
+                @include flexbox(row, flex-start, flex-start, 20px);
+
+                & > img {
+                    padding: 8px;
+                    background-color: rgba($secondary-green, 0.15);
+                    border-radius: 100%;
+                }
+
+                h4 {
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .button {
+            margin: 0 auto;
+        }
+    }
+}

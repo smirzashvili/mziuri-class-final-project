@@ -1,8 +1,8 @@
 @use '../abstracts' as *;
 
 .signIn {
-    @include dimension(100%, 100%);
-    @include flexbox();
+    @include dimension(100%, 100vh);
+    @include flexbox(row);
 
     .formContainer {
         @include dimension(50%, 100%);

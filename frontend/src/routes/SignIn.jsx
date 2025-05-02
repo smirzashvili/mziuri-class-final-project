@@ -6,10 +6,7 @@ import Eye from '../assets/icons/eye.svg'
 import EyeClosed from '../assets/icons/eye-closed.svg'
 
 function SignIn() {
-  const [state, setState] = useState({
-    email: "",
-    password: "",
-  })
+  const [state, setState] = useState({})
   const [errorMessages, setErrorMessages] = useState({})
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 

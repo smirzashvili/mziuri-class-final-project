@@ -1,8 +1,6 @@
 export const validateFullName = (value) => {
     if (!value) {
-        return 'Full name is required';
-    } else if (!value.includes(' ')) {
-        return 'Full name must contain at least one space';
+        return 'Name is required';
     }
 };
 
@@ -58,5 +56,19 @@ export const validateMedias = (arr) => {
     
     if (!arr || filteredArr?.length < 2) {
         return 'You must upload 2 or more videos/photos';
+    }
+};
+
+export const validateSubject = (value) => {
+    if (!value || value === '') {
+        return 'This field is required';
+    }
+};
+
+export const validateMessage = (value) => {
+    if (!value || value === '') {
+        return 'This field is required';
+    } else if (value.length < 4) {
+        return 'Message must contain at least 4 characters';
     }
 };

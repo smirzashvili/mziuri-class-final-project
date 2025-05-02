@@ -2,6 +2,6 @@
 
 .main {
     margin-left: 5vw;
-    height: 100vh;
+    min-height: 100vh;
     @include flexbox(row, center, center)
 }

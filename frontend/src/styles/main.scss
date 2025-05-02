@@ -12,6 +12,9 @@
 @use './routes/intro';
 @use './routes/signIn';
 @use './routes/signUp';
+@use './routes/terms';
+@use './routes/about';
+@use './routes/contact';
 
 @use './components/loadingScreen';
 @use './components/logo';

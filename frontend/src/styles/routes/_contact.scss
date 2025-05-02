@@ -1,0 +1,63 @@
+@use '../abstracts' as *;
+
+.contact {
+    width: 60%;
+    @include flexbox(column, center, center, 42px);
+    background: white;
+    padding: 40px;
+    margin: 80px 0;
+    border: 1px solid $border-grey;
+    box-shadow: $border-grey 0px 0px 16px;
+    
+    & > .title {
+        font-size: 40px;
+        line-height: 32px;
+    }
+
+    & > .content {
+        @include flexbox(column, center, flex-start, 24px);
+        width: 100%;
+
+        & > .contactOptions {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+
+            & > div {
+                text-align: center;
+
+                & > h3 {
+                    font-size: 20px;
+                    margin: 10px 0;
+                }
+
+                & > img {
+                    padding: 8px;
+                    background-color: rgba($secondary-green, 0.15);
+                    border-radius: 100%;
+                }
+
+                & > p {
+                    color: $darker-grey;
+                    line-height: 24px;
+                }
+            }
+        }
+
+        & > .form {
+            width: 100%;
+
+            .widthDivider {
+                gap: 16px;
+            }
+
+            .textarea {
+                height: 130%;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+    }
+}
