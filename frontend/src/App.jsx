@@ -5,10 +5,12 @@ import { Sidebar, Main, Footer } from './layouts'
 import { About, Chat, Contact, Explore, Intro, NotFound, Profile, SignIn, SignUp, Terms } from './routes'
 import { LoadingScreen } from './components'
 import useDocumentTitle from './hooks/useDocumentTitle'
+import useScrollTop from './hooks/useScrollTop'
 
 function App() {
 
   useDocumentTitle()
+  useScrollTop()
 
   const [loggedIn, setLoggedIn] = useState(false)
   // useEffect(() => {
