@@ -6,7 +6,7 @@ import { About, Chat, Contact, Explore, Intro, NotFound, Profile, SignIn, SignUp
 import { LoadingScreen } from './components'
 import useDocumentTitle from './hooks/useDocumentTitle'
 import * as api from './api/api.js'
-import useUserData from './hooks/useUserContext.jsx'
+import { useUserData } from './context/UserContext.jsx'
 
 function App() {
 

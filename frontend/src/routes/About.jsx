@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import useLoader from '../hooks/useLoaderContext'
+import { useLoader }  from '../context/LoaderContext'
 import Music from '../assets/icons/rules/music.svg'
 import Heart from '../assets/icons/rules/heart.svg'
 import Armor from '../assets/icons/rules/armor.svg'

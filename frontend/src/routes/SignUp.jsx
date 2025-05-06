@@ -7,7 +7,7 @@ import EyeClosed from '../assets/icons/eye-closed.svg'
 import Close from '../assets/icons/close.svg'
 import * as api from '../api/api.js'
 import { musicalGenres, musicalInstruments } from '../data/data.js'
-import useUserData from '../hooks/useUserContext.jsx'
+import { useUserData } from '../context/UserContext.jsx'
 
 function SignUp() {
   const [state, setState] = useState({})

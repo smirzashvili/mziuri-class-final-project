@@ -5,6 +5,8 @@ export const LoaderContext = createContext({
   
 })
 
+export const useLoader = () => useContext(LoaderContext)
+
 export const LoaderProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const loadingDelay = 300

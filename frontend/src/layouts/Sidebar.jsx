@@ -3,7 +3,7 @@ import { Button, Logo, NavigationScreen, IconButton } from '../components'
 import { Link, useNavigate } from 'react-router-dom'
 import Navigation from '../assets/icons/navigation.svg'
 import * as api from '../api/api.js'
-import useUserData from '../hooks/useUserContext.jsx'
+import { useUserData } from '../context/UserContext.jsx'
 
 function Sidebar() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false)

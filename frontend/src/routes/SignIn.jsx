@@ -5,7 +5,7 @@ import { validateEmail, validatePassword } from '../utils/validations'
 import Eye from '../assets/icons/eye.svg'
 import EyeClosed from '../assets/icons/eye-closed.svg'
 import * as api from '../api/api.js'
-import useUserData from '../hooks/useUserContext.jsx'
+import { useUserData } from '../context/UserContext.jsx'
 
 function SignIn() {
   const [state, setState] = useState({})
