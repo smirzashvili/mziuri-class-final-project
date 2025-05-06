@@ -7,14 +7,17 @@ import EyeClosed from '../assets/icons/eye-closed.svg'
 import Close from '../assets/icons/close.svg'
 import * as api from '../api/api.js'
 import { musicalGenres, musicalInstruments } from '../data/data.js'
+import useUserData from '../hooks/useUserContext.jsx'
 
-function SignUp({setLoggedIn}) {
+function SignUp() {
   const [state, setState] = useState({})
   const [errorMessages, setErrorMessages] = useState({})
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false)
-  const [activeStep, setActiveStep] = useState(2)
+  const [activeStep, setActiveStep] = useState(1)
   const [uploadedMedias, setUploadedMedias] = useState(Array(9).fill(null));
+
+  const {setLoggedIn} = useUserData()
 
   const navigate = useNavigate()
 

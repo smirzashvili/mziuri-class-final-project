@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useLoader } from '../hooks/useLoader'
+import useLoader from '../hooks/useLoaderContext'
 
 function NotFound() {
 

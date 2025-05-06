@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLoader } from '../hooks/useLoader'
+import  useLoader  from '../hooks/useLoaderContext'
 import Email from '../assets/icons/rules/email.svg'
 import Call from '../assets/icons/rules/call.svg'
 import Visit from '../assets/icons/rules/visit.svg'

@@ -6,12 +6,13 @@ import { About, Chat, Contact, Explore, Intro, NotFound, Profile, SignIn, SignUp
 import { LoadingScreen } from './components'
 import useDocumentTitle from './hooks/useDocumentTitle'
 import * as api from './api/api.js'
+import useUserData from './hooks/useUserContext.jsx'
 
 function App() {
 
   useDocumentTitle()
 
-  const [loggedIn, setLoggedIn] = useState(false)
+  const { loggedIn, setLoggedIn } = useUserData() 
 
   const navigate = useNavigate()
 
@@ -31,12 +32,12 @@ function App() {
 
   return (
     <div className={`app ${loggedIn ? 'loggedIn' : ''}`}>
-      <Sidebar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      <Sidebar />
       <Main>
         <Routes>
           <Route path='/' element={<Intro />} />
-          <Route path="/login" element={<SignIn setLoggedIn={setLoggedIn}/>}/>
-          <Route path="/registration" element={<SignUp setLoggedIn={setLoggedIn}/> }/>
+          <Route path="/login" element={<SignIn />}/>
+          <Route path="/registration" element={<SignUp /> }/>
           <Route path="/explore" element={<Explore /> }/>
           <Route path="/chat" element={<Chat /> }/>
           <Route path="/profile" element={<Profile /> } />

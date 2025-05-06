@@ -3,11 +3,14 @@ import { Button, Logo, NavigationScreen, IconButton } from '../components'
 import { Link, useNavigate } from 'react-router-dom'
 import Navigation from '../assets/icons/navigation.svg'
 import * as api from '../api/api.js'
+import useUserData from '../hooks/useUserContext.jsx'
 
-function Sidebar({loggedIn, setLoggedIn}) {
-
-  const navigate = useNavigate()
+function Sidebar() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false)
+  
+  const { loggedIn, setLoggedIn } = useUserData() 
+  
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
@@ -32,7 +35,7 @@ function Sidebar({loggedIn, setLoggedIn}) {
         <IconButton icon={Navigation} onClick={() => setIsNavbarVisible(true)} size={20} />
 
         <div className='buttonsContainer'>
-          <Button onClick={() => navigate("/login")}>Login</Button>
+          <Button onClick={() => navigate(`/${!loggedIn ? 'login' : 'profile'}`)}>{!loggedIn ? 'Login' : 'Profile'}</Button>
           {loggedIn && <Button onClick={handleLogout} additionalClassnames="secondary">Logout</Button>}
         </div>
       </aside>
