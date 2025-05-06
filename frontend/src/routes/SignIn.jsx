@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import { Button, InputGroup, Form, IconButton } from '../components'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { validateEmail, validatePassword } from '../utils/validations'
 import Eye from '../assets/icons/eye.svg'
 import EyeClosed from '../assets/icons/eye-closed.svg'
+import * as api from '../api/api.js'
 
-function SignIn() {
+function SignIn({setLoggedIn}) {
   const [state, setState] = useState({})
   const [errorMessages, setErrorMessages] = useState({})
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setState({
@@ -21,19 +24,20 @@ function SignIn() {
     e.preventDefault()
 
     const errors = validate()
-    if(Object.keys(errors).length === 0) {
-      // const data = {
-      //   email: state.email,
-      //   password: state.password,
-      // }
-      // try {
-      //   //
-      //   setErrorMessages({})
-      // } catch (err) {
-        
-      // }
-    } else {
+    if (Object.keys(errors).length > 0) {
       setErrorMessages(errors)
+      return
+    }
+
+    try {
+      const response = await api.loginUser(state);
+  
+      if (response.data) {
+        setLoggedIn(true)
+        navigate('/explore');
+      }
+    } catch (err) {
+
     }
   }
 
