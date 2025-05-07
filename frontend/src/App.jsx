@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './styles/main.scss'
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { Sidebar, Main, Footer } from './layouts'
 import { About, Chat, Contact, Explore, Intro, Profile, SignIn, SignUp, Terms } from './routes'
 import { LoadingScreen } from './components'
@@ -17,6 +17,7 @@ function App() {
   const { loggedIn, setLoggedIn } = useUserData() 
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {    
     const getUserInfo = async () => {

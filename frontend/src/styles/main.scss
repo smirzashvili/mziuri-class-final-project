@@ -15,6 +15,7 @@
 @use './routes/terms';
 @use './routes/about';
 @use './routes/contact';
+@use './routes/explore';
 
 @use './components/loadingScreen';
 @use './components/logo';
@@ -25,3 +26,4 @@
 @use './components/iconButton';
 @use './components/fancyButton';
 @use './components/checkbox';
+@use './components/musicianCard';

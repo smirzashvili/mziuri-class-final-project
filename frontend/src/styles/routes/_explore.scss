@@ -1,0 +1,22 @@
+@use '../abstracts' as *;
+
+.explore {
+    @include flexbox(column, center, center, 32px);
+    
+    & > .controlPanel {
+        @include flexbox(row, center, flex-start, 16px);
+
+        & > .iconButton {
+            background-color: white;
+            padding: 20px;
+            border-radius: 100%;
+            outline: 1px solid $border-grey;
+
+            &:nth-child(2) {
+                outline: none;
+                padding: 24px;
+                background-color: $secondary-green;
+            }
+        }
+    }
+}
