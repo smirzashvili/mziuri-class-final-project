@@ -10,12 +10,44 @@
     @include flexbox(column, space-between, center, 0);
     transition: 200ms;
     border-right: 1px solid $border-grey;
-    
-    .logoContainer {
-        .logo {
-            width: auto;
-            height: 55px;
+    .upperContainer {
+        width: 100%;
+
+        .logoContainer {
+            margin-bottom: 24px;
+            .logo {
+                width: auto;
+                height: 55px;
+            }
         }
+
+        .linksContainer {
+            opacity: 0;
+            visibility: hidden;
+            transition: 200ms;
+            margin-top: 24px;
+            & > .item {
+                padding: 12px 8px;
+                border: 1px solid $border-grey;
+                border-bottom: none;
+                &:nth-child(3) {
+                    border-bottom: 1px solid $border-grey;
+                }
+
+                & > a {
+                    @include flexbox(row, flex-start, center, 12px)
+                
+                }
+
+            }    
+        }
+
+        // .line {
+        //     width: 100%;
+        //     height: 1px;
+        //     border-bottom: 1px solid $border-grey;
+        // }
+
     }
     
     & > .iconButton {

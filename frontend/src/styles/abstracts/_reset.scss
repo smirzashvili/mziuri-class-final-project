@@ -84,7 +84,12 @@ ul {
                 height: 65px;
             }
 
-            .iconButton {
+            .linksContainer {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            & > .iconButton {
                 top: calc(24px + 55px/2);
                 left: calc(max(18vw, 325px) - 0.5vw);
                 transform: translate(-100%, -50%);
