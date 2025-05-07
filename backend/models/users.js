@@ -1,18 +1,34 @@
 import mongoose from "mongoose";
 
 const UsersSchema = new mongoose.Schema({
-  username: {
+  fullName: {
     type: String,
-    required: [true, "Please provide an username"],
-    unique: [true, "username should be unique"],
+    required: true
   },
   email: {
     type: String,
+    required: true
+  },
+  city: {
+    type: String,
+    required: true
   },
   password: {
     type: String,
+    required: true
   },
-  completedTasks: { type: Number, default: 0 },
+  gender: {
+    type: String,
+    required: true
+  },
+  favoriteGenre: {
+    type: String,
+    required: true
+  },
+  favoriteInstrument: {
+    type: String,
+    required: true
+  },
 });
 
 export default mongoose.model("Users", UsersSchema);

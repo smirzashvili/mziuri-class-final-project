@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLoader } from '../hooks/useLoader'
+import { useLoader } from '../context/LoaderContext'
 import Logo from './Logo'
 
 function Loading() {

@@ -36,7 +36,7 @@ app.use(compression())
 // app.use('/api/todos', auth, TodosRouter)
 app.use('/api/users', UsersRouter)
 
-app.listen(3003, () => {
+app.listen(process.env.PORT || 3003, () => {
     console.log('server has started')
     connectDB(process.env.CONNECTION_STRING)
 })

@@ -1,7 +1,9 @@
 import { createContext, useState, useContext, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 
-const LoaderContext = createContext()
+export const LoaderContext = createContext({
+  
+})
 
 export const useLoader = () => useContext(LoaderContext)
 

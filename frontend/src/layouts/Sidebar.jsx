@@ -2,11 +2,28 @@ import React, { useState } from 'react'
 import { Button, Logo, NavigationScreen, IconButton } from '../components'
 import { Link, useNavigate } from 'react-router-dom'
 import Navigation from '../assets/icons/navigation.svg'
+import * as api from '../api/api.js'
+import { useUserData } from '../context/UserContext.jsx'
 
 function Sidebar() {
-
-  const navigate = useNavigate()
   const [isNavbarVisible, setIsNavbarVisible] = useState(false)
+  
+  const { loggedIn, setLoggedIn } = useUserData() 
+  
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    try {
+      const response = await api.logoutUser();
+  
+      if (response.data) {
+        setLoggedIn(false)
+        navigate('/login');
+      }
+    } catch (err) {
+
+    }
+  }
 
   return (
     <>
@@ -18,7 +35,8 @@ function Sidebar() {
         <IconButton icon={Navigation} onClick={() => setIsNavbarVisible(true)} size={20} />
 
         <div className='buttonsContainer'>
-          <Button onClick={() => navigate("/login")}>Log in</Button>
+          <Button onClick={() => navigate(`/${!loggedIn ? 'login' : 'profile'}`)}>{!loggedIn ? 'Login' : 'Profile'}</Button>
+          {loggedIn && <Button onClick={handleLogout} additionalClassnames="secondary">Logout</Button>}
         </div>
       </aside>
       <NavigationScreen visible={isNavbarVisible} setVisible={setIsNavbarVisible} />  

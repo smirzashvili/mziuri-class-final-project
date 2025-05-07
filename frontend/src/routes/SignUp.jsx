@@ -1,18 +1,25 @@
 import React, { useState } from 'react'
 import { Button, InputGroup, Form, IconButton, Checkbox } from '../components'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { validateCheckbox, validateConfirmPassword, validateEmail, validateFullName, validateMedias, validatePassword, validateSelect } from '../utils/validations'
 import Eye from '../assets/icons/eye.svg'
 import EyeClosed from '../assets/icons/eye-closed.svg'
 import Close from '../assets/icons/close.svg'
+import * as api from '../api/api.js'
+import { musicalGenres, musicalInstruments } from '../data/data.js'
+import { useUserData } from '../context/UserContext.jsx'
 
 function SignUp() {
   const [state, setState] = useState({})
   const [errorMessages, setErrorMessages] = useState({})
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false)
-  const [activeStep, setActiveStep] = useState(3)
+  const [activeStep, setActiveStep] = useState(1)
   const [uploadedMedias, setUploadedMedias] = useState(Array(9).fill(null));
+
+  const {setLoggedIn} = useUserData()
+
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
@@ -38,17 +45,16 @@ function SignUp() {
       return
     }
 
-    alert('reg')
-    // const data = {
-    //   email: state.email,
-    //   password: state.password,
-    // }
-    // try {
-    //   //
-    //   setErrorMessages({})
-    // } catch (err) {
+    try {
+      const response = await api.registerUser(state);
+  
+      if (response.data) {
+        setLoggedIn(true)
+        navigate('/explore');
+      }
+    } catch (err) {
 
-    // }
+    }
   }
 
   const validate = () => {
@@ -83,8 +89,8 @@ function SignUp() {
     }
   
     if (activeStep === 3) {
-      const mediaError = validateMedias(state.media);
-      if (mediaError) errors.media = mediaError;
+      // const mediaError = validateMedias(state.media);
+      // if (mediaError) errors.media = mediaError;
     }
   
     return errors;
@@ -242,9 +248,11 @@ function SignUp() {
                 defaultValue={''}
               >
                 <option disabled hidden value="">select genre</option>
-                <option value="tbilisi">Male</option>
-                <option value="gori">Female</option>
-                <option value="batumi">Other</option>
+                {
+                  musicalGenres.map((item, i) => (
+                    <option key={i} value={item}>{item}</option>
+                  ))
+                }
               </select>
             </InputGroup>
             <InputGroup label="Favorite Musical Instrument" name="favoriteInstrument" error={errorMessages.favoriteInstrument}>
@@ -257,9 +265,11 @@ function SignUp() {
                 defaultValue={''}
               >
                 <option disabled hidden value="">select instrument</option>
-                <option value="tbilisi">Male</option>
-                <option value="gori">Female</option>
-                <option value="batumi">Other</option>
+                {
+                  musicalInstruments.map((item, i) => (
+                    <option key={i} value={item}>{item}</option>
+                  ))
+                }
               </select>
             </InputGroup>
             <InputGroup label="Bio" name="bio" error={errorMessages.bio}>
