@@ -35,7 +35,7 @@ function Sidebar() {
         <IconButton icon={Navigation} onClick={() => setIsNavbarVisible(true)} size={20} />
 
         <div className='buttonsContainer'>
-          <Button onClick={() => navigate(`/${!loggedIn ? 'login' : 'profile'}`)}>{!loggedIn ? 'Login' : 'Profile'}</Button>
+          <Button onClick={() => navigate(`/${!loggedIn ? 'login' : 'profile'}`)}>{!loggedIn ? 'Log in' : 'Profile'}</Button>
           {loggedIn && <Button onClick={handleLogout} additionalClassnames="secondary">Logout</Button>}
         </div>
       </aside>

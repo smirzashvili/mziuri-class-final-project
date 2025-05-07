@@ -35,6 +35,7 @@ img,
 svg {
     vertical-align: middle;
     user-select: none;
+    -webkit-user-select: none;
     -webkit-user-drag: none;
 }
 
@@ -85,12 +86,12 @@ ul {
 
             .iconButton {
                 top: calc(24px + 55px/2);
-                left: unset;
-                right: 0.5vw;
-                transform: translate(0,-50%);
+                left: calc(max(18vw, 325px) - 0.5vw);
+                transform: translate(-100%, -50%);
             }
 
             .buttonsContainer {
+                width: 100%;
                 button {
                     transform: rotate(0deg) translateX(0px);
                     // margin: 0px 20px;
@@ -111,10 +112,9 @@ ul {
                 margin-left: max(18vw, 325px);
             }
             .iconButton {
-                // top: calc(24px + 55px/2);
-                // left: unset;
-                // right: 0.5vw;
-                // transform: translate(0,-50%);
+                top: calc(24px + 55px/2);
+                left: calc(max(18vw, 325px) - 0.5vw);
+                transform: translate(-92%, -50%);
             }
         }
     }

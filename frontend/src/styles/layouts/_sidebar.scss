@@ -26,10 +26,13 @@
     }
 
     .buttonsContainer {
+        @include flexbox(row, space-around);
+        // width: 100%;
         .button {
             transform: rotate(-90deg) translateX(24px);
             transform-origin: center;
             white-space: nowrap;
+            min-width: 80px;
         }
     }
 }

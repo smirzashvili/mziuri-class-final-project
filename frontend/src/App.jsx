@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import './styles/main.scss'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { Sidebar, Main, Footer } from './layouts'
-import { About, Chat, Contact, Explore, Intro, NotFound, Profile, SignIn, SignUp, Terms } from './routes'
+import { About, Chat, Contact, Explore, Intro, Profile, SignIn, SignUp, Terms } from './routes'
 import { LoadingScreen } from './components'
 import useDocumentTitle from './hooks/useDocumentTitle'
 import useScrollTop from './hooks/useScrollTop'
@@ -46,7 +46,7 @@ function App() {
           <Route path="/terms" element={<Terms /> }/>
           <Route path="/about" element={<About />}/>
           <Route path='/contact' element={<Contact />} />
-          <Route path="*" element={<NotFound />}/>
+          <Route path="*" element={<Navigate to='/' replace />}/>
         </Routes>
       </Main>
       <Footer />

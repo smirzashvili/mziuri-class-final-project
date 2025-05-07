@@ -34,7 +34,7 @@ const useDocumentTitle = () => {
                 document.title = "Contact - MelodyMatch";
                 break;
             default:
-                document.title = "Oops - MelodyMatch";
+                document.title = "MelodyMatch - Where Musicians Meet & Create";
         }
     }, [pathname]);
 };
