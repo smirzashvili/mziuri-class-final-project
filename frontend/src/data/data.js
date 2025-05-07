@@ -1,11 +1,11 @@
 export const navigationRoutes = [
     {
-        text: 'Profile',
-        link: '/profile'
-    },
-    {
         text: 'Introduction',
         link: '/'
+    },
+    {
+        text: 'Profile',
+        link: '/profile'
     },
     {
         text: 'Terms & Conditions',

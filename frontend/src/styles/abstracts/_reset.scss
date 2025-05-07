@@ -77,7 +77,19 @@ ul {
         .sidebar {
             width: 18vw;
             min-width: 325px;
-    
+            align-items: start;
+
+            .logo {
+                height: 65px;
+            }
+
+            .iconButton {
+                top: calc(24px + 55px/2);
+                left: unset;
+                right: 0.5vw;
+                transform: translate(0,-50%);
+            }
+
             .buttonsContainer {
                 button {
                     transform: rotate(0deg) translateX(0px);
@@ -87,10 +99,23 @@ ul {
         }
         .main {
             margin-left: max(18vw, 325px);
+
         }
         .footer {
             margin-left: max(18vw, 325px);
             @include dimension(calc(100% - max(18vw, 325px)), auto);
+        }
+
+        .navigationScreen {
+            .links {
+                margin-left: max(18vw, 325px);
+            }
+            .iconButton {
+                // top: calc(24px + 55px/2);
+                // left: unset;
+                // right: 0.5vw;
+                // transform: translate(0,-50%);
+            }
         }
     }
 }

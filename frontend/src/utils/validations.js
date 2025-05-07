@@ -61,13 +61,13 @@ export const validateMedias = (arr) => {
 
 export const validateSubject = (value) => {
     if (!value || value === '') {
-        return 'This field is required';
+        return 'Subject is required';
     }
 };
 
 export const validateMessage = (value) => {
     if (!value || value === '') {
-        return 'This field is required';
+        return 'Message is required';
     } else if (value.length < 4) {
         return 'Message must contain at least 4 characters';
     }

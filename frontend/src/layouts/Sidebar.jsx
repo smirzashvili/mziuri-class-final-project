@@ -18,7 +18,7 @@ function Sidebar() {
         <IconButton icon={Navigation} onClick={() => setIsNavbarVisible(true)} size={20} />
 
         <div className='buttonsContainer'>
-          <Button onClick={() => navigate("/login")}>Login</Button>
+          <Button onClick={() => navigate("/login")}>Log in</Button>
         </div>
       </aside>
       <NavigationScreen visible={isNavbarVisible} setVisible={setIsNavbarVisible} />  

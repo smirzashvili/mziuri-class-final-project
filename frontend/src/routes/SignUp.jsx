@@ -226,7 +226,7 @@ function SignUp() {
                   checked={state.terms || false}
                   onChange={(e) => handleChange(e)}
                 />
-                <span className='terms'>I agree to the MelodyMatch's <Link to="/terms">Terms and Conditions</Link></span>
+                <span className='acceptTerms'>I agree to the MelodyMatch's <Link to="/terms">Terms and Conditions</Link></span>
               </label>
             </InputGroup>
           </>
@@ -312,7 +312,7 @@ function SignUp() {
             <Button type="submit">{activeStep !==3 ? 'Continue' : 'Complete'}</Button>
           </div>
           <div className='additionalContainer'>
-            <p className='alreadyHaveAcc'>Already have an account? <Link to="/login">Login</Link></p>
+            <p className='alreadyHaveAcc'>Already have an account? <Link to="/login">Log in</Link></p>
           </div>
         </Form>
       </div>

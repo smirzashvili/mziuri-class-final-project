@@ -13,6 +13,7 @@ const app = express()
 
 dotenv.config()
 
+app.use(logger)
 const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, //5 minutes
     max: 100, // limit each IP to 100 requests per windowMs
@@ -30,7 +31,6 @@ app.use(cors({
 app.use(helmet())
 app.use(express.json())
 app.use(cookieParser()); //to access cookies in node.js
-app.use(logger)
 app.use(compression())
 
 // app.use('/api/todos', auth, TodosRouter)

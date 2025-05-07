@@ -82,7 +82,7 @@ function SignIn() {
               <IconButton icon={isPasswordVisible ? Eye : EyeClosed} onClick={() => setIsPasswordVisible(!isPasswordVisible)} size={20} additionalClassnames={'end'} type="button" />            
             </>
           </InputGroup>
-          <Button type="submit" >Login</Button>
+          <Button type="submit" >Log in</Button>
           <div className='additionalContainer'>
             <p className='dontHaveAcc'>Don't have an account? <Link to="/registration">Register</Link></p>
           </div>

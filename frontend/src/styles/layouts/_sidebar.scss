@@ -13,8 +13,8 @@
     
     .logoContainer {
         .logo {
-            width: 4vw;
-            height: auto;
+            width: auto;
+            height: 55px;
         }
     }
     
@@ -29,6 +29,7 @@
         .button {
             transform: rotate(-90deg) translateX(24px);
             transform-origin: center;
+            white-space: nowrap;
         }
     }
 }
