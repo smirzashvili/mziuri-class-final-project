@@ -2,6 +2,7 @@
 
 .sidebar {
     @include dimension(5vw, 100vh);
+    min-width: 83px;
     background-color: white;
     position: fixed;
     top: 0px;

@@ -34,7 +34,7 @@
     & > button {
         position: absolute;
         top: 50%;
-        left: 2.5vw;
+        left: max(calc(83px/2), 2.5vw);
         transform: translate(-50%, -50%);
     }
 
