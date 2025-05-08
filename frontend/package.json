@@ -6,8 +6,11 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier:check": "prettier --config prettier.config.js --check",
+    "prettier:fix": "prettier --config prettier.config.js --write"
   },
   "dependencies": {
     "axios": "^1.9.0",

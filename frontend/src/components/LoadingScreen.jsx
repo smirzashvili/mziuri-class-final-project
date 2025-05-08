@@ -1,19 +1,18 @@
-import React from 'react'
-import { useLoader } from '../context/LoaderContext'
-import Logo from './Logo'
+import React from 'react';
+import { useLoader } from '../context/LoaderContext';
+import Logo from './Logo';
 
 function Loading() {
+  const { loading } = useLoader();
 
-  const {loading} = useLoader()
-  
   return (
     <div className={`loadingScreen ${loading ? 'fade-in' : 'fade-out'}`}>
-      <Logo hasAnimation={false}/>
+      <Logo hasAnimation={false} />
       <div className="progress">
         <div></div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Loading
+export default Loading;

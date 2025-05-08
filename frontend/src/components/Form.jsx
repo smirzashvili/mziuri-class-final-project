@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-function Form({onSubmit, children, ...props}) {
+function Form({ onSubmit, children, ...props }) {
   return (
-    <form 
-      onSubmit={onSubmit} 
-      className="form"  
+    <form
+      onSubmit={onSubmit}
+      className="form"
       {...props}
     >
       {children}
     </form>
-  )
+  );
 }
 
-export default Form
+export default Form;

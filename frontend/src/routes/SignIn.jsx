@@ -1,28 +1,28 @@
-import React, { useState } from 'react'
-import { Button, InputGroup, Form, IconButton } from '../components'
-import { Link, useNavigate } from 'react-router-dom'
-import { validateEmail, validatePassword } from '../utils/validations'
-import Eye from '../assets/icons/eye.svg'
-import EyeClosed from '../assets/icons/eye-closed.svg'
-import * as api from '../api/api.js'
-import { useUserData } from '../context/UserContext.jsx'
+import React, { useState } from 'react';
+import { Button, InputGroup, Form, IconButton } from '../components';
+import { Link, useNavigate } from 'react-router-dom';
+import { validateEmail, validatePassword } from '../utils/validations';
+import Eye from '../assets/icons/eye.svg';
+import EyeClosed from '../assets/icons/eye-closed.svg';
+import * as api from '../api/api.js';
+import { useUserData } from '../context/UserContext.jsx';
 
 function SignIn() {
-  const [state, setState] = useState({})
-  const [errorMessages, setErrorMessages] = useState({})
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [state, setState] = useState({});
+  const [errorMessages, setErrorMessages] = useState({});
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const {setLoggedIn} = useUserData()
+  const { setLoggedIn } = useUserData();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value
-    })
-  
+      [e.target.name]: e.target.value,
+    });
+
     // if(isSubmitted) {
     //   window.setTimeout(() => {
     //     const errors = validate()
@@ -32,34 +32,34 @@ function SignIn() {
     //     }
     //   }, 20)
     // }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    setIsSubmitted(true)
+    setIsSubmitted(true);
 
-    const errors = validate()
+    const errors = validate();
     if (Object.keys(errors).length > 0) {
-      setErrorMessages(errors)
-      return
+      setErrorMessages(errors);
+      return;
     }
 
     try {
       const response = await api.loginUser(state);
-  
+
       if (response.data) {
-        setLoggedIn(true)
+        setLoggedIn(true);
         navigate('/explore');
       }
     } catch (err) {
-
+      throw err;
     }
-  }
+  };
 
   const validate = () => {
     const errors = {};
-    
+
     const emailError = validateEmail(state.email);
     const passwordError = validatePassword(state.password);
 
@@ -70,14 +70,18 @@ function SignIn() {
   };
 
   return (
-    <div className='signIn'>
-      <div className='formContainer'>
+    <div className="signIn">
+      <div className="formContainer">
         <Form onSubmit={(e) => handleSubmit(e)}>
-          <div className='titlesContainer'>
-            <h1 className='title'>Welcome Back!</h1>
-            <h3 className='subtitle'>Sign in to continue your journey</h3>
+          <div className="titlesContainer">
+            <h1 className="title">Welcome Back!</h1>
+            <h3 className="subtitle">Sign in to continue your journey</h3>
           </div>
-          <InputGroup label="Email" name="email" error={errorMessages.email}>
+          <InputGroup
+            label="Email"
+            name="email"
+            error={errorMessages.email}
+          >
             <input
               type="text"
               className="input"
@@ -88,7 +92,11 @@ function SignIn() {
               onChange={handleChange}
             />
           </InputGroup>
-          <InputGroup label="Password" name="password" error={errorMessages.password}>
+          <InputGroup
+            label="Password"
+            name="password"
+            error={errorMessages.password}
+          >
             <>
               <input
                 type={isPasswordVisible ? 'text' : 'password'}
@@ -99,21 +107,29 @@ function SignIn() {
                 value={state.password}
                 onChange={(e) => handleChange(e)}
               />
-              <IconButton icon={isPasswordVisible ? Eye : EyeClosed} onClick={() => setIsPasswordVisible(!isPasswordVisible)} size={20} additionalClassnames={'end'} type="button" />            
+              <IconButton
+                icon={isPasswordVisible ? Eye : EyeClosed}
+                onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                size={20}
+                additionalClassnames={'end'}
+                type="button"
+              />
             </>
           </InputGroup>
-          <Button type="submit" >Log in</Button>
-          <div className='additionalContainer'>
-            <p className='dontHaveAcc'>Don't have an account? <Link to="/registration">Register</Link></p>
+          <Button type="submit">Log in</Button>
+          <div className="additionalContainer">
+            <p className="dontHaveAcc">
+              Don't have an account? <Link to="/registration">Register</Link>
+            </p>
           </div>
         </Form>
       </div>
 
-      <div className='mediaContainer'>
+      <div className="mediaContainer">
         <div>card</div>
       </div>
     </div>
-  )
+  );
 }
 
-export default SignIn
+export default SignIn;

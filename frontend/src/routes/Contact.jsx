@@ -1,33 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import { useLoader }  from '../context/LoaderContext'
-import Email from '../assets/icons/rules/email.svg'
-import Call from '../assets/icons/rules/call.svg'
-import Visit from '../assets/icons/rules/visit.svg'
-import { Button, InputGroup, Form } from '../components'
-import { useNavigate } from 'react-router-dom'
-import { validateEmail, validateFullName, validateSubject, validateMessage } from '../utils/validations'
+import React, { useEffect, useState } from 'react';
+import { useLoader } from '../context/LoaderContext';
+import Email from '../assets/icons/rules/email.svg';
+import Call from '../assets/icons/rules/call.svg';
+import Visit from '../assets/icons/rules/visit.svg';
+import { Button, InputGroup, Form } from '../components';
+import {
+  validateEmail,
+  validateFullName,
+  validateSubject,
+  validateMessage,
+} from '../utils/validations';
 
 function Contact() {
-  const [state, setState] = useState({})
-  const [errorMessages, setErrorMessages] = useState({})
-  
-  const navigate = useNavigate()
-  
-  const { useFakeLoader } = useLoader()
-  useEffect(() => useFakeLoader(), [])
+  const [state, setState] = useState({});
+  const [errorMessages, setErrorMessages] = useState({});
+
+  // const navigate = useNavigate();
+
+  const { useFakeLoader } = useLoader();
+  useEffect(() => useFakeLoader(), []);
 
   const handleChange = (e) => {
     setState({
-        ...state,
-        [e.target.name]: e.target.value
-    })
-  }
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-    const errors = validate()
-    if(Object.keys(errors).length === 0) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const errors = validate();
+    if (Object.keys(errors).length === 0) {
       // const data = {
       //   email: state.email,
       //   password: state.password,
@@ -36,12 +40,11 @@ function Contact() {
       //   //
       //   setErrorMessages({})
       // } catch (err) {
-        
       // }
     } else {
-      setErrorMessages(errors)
+      setErrorMessages(errors);
     }
-  }
+  };
 
   const validate = () => {
     const errors = {};
@@ -59,34 +62,46 @@ function Contact() {
     return errors;
   };
 
-
   return (
-    <div className='contact'>
-      <h1 className='title'>Contact Us</h1>
-      <div className='content'>
-        <div className='contactOptions'>
+    <div className="contact">
+      <h1 className="title">Contact Us</h1>
+      <div className="content">
+        <div className="contactOptions">
           <div>
-            <img src={Email} alt="" />
+            <img
+              src={Email}
+              alt=""
+            />
             <h3>Email Us</h3>
             <p>support@melodymatch.com</p>
             <p>business@melodymatch.com</p>
           </div>
           <div>
-            <img src={Call} alt="" />
+            <img
+              src={Call}
+              alt=""
+            />
             <h3>Call Us</h3>
             <p>+1 (555) 123-4567</p>
             <p>Mon-Fri, 9am-5pm EST</p>
           </div>
           <div>
-            <img src={Visit} alt="" />
+            <img
+              src={Visit}
+              alt=""
+            />
             <h3>Visit Us</h3>
             <p>123 Music Avenue</p>
             <p>New York, NY 10001</p>
           </div>
         </div>
         <Form onSubmit={(e) => handleSubmit(e)}>
-          <div className='widthDivider'>
-            <InputGroup label="Name" name="name" error={errorMessages.name}>
+          <div className="widthDivider">
+            <InputGroup
+              label="Name"
+              name="name"
+              error={errorMessages.name}
+            >
               <input
                 type="text"
                 className="input"
@@ -97,7 +112,11 @@ function Contact() {
                 onChange={handleChange}
               />
             </InputGroup>
-            <InputGroup label="Email" name="email" error={errorMessages.email}>
+            <InputGroup
+              label="Email"
+              name="email"
+              error={errorMessages.email}
+            >
               <input
                 type="text"
                 className="input"
@@ -109,7 +128,11 @@ function Contact() {
               />
             </InputGroup>
           </div>
-          <InputGroup label="Subject" name="subject" error={errorMessages.subject}>
+          <InputGroup
+            label="Subject"
+            name="subject"
+            error={errorMessages.subject}
+          >
             <input
               type="text"
               className="input"
@@ -120,7 +143,11 @@ function Contact() {
               onChange={(e) => handleChange(e)}
             />
           </InputGroup>
-          <InputGroup label="Message" name="message" error={errorMessages.message}>
+          <InputGroup
+            label="Message"
+            name="message"
+            error={errorMessages.message}
+          >
             <textarea
               className="textarea"
               name="message"
@@ -131,10 +158,10 @@ function Contact() {
             />
           </InputGroup>
           <Button type="submit">Send Message</Button>
-        </Form>  
+        </Form>
       </div>
     </div>
-  )
+  );
 }
 
-export default Contact
+export default Contact;
