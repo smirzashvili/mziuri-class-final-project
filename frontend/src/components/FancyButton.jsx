@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-function FancyButton({...props}) {
+function FancyButton({ ...props }) {
   return (
     <button
       className={`fancyButton`}
@@ -10,7 +10,7 @@ function FancyButton({...props}) {
       <div className="cut-right"></div>
       <span>{props.children}</span>
     </button>
-  )
+  );
 }
 
-export default FancyButton
+export default FancyButton;

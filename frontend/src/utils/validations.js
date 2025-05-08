@@ -1,74 +1,74 @@
 export const validateFullName = (value) => {
-    if (!value) {
-        return 'Name is required';
-    }
+  if (!value) {
+    return 'Name is required';
+  }
 };
 
 export const validateEmail = (value) => {
-    if (!value) {
-        return 'Email is required';
-    } else if (!value.includes('@') || !value.includes('.')) {
-        return 'Email is invalid';
-    }
+  if (!value) {
+    return 'Email is required';
+  } else if (!value.includes('@') || !value.includes('.')) {
+    return 'Email is invalid';
+  }
 };
-  
+
 export const validatePassword = (value) => {
-    if (!value) {
-        return 'Password is required';
-    } else if (value.length < 8) {
-        return 'Password must be at least 8 characters';
-    }
+  if (!value) {
+    return 'Password is required';
+  } else if (value.length < 8) {
+    return 'Password must be at least 8 characters';
+  }
 };
-  
+
 export const validateConfirmPassword = (value) => {
-    if (!value) {
-        return 'Password is required';
-    } else if (value.length < 8) {
-        return 'Password must be at least 8 characters';
-    }
+  if (!value) {
+    return 'Password is required';
+  } else if (value.length < 8) {
+    return 'Password must be at least 8 characters';
+  }
 };
 
 export const validateSelect = (value) => {
-    if (!value || value === '') {
-        return 'This field is required';
-    }
+  if (!value || value === '') {
+    return 'This field is required';
+  }
 };
 
 export const validateCheckbox = (value) => {
-    if (!value) {
-        return 'You must accept terms and conditions';
-    }
+  if (!value) {
+    return 'You must accept terms and conditions';
+  }
 };
 
 export const validateMedias = (arr) => {
-    //check each file format
-    if(arr) {
-        for (let i = 0; i < arr.length; i++) {
-            const file = arr[i];
-            if (file && !(file.type.startsWith('image/') || file.type.startsWith('video/'))) {
-                return `Unsupported file format at slot ${i + 1}`;
-            }
-        }
+  //check each file format
+  if (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      const file = arr[i];
+      if (file && !(file.type.startsWith('image/') || file.type.startsWith('video/'))) {
+        return `Unsupported file format at slot ${i + 1}`;
+      }
     }
+  }
 
-    //for length
-    let filteredArr = arr?.filter(item => item !== null)
-    
-    if (!arr || filteredArr?.length < 2) {
-        return 'You must upload 2 or more videos/photos';
-    }
+  //for length
+  const filteredArr = arr?.filter((item) => item !== null);
+
+  if (!arr || filteredArr?.length < 2) {
+    return 'You must upload 2 or more videos/photos';
+  }
 };
 
 export const validateSubject = (value) => {
-    if (!value || value === '') {
-        return 'Subject is required';
-    }
+  if (!value || value === '') {
+    return 'Subject is required';
+  }
 };
 
 export const validateMessage = (value) => {
-    if (!value || value === '') {
-        return 'Message is required';
-    } else if (value.length < 4) {
-        return 'Message must contain at least 4 characters';
-    }
+  if (!value || value === '') {
+    return 'Message is required';
+  } else if (value.length < 4) {
+    return 'Message must contain at least 4 characters';
+  }
 };

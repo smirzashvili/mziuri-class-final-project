@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-function Button({additionalClassnames, ...props}) {
+function Button({ additionalClassnames, ...props }) {
   return (
     <button
       className={`button ${additionalClassnames ? additionalClassnames : ''}`}
@@ -8,7 +8,7 @@ function Button({additionalClassnames, ...props}) {
     >
       {props.children}
     </button>
-  )
+  );
 }
 
-export default Button
+export default Button;
