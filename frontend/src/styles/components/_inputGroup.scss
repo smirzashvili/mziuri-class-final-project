@@ -55,6 +55,22 @@
                 left: 8px;
             }
         }
+
+        & > .datepicker-toggle {
+            display: inline-block;
+            position: relative;
+            width: 18px;
+            height: 19px;
+
+            .datepicker-toggle-button {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("../../../src/assets/icons/arrow-down.svg");
+            }
+        }
     }
 
     & > .error {

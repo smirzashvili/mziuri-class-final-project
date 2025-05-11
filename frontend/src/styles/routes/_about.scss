@@ -5,9 +5,10 @@
     @include flexbox(column, center, center, 42px);
     background: white;
     padding: 40px;
-    margin: 80px 0;
+    margin: 102px 0;
     border: 1px solid $border-grey;
     box-shadow: $border-grey 0px 0px 16px;
+    border-radius: 12px;
     
     & > .title {
         font-size: 40px;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Logo, NavigationScreen, IconButton } from '../components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navigation from '../assets/icons/navigation.svg';
 import * as api from '../api/api.js';
 import { useUserData } from '../context/UserContext.jsx';
@@ -12,8 +12,11 @@ function Sidebar() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
 
   const { loggedIn, setLoggedIn } = useUserData();
-
+  
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const handleLogout = async () => {
     try {
@@ -39,33 +42,38 @@ function Sidebar() {
             <Logo hasAnimation={false} />
           </Link>
           <nav className="linksContainer">
-            <div className="item">
-              <Link to="/explore">
-                <IconButton
-                  icon={Discover}
-                  size={20}
-                />
-                <p>Discover</p>
-              </Link>
-            </div>
-            <div className="item">
-              <Link to="/chat">
-                <IconButton
-                  icon={Messages}
-                  size={20}
-                />
-                <p>Messages</p>
-              </Link>
-            </div>
-            <div className="item">
-              <Link to="/profile">
-                <IconButton
-                  icon={Profile}
-                  size={20}
-                />
-                <p>Profile</p>
-              </Link>
-            </div>
+            <div className='line'></div>
+            <div className='line'></div>
+            <Link
+              to="/explore"
+              className={`item ${currentPath === '/explore' ? 'active' : ''}`}
+            >
+              <IconButton
+                icon={Discover}
+                size={16}
+              />
+              <p>Discover</p>
+            </Link>
+            <Link
+              to="/chat"
+              className={`item ${currentPath === '/chat' ? 'active' : ''}`}
+            >
+              <IconButton
+                icon={Messages}
+                size={16}
+              />
+              <p>Messages</p>
+            </Link>
+            <Link
+              to="/profile"
+              className={`item ${currentPath === '/profile' ? 'active' : ''}`}
+            >
+              <IconButton
+                icon={Profile}
+                size={16}
+              />
+              <p>Profile</p>
+            </Link>
           </nav>
         </div>
 

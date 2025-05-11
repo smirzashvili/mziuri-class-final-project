@@ -2,7 +2,8 @@
 
 .explore {
     @include flexbox(column, center, center, 32px);
-    
+    margin: 102px 0;
+
     & > .controlPanel {
         @include flexbox(row, center, flex-start, 16px);
 
@@ -12,10 +13,21 @@
             border-radius: 100%;
             outline: 1px solid $border-grey;
 
+            &:hover {
+                opacity: 1;
+                background-color: #e7edf3;
+            }
+
             &:nth-child(2) {
                 outline: none;
                 padding: 24px;
                 background-color: $secondary-green;
+                box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+                &:hover {
+                    opacity: .8;
+                    background-color: $darker-green;
+                }
             }
         }
     }

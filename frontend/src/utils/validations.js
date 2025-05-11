@@ -34,6 +34,16 @@ export const validateSelect = (value) => {
   }
 };
 
+export const validateAge = (value) => {
+  if (!value || value === '') {
+    return 'This field is required';
+  } else if(typeof(parseInt(value)) === "string" || parseInt(value).toString() === "NaN") {
+    return 'Enter Valid Age';
+  } else if(Number(value) < 18) {
+    return "You must be 18 years old or older"
+  }
+};
+
 export const validateCheckbox = (value) => {
   if (!value) {
     return 'You must accept terms and conditions';

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, InputGroup, Form, IconButton, Checkbox } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import {
+  validateAge,
   validateCheckbox,
   validateConfirmPassword,
   validateEmail,
@@ -74,6 +75,7 @@ function SignUp() {
       const confirmPasswordError = validateConfirmPassword(state.confirmPassword);
       const cityError = validateSelect(state.city);
       const genderError = validateSelect(state.gender);
+      const ageError = validateAge(state.age);
       const termsError = validateCheckbox(state.terms);
 
       if (fullNameError) errors.fullName = fullNameError;
@@ -82,6 +84,7 @@ function SignUp() {
       if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
       if (cityError) errors.city = cityError;
       if (genderError) errors.gender = genderError;
+      if (ageError) errors.age = ageError;
       if (termsError) errors.terms = termsError;
     }
 
@@ -223,61 +226,78 @@ function SignUp() {
                   </>
                 </InputGroup>
               </div>
-              <InputGroup
-                label="City"
-                name="city"
-                error={errorMessages.city}
-              >
-                <select
-                  className={`select ${!state.city || state.city === '' ? 'placeholder-selected' : ''}`}
+              <div className="widthDivider">
+                <InputGroup
+                  label="City"
                   name="city"
-                  id="city"
-                  value={state.city}
-                  onChange={(e) => handleChange(e)}
-                  defaultValue={''}
+                  error={errorMessages.city}
                 >
-                  <option
-                    disabled
-                    hidden
-                    value=""
+                  <select
+                    className={`select ${!state.city || state.city === '' ? 'placeholder-selected' : ''}`}
+                    name="city"
+                    id="city"
+                    value={state.city}
+                    onChange={(e) => handleChange(e)}
+                    defaultValue={''}
                   >
-                    select city
-                  </option>
-                  <option value="tbilisi">Tbilisi</option>
-                  <option value="gori">Gori</option>
-                  <option value="batumi">Batumi</option>
-                  <option value="xashuri">Xashuri</option>
-                  <option value="kutaisi">Kutaisi</option>
-                  <option value="telavi">Telavi</option>
-                  <option value="poti">Poti</option>
-                  <option value="chiatura">Chiatura</option>
-                  <option value="kobuleti">Kobuleti</option>
-                </select>
-              </InputGroup>
-              <InputGroup
-                label="Gender"
-                name="city"
-                error={errorMessages.gender}
-              >
-                <select
-                  className={`select ${!state.gender || state.gender === '' ? 'placeholder-selected' : ''}`}
+                    <option
+                      disabled
+                      hidden
+                      value=""
+                    >
+                      select city
+                    </option>
+                    <option value="tbilisi">Tbilisi</option>
+                    <option value="gori">Gori</option>
+                    <option value="batumi">Batumi</option>
+                    <option value="xashuri">Xashuri</option>
+                    <option value="kutaisi">Kutaisi</option>
+                    <option value="telavi">Telavi</option>
+                    <option value="poti">Poti</option>
+                    <option value="chiatura">Chiatura</option>
+                    <option value="kobuleti">Kobuleti</option>
+                  </select>
+                </InputGroup>
+                <InputGroup
+                  label="Gender"
                   name="gender"
-                  id="gender"
-                  value={state.gender}
-                  onChange={(e) => handleChange(e)}
-                  defaultValue={''}
+                  error={errorMessages.gender}
                 >
-                  <option
-                    disabled
-                    hidden
-                    value=""
+                  <select
+                    className={`select ${!state.gender || state.gender === '' ? 'placeholder-selected' : ''}`}
+                    name="gender"
+                    id="gender"
+                    value={state.gender}
+                    onChange={(e) => handleChange(e)}
+                    defaultValue={''}
                   >
-                    select gender
-                  </option>
-                  <option value="tbilisi">Male</option>
-                  <option value="gori">Female</option>
-                  <option value="batumi">Other</option>
-                </select>
+                    <option
+                      disabled
+                      hidden
+                      value=""
+                    >
+                      select gender
+                    </option>
+                    <option value="tbilisi">Male</option>
+                    <option value="gori">Female</option>
+                    <option value="batumi">Other</option>
+                  </select>
+                </InputGroup>
+              </div>
+              <InputGroup
+                  label="Age"
+                  name="age"
+                  error={errorMessages.age}
+              >
+                <input
+                  type="text"
+                  className="input"
+                  name="age"
+                  id="age"
+                  value={state.age}
+                  placeholder="enter your age"
+                  onChange={handleChange}
+                />
               </InputGroup>
 
               <InputGroup

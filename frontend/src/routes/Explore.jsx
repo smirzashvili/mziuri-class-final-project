@@ -1,6 +1,8 @@
 import React from 'react';
-import { IconButton, MusicianCard } from '../components';
+import { Button, IconButton, MusicianCard } from '../components';
 import Close from '../assets/icons/close.svg';
+import Heart from '../assets/icons/heart.svg';
+import Refresh from '../assets/icons/refresh.svg';
 
 function Explore() {
   return (
@@ -9,18 +11,18 @@ function Explore() {
       <div className="controlPanel">
         <IconButton
           icon={Close}
-          onClick={() => setVisible(false)}
-          size={12}
+          // onClick={() => setVisible(false)}
+          size={14}
         />
         <IconButton
-          icon={Close}
-          onClick={() => setVisible(false)}
-          size={12}
+          icon={Heart}
+          // onClick={() => setVisible(false)}
+          size={16}
         />
         <IconButton
-          icon={Close}
-          onClick={() => setVisible(false)}
-          size={12}
+          icon={Refresh}
+          // onClick={() => setVisible(false)}
+          size={14}
         />
       </div>
     </div>
