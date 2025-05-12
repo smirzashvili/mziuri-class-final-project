@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, InputGroup, Form, IconButton, Checkbox } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  validateAge,
+  validateDate,
   validateCheckbox,
   validateConfirmPassword,
   validateEmail,
@@ -75,7 +75,7 @@ function SignUp() {
       const confirmPasswordError = validateConfirmPassword(state.confirmPassword);
       const cityError = validateSelect(state.city);
       const genderError = validateSelect(state.gender);
-      const ageError = validateAge(state.age);
+      const dateError = validateDate(state.date);
       const termsError = validateCheckbox(state.terms);
 
       if (fullNameError) errors.fullName = fullNameError;
@@ -84,7 +84,7 @@ function SignUp() {
       if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
       if (cityError) errors.city = cityError;
       if (genderError) errors.gender = genderError;
-      if (ageError) errors.age = ageError;
+      if (dateError) errors.date = dateError;
       if (termsError) errors.terms = termsError;
     }
 
@@ -285,17 +285,16 @@ function SignUp() {
                 </InputGroup>
               </div>
               <InputGroup
-                  label="Age"
-                  name="age"
-                  error={errorMessages.age}
+                  label="Date of Birth"
+                  name="date"
+                  error={errorMessages.date}
               >
                 <input
-                  type="text"
+                  type="date"
                   className="input"
-                  name="age"
-                  id="age"
-                  value={state.age}
-                  placeholder="enter your age"
+                  name="date"
+                  id="date"
+                  value={state.date || "2001-01-01"}
                   onChange={handleChange}
                 />
               </InputGroup>

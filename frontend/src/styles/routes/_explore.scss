@@ -11,7 +11,8 @@
             background-color: white;
             padding: 20px;
             border-radius: 100%;
-            outline: 1px solid $border-grey;
+            outline: 1px solid rgba($darker-grey, .3);
+            box-shadow: $shadow-sm;
 
             &:hover {
                 opacity: 1;
@@ -22,7 +23,7 @@
                 outline: none;
                 padding: 24px;
                 background-color: $secondary-green;
-                box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+                box-shadow: $shadow-md;
 
                 &:hover {
                     opacity: .8;

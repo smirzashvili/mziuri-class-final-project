@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 .main {
-    margin-left: 5vw;
+    margin-left: max(5vw, 83px);
     min-height: 100vh;
     @include flexbox(row, center, center)
 }
