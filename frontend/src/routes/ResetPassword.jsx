@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, InputGroup, Form, IconButton } from '../components';
+import { Button, InputGroup, Form, IconButton, FakeCard } from '../components';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { validateConfirmPassword, validatePassword } from '../utils/validations';
 import * as api from '../api/api.js';
@@ -126,7 +126,7 @@ function ResetPassword() {
       </div>
 
       <div className="mediaContainer">
-        <div>card</div>
+        <FakeCard />
       </div>
     </div>
   );

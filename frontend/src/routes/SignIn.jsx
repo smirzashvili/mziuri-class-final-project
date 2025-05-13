@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, InputGroup, Form, IconButton } from '../components';
+import { Button, InputGroup, Form, IconButton, FakeCard } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../utils/validations';
 import Eye from '../assets/icons/eye.svg';
@@ -127,7 +127,7 @@ function SignIn() {
       </div>
 
       <div className="mediaContainer">
-        <div>card</div>
+        <FakeCard />
       </div>
     </div>
   );

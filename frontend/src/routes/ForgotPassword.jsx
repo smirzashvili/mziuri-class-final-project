@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, InputGroup, Form, IconButton } from '../components';
+import { Button, InputGroup, Form, IconButton, FakeCard } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { validateEmail } from '../utils/validations';
 import * as api from '../api/api.js';
@@ -62,8 +62,8 @@ function ForgotPassword() {
       <div className="formContainer">
         <Form onSubmit={(e) => handleSubmit(e)}>
           <div className="titlesContainer">
-            <h1 className="title">Do not worry!</h1>
-            <h3 className="subtitle">enter your email to get reset password link</h3>
+            <h1 className="title">Forgot your password?</h1>
+            <h3 className="subtitle">No worries, enter your email to get reset password link</h3>
           </div>
           <InputGroup
             label="Email"
@@ -80,12 +80,12 @@ function ForgotPassword() {
               onChange={handleChange}
             />
           </InputGroup>
-          <Button type="submit">Send Mail</Button>
+          <Button type="submit">Send</Button>
         </Form>
       </div>
 
       <div className="mediaContainer">
-        <div>card</div>
+        <FakeCard />
       </div>
     </div>
   );

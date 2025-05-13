@@ -7,3 +7,4 @@ export { default as NavigationScreen } from './NavigationScreen';
 export { default as IconButton } from './IconButton';
 export { default as Checkbox } from './Checkbox';
 export { default as MusicianCard } from './MusicianCard';
+export { default as FakeCard } from './FakeCard';

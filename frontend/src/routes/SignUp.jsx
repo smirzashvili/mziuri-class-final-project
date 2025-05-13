@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, InputGroup, Form, IconButton, Checkbox } from '../components';
+import { Button, InputGroup, Form, IconButton, Checkbox, FakeCard } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   validateDate,
@@ -465,7 +465,7 @@ function SignUp() {
       </div>
 
       <div className="mediaContainer">
-        <div>card</div>
+        <FakeCard />
       </div>
     </div>
   );
