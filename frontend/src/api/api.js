@@ -25,7 +25,7 @@ export const loginUser = async (data) => {
       withCredentials: true,
     }
   );
-  return response;
+  return response.data;
 };
 
 export const logoutUser = async () => {
