@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './styles/main.scss';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { Sidebar, Main, Footer } from './layouts';
-import { About, Chat, Contact, Explore, Intro, Profile, SignIn, SignUp, Terms } from './routes';
+import { About, Chat, Contact, Explore, Intro, Profile, SignIn, SignUp, Terms, ForgotPassword, ResetPassword } from './routes';
 import { LoadingScreen } from './components';
 import useDocumentTitle from './hooks/useDocumentTitle';
 import useScrollTop from './hooks/useScrollTop';
@@ -72,6 +72,14 @@ function App() {
           <Route
             path="/contact"
             element={<Contact />}
+          />
+          <Route
+            path="/forgot-password"
+            element={<ForgotPassword />}
+          />
+          <Route
+            path="/reset-password/:token"
+            element={<ResetPassword />}
           />
           <Route
             path="*"

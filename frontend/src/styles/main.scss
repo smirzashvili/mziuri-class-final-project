@@ -16,6 +16,8 @@
 @use './routes/about';
 @use './routes/contact';
 @use './routes/explore';
+@use './routes/forgotPassword';
+@use './routes/resetPassword';
 
 @use './components/loadingScreen';
 @use './components/logo';

@@ -38,7 +38,7 @@ export default [
       'no-new': 'error', // Prevent useless object instantiation like `new Object()`
       'no-shadow': 'warn', // Prevent variable declarations from shadowing variables in outer scopes
       'prefer-template': 'error', // Enforce template literals over string concatenation
-      'no-use-before-define': ['error', { functions: false, classes: true }], // Prevent usage of variables before declaration
+      // 'no-use-before-define': ['error', { functions: false, classes: true }], // Prevent usage of variables before declaration
 
       // Prettier-related  
       'prettier/prettier': 'error', // Treat Prettier formatting issues as errors

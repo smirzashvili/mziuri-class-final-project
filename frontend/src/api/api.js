@@ -47,3 +47,16 @@ export const getUser = async (token) => {
   });
   return response.data;
 };
+
+export const forgotPasswordUser = (data) => {
+  return axios.put(`http://localhost:3003/api/users/forgot-password`, data, {
+    withCredentials: true,
+  });
+}
+
+export const resetPasswordUser = (data, token) => {
+  return axios.put(`http://localhost:3003/api/users/reset-password`, data, {
+    headers: { Authorization: token },
+    withCredentials: true,
+  });
+}
