@@ -26,5 +26,10 @@
 
     & > .additionalContainer {
         margin-top: 8px;
+        @include flexbox(column, flex-start, flex-start, 8px);
+
+        a {
+            color: $primary-green;
+        }
     }
 }

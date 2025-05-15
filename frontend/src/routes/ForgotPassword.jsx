@@ -81,6 +81,11 @@ function ForgotPassword() {
             />
           </InputGroup>
           <Button type="submit">Send</Button>
+          <div className="additionalContainer">
+            <p className="rememberPass">
+              Remember your password? <Link to="/login">Log In</Link>
+            </p>
+          </div>
         </Form>
       </div>
 

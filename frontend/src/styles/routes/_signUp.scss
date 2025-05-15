@@ -32,12 +32,6 @@
             align-items: center;
             margin: -12px 0 -8px 0;
         }
-        .acceptTerms > a {
-            color: $primary-green;
-        }
-        .alreadyHaveAcc > a {
-            color: $primary-green;
-        }
 
         .uploadMediaContainer {
             @include dimension(100%, 100%);

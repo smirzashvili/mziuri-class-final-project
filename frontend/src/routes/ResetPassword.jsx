@@ -122,6 +122,11 @@ function ResetPassword() {
             </>
             </InputGroup>
           <Button type="submit">Reset Password</Button>
+          <div className="additionalContainer">
+            <p className="backToLogin">
+              Back to <Link to="/login">Log In</Link>
+            </p>
+          </div>
         </Form>
       </div>
 

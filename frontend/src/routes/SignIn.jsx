@@ -116,9 +116,9 @@ function SignIn() {
               />
             </>
           </InputGroup>
-          <Link className='forgotPass' to="/forgot-password">Forgot Password?</Link>
           <Button type="submit">Log in</Button>
           <div className="additionalContainer">
+            <Link className='forgotPass' to="/forgot-password">Forgot Password?</Link>
             <p className="dontHaveAcc">
               Don't have an account? <Link to="/registration">Register</Link>
             </p>
