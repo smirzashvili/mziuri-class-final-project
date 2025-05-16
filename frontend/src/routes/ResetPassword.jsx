@@ -130,9 +130,7 @@ function ResetPassword() {
         </Form>
       </div>
 
-      <div className="mediaContainer">
-        <FakeCard />
-      </div>
+      <FakeCard />
     </div>
   );
 }
