@@ -10,6 +10,7 @@ import {
   validateSubject,
   validateMessage,
 } from '../utils/validations';
+import * as api from '../api/api.js';
 
 function Contact() {
   const [state, setState] = useState({});
@@ -31,18 +32,19 @@ function Contact() {
     e.preventDefault();
 
     const errors = validate();
-    if (Object.keys(errors).length === 0) {
-      // const data = {
-      //   email: state.email,
-      //   password: state.password,
-      // }
-      // try {
-      //   //
-      //   setErrorMessages({})
-      // } catch (err) {
-      // }
-    } else {
+    if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
+      return;
+    }
+
+    try {
+      const response = await api.contact(state);
+      console.log(response)
+      if (response.data) {
+        alert('email has sent')
+      }
+    } catch (err) {
+      throw err;
     }
   };
 

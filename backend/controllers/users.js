@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import Users from '../models/users.js';
 import bcrypt from 'bcrypt'
-import mailSender from '../utils/mailSender.js'
+import {sendResetPasswordMail, sendContactMail} from '../utils/mailSender.js'
 
 export const registerUser = async (req, res) => {
     try {
@@ -106,7 +106,7 @@ export const forgotPasswordUser = async (req, res) => {
         const access_token = jwt.sign({ id: user._id }, process.env.JWT_RESET_PASS_SECRET_KEY, { expiresIn: '15m' });
         const url = `http://localhost:5173/reset-password/${access_token}`  
 
-        await mailSender(process.env.MAIL_SENDER_EMAIL, email, url)
+        await sendResetPasswordMail(email, url)
 
         res.status(200).json({msg: "Check your email for further instructions"})
     } catch (err) {
@@ -132,6 +132,20 @@ export const resetPasswordUser = async (req, res) => {
         console.log(decoded)
 
         res.status(200).json({msg: "Password successfully changed!"})
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({msg: err.message})
+    }
+
+}
+
+export const contact = async (req, res) => {
+    try {
+        const { email, subject, message } = req.body;
+        console.log(req.body)
+        await sendContactMail(email, subject, message)
+
+        res.status(200).json({msg: "Email has sent!"})
     } catch (err) {
         console.log(err)
         return res.status(500).json({msg: err.message})
