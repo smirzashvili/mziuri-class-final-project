@@ -75,7 +75,7 @@ function ForgotPassword() {
               className="input"
               name="email"
               id="email"
-              value={state.email}
+              value={state.email || ""}
               placeholder="you@example.com"
               onChange={handleChange}
             />

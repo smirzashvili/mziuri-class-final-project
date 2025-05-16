@@ -85,7 +85,7 @@ function ResetPassword() {
                     name="password"
                     id="password"
                     placeholder="enter your password"
-                    value={state.password}
+                    value={state.password || ""}
                     onChange={(e) => handleChange(e)}
                 />
                 <IconButton
@@ -109,7 +109,7 @@ function ResetPassword() {
                     name="confirmPassword"
                     id="confirmPassword"
                     placeholder="confirm your password"
-                    value={state.confirmPassword}
+                    value={state.confirmPassword || ""}
                     onChange={(e) => handleChange(e)}
                 />
                 <IconButton

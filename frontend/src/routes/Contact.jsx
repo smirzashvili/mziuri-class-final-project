@@ -107,7 +107,7 @@ function Contact() {
                 className="input"
                 name="name"
                 id="name"
-                value={state.name}
+                value={state.name || ""}
                 placeholder="enter your name"
                 onChange={handleChange}
               />
@@ -123,7 +123,7 @@ function Contact() {
                 name="email"
                 id="email"
                 placeholder="enter your email"
-                value={state.email}
+                value={state.email || ""}
                 onChange={(e) => handleChange(e)}
               />
             </InputGroup>
@@ -139,7 +139,7 @@ function Contact() {
               name="subject"
               id="subject"
               placeholder="enter subject"
-              value={state.subject}
+              value={state.subject || ""}
               onChange={(e) => handleChange(e)}
             />
           </InputGroup>
@@ -153,7 +153,7 @@ function Contact() {
               name="message"
               id="message"
               placeholder="how can we help you?"
-              value={state.message}
+              value={state.message || ""}
               onChange={(e) => handleChange(e)}
             />
           </InputGroup>
