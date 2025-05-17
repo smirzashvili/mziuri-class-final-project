@@ -74,7 +74,7 @@ function ResetPassword() {
             {/* <h3 className="subtitle">Sign in to continue your journey</h3> */}
           </div>
           <InputGroup
-            label="Password"
+            label="New Password"
             name="password"
             error={errorMessages.password}
           >
@@ -84,7 +84,7 @@ function ResetPassword() {
                     className="input"
                     name="password"
                     id="password"
-                    placeholder="enter your password"
+                    placeholder="enter new password"
                     value={state.password}
                     onChange={(e) => handleChange(e)}
                 />
@@ -98,7 +98,7 @@ function ResetPassword() {
             </>
           </InputGroup>
           <InputGroup
-            label="Confirm Password"
+            label="Confirm New Password"
             name="confirmPassword"
             error={errorMessages.confirmPassword}
           >
@@ -108,7 +108,7 @@ function ResetPassword() {
                     className="input"
                     name="confirmPassword"
                     id="confirmPassword"
-                    placeholder="confirm your password"
+                    placeholder="confirm new password"
                     value={state.confirmPassword}
                     onChange={(e) => handleChange(e)}
                 />
