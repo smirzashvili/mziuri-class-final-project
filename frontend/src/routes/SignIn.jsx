@@ -87,7 +87,7 @@ function SignIn() {
               className="input"
               name="email"
               id="email"
-              value={state.email}
+              value={state.email || ""}
               placeholder="you@example.com"
               onChange={handleChange}
             />
@@ -103,9 +103,9 @@ function SignIn() {
                 className="input"
                 name="password"
                 id="password"
+                value={state.password || ""}
                 placeholder="enter your password"
-                value={state.password}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
               />
               <IconButton
                 icon={isPasswordVisible ? Eye : EyeClosed}
@@ -126,9 +126,7 @@ function SignIn() {
         </Form>
       </div>
 
-      <div className="mediaContainer">
-        <FakeCard />
-      </div>
+      <FakeCard />
     </div>
   );
 }

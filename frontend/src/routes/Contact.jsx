@@ -10,6 +10,7 @@ import {
   validateSubject,
   validateMessage,
 } from '../utils/validations';
+import * as api from '../api/api.js';
 
 function Contact() {
   const [state, setState] = useState({});
@@ -31,18 +32,19 @@ function Contact() {
     e.preventDefault();
 
     const errors = validate();
-    if (Object.keys(errors).length === 0) {
-      // const data = {
-      //   email: state.email,
-      //   password: state.password,
-      // }
-      // try {
-      //   //
-      //   setErrorMessages({})
-      // } catch (err) {
-      // }
-    } else {
+    if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
+      return;
+    }
+
+    try {
+      const response = await api.contact(state);
+      console.log(response)
+      if (response.data) {
+        alert('email has sent')
+      }
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -107,7 +109,7 @@ function Contact() {
                 className="input"
                 name="name"
                 id="name"
-                value={state.name}
+                value={state.name || ""}
                 placeholder="enter your name"
                 onChange={handleChange}
               />
@@ -123,7 +125,7 @@ function Contact() {
                 name="email"
                 id="email"
                 placeholder="enter your email"
-                value={state.email}
+                value={state.email || ""}
                 onChange={(e) => handleChange(e)}
               />
             </InputGroup>
@@ -139,7 +141,7 @@ function Contact() {
               name="subject"
               id="subject"
               placeholder="enter subject"
-              value={state.subject}
+              value={state.subject || ""}
               onChange={(e) => handleChange(e)}
             />
           </InputGroup>
@@ -153,7 +155,7 @@ function Contact() {
               name="message"
               id="message"
               placeholder="how can we help you?"
-              value={state.message}
+              value={state.message || ""}
               onChange={(e) => handleChange(e)}
             />
           </InputGroup>

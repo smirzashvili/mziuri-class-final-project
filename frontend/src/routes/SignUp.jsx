@@ -156,7 +156,7 @@ function SignUp() {
                   className="input"
                   name="fullName"
                   id="fullName"
-                  value={state.fullName}
+                  value={state.fullName || ""}
                   placeholder="enter your full name"
                   onChange={handleChange}
                 />
@@ -171,7 +171,7 @@ function SignUp() {
                   className="input"
                   name="email"
                   id="email"
-                  value={state.email}
+                  value={state.email || ""}
                   placeholder="enter your email"
                   onChange={handleChange}
                 />
@@ -189,7 +189,7 @@ function SignUp() {
                       name="password"
                       id="password"
                       placeholder="enter your password"
-                      value={state.password}
+                      value={state.password || ""}
                       onChange={(e) => handleChange(e)}
                     />
                     <IconButton
@@ -213,7 +213,7 @@ function SignUp() {
                       name="confirmPassword"
                       id="confirmPassword"
                       placeholder="confirm your password"
-                      value={state.confirmPassword}
+                      value={state.confirmPassword || ""}
                       onChange={(e) => handleChange(e)}
                     />
                     <IconButton
@@ -236,7 +236,7 @@ function SignUp() {
                     className={`select ${!state.city || state.city === '' ? 'placeholder-selected' : ''}`}
                     name="city"
                     id="city"
-                    value={state.city}
+                    value={state.city || ""}
                     onChange={(e) => handleChange(e)}
                     defaultValue={''}
                   >
@@ -267,7 +267,7 @@ function SignUp() {
                     className={`select ${!state.gender || state.gender === '' ? 'placeholder-selected' : ''}`}
                     name="gender"
                     id="gender"
-                    value={state.gender}
+                    value={state.gender || ""}
                     onChange={(e) => handleChange(e)}
                     defaultValue={''}
                   >
@@ -328,7 +328,7 @@ function SignUp() {
                   className={`select ${!state.favoriteGenre || state.favoriteGenre === '' ? 'placeholder-selected' : ''}`}
                   name="favoriteGenre"
                   id="favoriteGenre"
-                  value={state.favoriteGenre}
+                  value={state.favoriteGenre || ""}
                   onChange={(e) => handleChange(e)}
                   defaultValue={''}
                 >
@@ -358,7 +358,7 @@ function SignUp() {
                   className={`select ${!state.favoriteInstrument || state.favoriteInstrument === '' ? 'placeholder-selected' : ''}`}
                   name="favoriteInstrument"
                   id="favoriteInstrument"
-                  value={state.favoriteInstrument}
+                  value={state.favoriteInstrument || ""}
                   onChange={(e) => handleChange(e)}
                   defaultValue={''}
                 >
@@ -389,7 +389,7 @@ function SignUp() {
                   name="bio"
                   id="bio"
                   placeholder="write what you want"
-                  value={state.bio}
+                  value={state.bio || ""}
                   onChange={(e) => handleChange(e)}
                 />
               </InputGroup>
@@ -464,9 +464,7 @@ function SignUp() {
         </Form>
       </div>
 
-      <div className="mediaContainer">
-        <FakeCard />
-      </div>
+      <FakeCard />
     </div>
   );
 }
