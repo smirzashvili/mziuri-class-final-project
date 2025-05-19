@@ -15,6 +15,7 @@ import * as api from '../api/api.js';
 function Contact() {
   const [state, setState] = useState({});
   const [errorMessages, setErrorMessages] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // const navigate = useNavigate();
 
@@ -22,14 +23,24 @@ function Contact() {
   useEffect(() => useFakeLoader(), []);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setState({
       ...state,
       [e.target.name]: e.target.value,
     });
+    
+    if (isSubmitted) {
+      const potentialNextState = { ...state, [name]: value };
+      const errors = validate(potentialNextState);
+      setErrorMessages(errors || {});
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setIsSubmitted(true)
 
     const errors = validate();
     if (Object.keys(errors).length > 0) {

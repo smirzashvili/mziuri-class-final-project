@@ -24,6 +24,7 @@ function SignUp() {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
   const [uploadedMedias, setUploadedMedias] = useState(Array(9).fill(null));
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { setLoggedIn } = useUserData();
 
@@ -31,16 +32,25 @@ function SignUp() {
 
   const handleChange = (e) => {
     const { name, type, value, checked } = e.target;
+    
     setState({
       ...state,
       [name]: type === 'checkbox' ? checked : value,
     });
+
+    if (isSubmitted) {
+      const potentialNextState = { ...state, [name]: value };
+      const errors = validate(potentialNextState);
+      setErrorMessages(errors || {});
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const errors = validate();
+    setIsSubmitted(true)
+
+    const errors = validate(state);
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
       return;
@@ -65,18 +75,18 @@ function SignUp() {
     }
   };
 
-  const validate = () => {
+  const validate = (formData) => {
     const errors = {};
 
     if (activeStep === 1) {
-      const fullNameError = validateFullName(state.fullName);
-      const emailError = validateEmail(state.email);
-      const passwordError = validatePassword(state.password);
-      const confirmPasswordError = validateConfirmPassword(state.confirmPassword);
-      const cityError = validateSelect(state.city);
-      const genderError = validateSelect(state.gender);
-      const dateError = validateDate(state.date);
-      const termsError = validateCheckbox(state.terms);
+      const fullNameError = validateFullName(formData.fullName);
+      const emailError = validateEmail(formData.email);
+      const passwordError = validatePassword(formData.password);
+      const confirmPasswordError = validateConfirmPassword(formData.confirmPassword);
+      const cityError = validateSelect(formData.city);
+      const genderError = validateSelect(formData.gender);
+      const dateError = validateDate(formData.date);
+      const termsError = validateCheckbox(formData.terms);
 
       if (fullNameError) errors.fullName = fullNameError;
       if (emailError) errors.email = emailError;
@@ -89,9 +99,9 @@ function SignUp() {
     }
 
     if (activeStep === 2) {
-      const genreError = validateSelect(state.favoriteGenre);
-      const instrumentError = validateSelect(state.favoriteInstrument);
-      // const bioError = validateBio(state.bio);
+      const genreError = validateSelect(formData.favoriteGenre);
+      const instrumentError = validateSelect(formData.favoriteInstrument);
+      // const bioError = validateBio(formData.bio);
 
       if (genreError) errors.favoriteGenre = genreError;
       if (instrumentError) errors.favoriteInstrument = instrumentError;
@@ -99,7 +109,7 @@ function SignUp() {
     }
 
     if (activeStep === 3) {
-      // const mediaError = validateMedias(state.media);
+      // const mediaError = validateMedias(formData.media);
       // if (mediaError) errors.media = mediaError;
     }
 

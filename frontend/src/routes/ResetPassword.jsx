@@ -15,20 +15,18 @@ function ResetPassword() {
   const { token } = useParams()
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
 
-    // if(isSubmitted) {
-    //   window.setTimeout(() => {
-    //     const errors = validate()
-    //     if (Object.keys(errors).length > 0) {
-    //       setErrorMessages(errors)
-    //       return
-    //     }
-    //   }, 20)
-    // }
+    if (isSubmitted) {
+      const potentialNextState = { ...state, [name]: value };
+      const errors = validate(potentialNextState);
+      setErrorMessages(errors || {});
+    }
   };
 
   const handleSubmit = async (e) => {
