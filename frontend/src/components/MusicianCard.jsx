@@ -19,13 +19,15 @@ function MusicianCard() {
   })
   const [infoActive, setInfoActive] = useState(false);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-  const [currentMediaDuration, setCurrentMediaDuration] = useState()
+  const currentMediaRef = useRef()
 
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const start = useRef({ x: 0, y: 0 });
   const watermarkState = position.x > 150 ? 'like' : position.x < -150 ? 'nope' : ''
   const watermarkOpacity = Math.min(Math.abs(watermarkState === 'like' ? (position.x - 150)/50 : watermarkState === 'nope' ? (position.x + 150)/50 : 0), 1)
+
+  const [indicatorProgress, setIndicatorProgress] = useState(0)
 
   const handleMouseDown = (e) => {
     start.current = { x: e.clientX, y: e.clientY };
@@ -62,20 +64,39 @@ function MusicianCard() {
     setCurrentMediaIndex((prevIndex) => prevIndex !== state.media.length - 1 ? prevIndex + 1 : prevIndex);
   };
 
-  const handleMediaLoadedMetadata = (e) => {
-    console.log(e.target.duration)
-    setCurrentMediaDuration(e.target.duration)
-  }
-
   useEffect(() => {
+    // setIndicatorProgress(0)
     requestAnimationFrame(updateIndicatorProgress);
-  }, [currentMediaDuration])
+  }, [currentMediaRef])
 
   const updateIndicatorProgress = () => {
-    const duration = videoRef.current.duration;
-    const currentTime = videoRef.current.currentTime;
-    if (duration) {
-      setIndicatorProgress(currentTime / duration);
+    if (currentMediaRef.current instanceof HTMLVideoElement) {
+      const duration = currentMediaRef.current.duration;
+      const currentTime = currentMediaRef.current.currentTime;
+      const progress = ((currentTime / duration) * 100).toFixed(1)
+      setIndicatorProgress(progress);
+
+      if(progress >= 100) {
+        // handleNextMedia()
+      }
+    } else {
+      const startTime = Date.now();
+
+      const animateImageProgress = () => {
+        const duration = 3000
+        const currentTime = Date.now() - startTime;
+        const progress = Math.min((currentTime / duration) * 100, 100).toFixed(1);
+        setIndicatorProgress(progress);
+
+        if (currentTime < 3000) {
+          requestAnimationFrame(animateImageProgress);
+        } else {
+          console.log(currentTime, 'here')
+          // handleNextMedia()
+        }
+      };
+      animateImageProgress();
+      return; // Exit to avoid looping with requestAnimationFrame below
     }
     requestAnimationFrame(updateIndicatorProgress);
   };
@@ -91,7 +112,17 @@ function MusicianCard() {
           <div
             key={index}
             className={`indicator ${index === currentMediaIndex ? 'active' : ''}`}
-          />
+          >
+            <div 
+              className='currentProgress'
+              style={
+                index === currentMediaIndex
+                  ? { width: `${indicatorProgress}%` }
+                  : { width: '0%' }
+              } 
+            >
+            </div>
+          </div>
         ))}
       </div>
 
@@ -103,12 +134,13 @@ function MusicianCard() {
             <video
               src={state.media[currentMediaIndex]}
               autoPlay
-              onLoadedMetadata={handleMediaLoadedMetadata}
               onEnded={handleNextMedia}
+              ref={currentMediaRef}
             />
           ) : (
             <img
               src={state.media[currentMediaIndex]}
+              ref={currentMediaRef}
               // onLoadedMetadata={handleMediaLoadedMetadata}
             />
           )}
