@@ -37,7 +37,7 @@ function SignIn() {
 
     setIsSubmitted(true);
 
-    const errors = validate();
+    const errors = validate(state);
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
       return;
@@ -55,11 +55,11 @@ function SignIn() {
     }
   };
 
-  const validate = () => {
+  const validate = (formData) => {
     const errors = {};
 
-    const emailError = validateEmail(state.email);
-    const passwordError = validatePassword(state.password);
+    const emailError = validateEmail(formData.email);
+    const passwordError = validatePassword(formData.password);
 
     if (emailError) errors.email = emailError;
     if (passwordError) errors.password = passwordError;

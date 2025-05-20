@@ -32,7 +32,7 @@ function ResetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const errors = validate();
+    const errors = validate(state);
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
       return;
