@@ -10,7 +10,7 @@ function InputGroup({ label, name, error, children }) {
         {label}
       </label>
       <div className="inputBox">{children}</div>
-      <span className={`error ${error ? 'visible' : ''}`}>{error || '.'}</span>
+      {/* <span className={`error ${error ? 'visible' : ''}`}>{error || '.'}</span> */}
     </div>
   );
 }

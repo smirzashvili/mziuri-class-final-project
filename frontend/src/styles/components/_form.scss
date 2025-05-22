@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 .form {
-    @include flexbox(column, flex-start, flex-start, 5px);
+    @include flexbox(column, flex-start, flex-start, 12px);
 
     & > .titlesContainer {
         margin-bottom: 16px;
@@ -25,11 +25,22 @@
     }
 
     & > .additionalContainer {
-        margin-top: 8px;
         @include flexbox(column, flex-start, flex-start, 8px);
 
         a {
             color: $primary-green;
+        }
+
+        & > .error {
+            font-size: 14px;
+            color: $primary-red;
+            opacity: 0;
+            visibility: hidden;
+
+            &.visible {
+                opacity: 1;
+                visibility: visible;
+            }
         }
     }
 }

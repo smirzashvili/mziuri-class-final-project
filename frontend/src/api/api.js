@@ -11,16 +11,17 @@ export const registerUser = async (data) => {
       }
     );
     return response.data;
-  } catch (err) {
-    throw err;
+  } catch (error) {
+    const message = error.response?.data?.error || "Something went wrong";
+    throw new Error(message);
   }
 };
 
 export const loginUser = async (data) => {
   try {
     const response = await axios.post(
-      'http://localhost:3003/api/users/login',
-      JSON.stringify({ data }),
+      'http://localhost:3003/api/users/login',
+      JSON.stringify(data), 
       {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,

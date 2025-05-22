@@ -64,14 +64,11 @@ function SignUp() {
     }
 
     try {
-      const response = await api.registerUser(state);
-
-      if (response.data) {
-        setLoggedIn(true);
-        navigate('/explore');
-      }
-    } catch (err) {
-      throw err;
+      const { data } = await api.registerUser(state);
+      setLoggedIn(true);
+      navigate('/explore');
+    } catch (error) {
+      console.log(error.message)
     }
   };
 

@@ -1,6 +1,7 @@
 import Users from '../models/users.js';
 import {hashPassword, comparePassword} from '../utils/bcrypt.js'
 import {sendResetPasswordMail, sendContactMail} from '../utils/mailSender.js'
+import jwt from 'jsonwebtoken'
 
 export const registerUser = async (req, res) => {
     try {
@@ -32,14 +33,14 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
     try {
-        const { data } = req.body;
+        const { email, password } = req.body;
 
-        const user = await Users.findOne({ email: data.email });
+        const user = await Users.findOne({ email: email });
         if (!user) {
             return res.status(400).json({ err: 'Invalid username or password' });
         }
 
-        const isPasswordValid = await comparePassword(data.password, user.password)
+        const isPasswordValid = await comparePassword(password, user.password)
         if(!isPasswordValid) {
             return res.status(400).json({ err: 'Invalid username or password' });
         }
@@ -49,7 +50,7 @@ export const loginUser = async (req, res) => {
 
         res.status(200).json({ data: user });
     } catch (err) {
-        res.status(500).json({ err: err.message || "Something went wrong" });
+        res.status(500).json({ err: err || "Something went wrong" });
     }
 };
 

@@ -13,7 +13,7 @@ function SignIn() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { setLoggedIn } = useUserData();
+  const { setLoggedIn, setUserData } = useUserData();
 
   const navigate = useNavigate();
 
@@ -45,11 +45,12 @@ function SignIn() {
 
     try {
       const { data } = await api.loginUser(state);
-      console.log(data)
+      setErrorMessages({})
       setLoggedIn(true);
+      setUserData(data)
       navigate('/explore');
     } catch (error) {
-      console.log(error.message)
+      setErrorMessages({ error: error?.message });
     }
   };
 
@@ -80,7 +81,7 @@ function SignIn() {
           >
             <input
               type="text"
-              className="input"
+              className={`input ${errorMessages.email ? 'error' : ''}`}
               name="email"
               id="email"
               value={state.email || ""}
@@ -96,7 +97,7 @@ function SignIn() {
             <>
               <input
                 type={isPasswordVisible ? 'text' : 'password'}
-                className="input"
+                className={`input ${errorMessages.password ? 'error' : ''}`}
                 name="password"
                 id="password"
                 value={state.password || ""}
@@ -114,6 +115,7 @@ function SignIn() {
           </InputGroup>
           <Button type="submit">Log in</Button>
           <div className="additionalContainer">
+            <span className={`error ${Object.values(errorMessages)[0] ? 'visible' : ''}`}>{Object.values(errorMessages)[0] || '.'}</span>
             <Link className='forgotPass' to="/forgot-password">Forgot Password?</Link>
             <p className="dontHaveAcc">
               Don't have an account? <Link to="/registration">Register</Link>

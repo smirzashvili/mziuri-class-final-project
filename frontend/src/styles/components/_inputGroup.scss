@@ -19,6 +19,10 @@
             padding: 12px 6px;
             background: transparent;
             border: 1px solid $border-grey;
+
+            &.error {
+                border-color: $primary-red;
+            }
         }
 
         & > .select {
@@ -87,18 +91,6 @@
         /* For Edge */
         input[type="date"]:-ms-input-placeholder {
             color: red;
-        }
-    }
-
-    & > .error {
-        font-size: 14px;
-        color: $primary-red;
-        opacity: 0;
-        visibility: hidden;
-
-        &.visible {
-            opacity: 1;
-            visibility: visible;
         }
     }
 }
