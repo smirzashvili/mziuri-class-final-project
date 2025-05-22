@@ -29,7 +29,7 @@ function ForgotPassword() {
 
     setIsSubmitted(true)
 
-    const errors = validate();
+    const errors = validate(state);
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
       return;

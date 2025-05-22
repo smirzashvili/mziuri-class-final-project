@@ -1,13 +1,12 @@
-import jwt from 'jsonwebtoken';
 import Users from '../models/users.js';
-import bcrypt from 'bcrypt'
+import {hashPassword, comparePassword} from '../utils/bcrypt.js'
 import {sendResetPasswordMail, sendContactMail} from '../utils/mailSender.js'
 
 export const registerUser = async (req, res) => {
     try {
         const { data } = req.body;
 
-        const hashedPassword = await bcrypt.hash(data.password + process.env.BCRYPT_PEPPER,11)
+        const hashedPassword = await hashPassword(data.password)
 
         const newUser = new Users({
             fullName: data.fullName,
@@ -36,16 +35,15 @@ export const loginUser = async (req, res) => {
         const { data } = req.body;
 
         const user = await Users.findOne({ email: data.email });
- 
         if (!user) {
             return res.status(400).json({ err: 'Invalid username or password' });
         }
 
-        const isPasswordValid = await bcrypt.compare(data.password + process.env.BCRYPT_PEPPER, user.password)
-
+        const isPasswordValid = await comparePassword(data.password, user.password)
         if(!isPasswordValid) {
             return res.status(400).json({ err: 'Invalid username or password' });
         }
+
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
 
@@ -123,7 +121,7 @@ export const resetPasswordUser = async (req, res) => {
         const decoded = jwt.verify(token, process.env.JWT_RESET_PASS_SECRET_KEY);
         const userId = decoded.id;
 
-        const hashedPassword = await bcrypt.hash(password + process.env.BCRYPT_PEPPER, 11)
+        const hashedPassword = await hashPassword(password)
 
         await Users.findOneAndUpdate({_id: userId}, {
             password: hashedPassword

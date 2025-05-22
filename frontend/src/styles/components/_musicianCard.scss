@@ -60,6 +60,12 @@
             background: #acacac;
             width: 100%;
             // animation: progress 5s linear forwards;
+
+            & > .currentProgress {
+                width: 0;
+                height: 100%;
+                background-color: white;
+            }
         }
     }
 

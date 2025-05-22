@@ -19,13 +19,16 @@ function MusicianCard() {
   })
   const [infoActive, setInfoActive] = useState(false);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-  const [currentMediaDuration, setCurrentMediaDuration] = useState()
+  const currentMediaRef = useRef()
 
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const start = useRef({ x: 0, y: 0 });
   const watermarkState = position.x > 150 ? 'like' : position.x < -150 ? 'nope' : ''
   const watermarkOpacity = Math.min(Math.abs(watermarkState === 'like' ? (position.x - 150)/50 : watermarkState === 'nope' ? (position.x + 150)/50 : 0), 1)
+
+  const [indicatorProgress, setIndicatorProgress] = useState(0)
+  const indicatorAnimationIdRef = useRef();
 
   const handleMouseDown = (e) => {
     start.current = { x: e.clientX, y: e.clientY };
@@ -62,23 +65,60 @@ function MusicianCard() {
     setCurrentMediaIndex((prevIndex) => prevIndex !== state.media.length - 1 ? prevIndex + 1 : prevIndex);
   };
 
-  const handleMediaLoadedMetadata = (e) => {
-    console.log(e.target.duration)
-    setCurrentMediaDuration(e.target.duration)
-  }
-
   useEffect(() => {
-    requestAnimationFrame(updateIndicatorProgress);
-  }, [currentMediaDuration])
+    // Clear previous animation frame
+    if (indicatorAnimationIdRef.current) {
+      cancelAnimationFrame(indicatorAnimationIdRef.current);
+    }
+
+    setIndicatorProgress(0);
+    indicatorAnimationIdRef.current = requestAnimationFrame(updateIndicatorProgress);
+
+    // Clean up on unmount or ref change
+    return () => {
+      if (indicatorAnimationIdRef.current) {
+        cancelAnimationFrame(indicatorAnimationIdRef.current);
+      }
+    };
+  }, [currentMediaRef.current]); 
+
 
   const updateIndicatorProgress = () => {
-    const duration = videoRef.current.duration;
-    const currentTime = videoRef.current.currentTime;
-    if (duration) {
-      setIndicatorProgress(currentTime / duration);
+    const media = currentMediaRef.current;
+
+    if (media instanceof HTMLVideoElement) {
+      const duration = media.duration;
+      const currentTime = media.currentTime;
+      const progress = ((currentTime / duration) * 100).toFixed(1);
+      setIndicatorProgress(progress);
+
+      if (progress >= 100) {
+        handleNextMedia();
+        return;
+      }
+
+      indicatorAnimationIdRef.current = requestAnimationFrame(updateIndicatorProgress);
+    } else {
+      const startTime = Date.now();
+
+      const animateImageProgress = () => {
+        const duration = 3000;
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min((elapsed / duration) * 100, 100).toFixed(1);
+        setIndicatorProgress(progress);
+
+        if (elapsed < duration) {
+          indicatorAnimationIdRef.current = requestAnimationFrame(animateImageProgress);
+        } else {
+          handleNextMedia();
+          console.log('here')
+        }
+      };
+
+      indicatorAnimationIdRef.current = requestAnimationFrame(animateImageProgress);
     }
-    requestAnimationFrame(updateIndicatorProgress);
   };
+
 
   return (
     <div 
@@ -91,7 +131,19 @@ function MusicianCard() {
           <div
             key={index}
             className={`indicator ${index === currentMediaIndex ? 'active' : ''}`}
-          />
+          >
+            <div 
+              className='currentProgress'
+              style={
+                index === currentMediaIndex
+                ? { width: `${indicatorProgress}%` }
+                : index > currentMediaIndex 
+                ? { width: 0 }
+                : { width: `100%` }
+              } 
+            >
+            </div>
+          </div>
         ))}
       </div>
 
@@ -103,12 +155,13 @@ function MusicianCard() {
             <video
               src={state.media[currentMediaIndex]}
               autoPlay
-              onLoadedMetadata={handleMediaLoadedMetadata}
               onEnded={handleNextMedia}
+              ref={currentMediaRef}
             />
           ) : (
             <img
               src={state.media[currentMediaIndex]}
+              ref={currentMediaRef}
               // onLoadedMetadata={handleMediaLoadedMetadata}
             />
           )}
