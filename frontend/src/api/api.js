@@ -17,15 +17,21 @@ export const registerUser = async (data) => {
 };
 
 export const loginUser = async (data) => {
-  const response = await axios.post(
-    'http://localhost:3003/api/users/login',
-    JSON.stringify({ data }),
-    {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    }
-  );
-  return response.data;
+  try {
+    const response = await axios.post(
+      'http://localhost:3003/api/users/login',
+      JSON.stringify({ data }),
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    );
+    console.log(response)
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
 };
 
 export const logoutUser = async () => {

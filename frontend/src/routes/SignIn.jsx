@@ -44,14 +44,12 @@ function SignIn() {
     }
 
     try {
-      const response = await api.loginUser(state);
-
-      if (response.data) {
-        setLoggedIn(true);
-        navigate('/explore');
-      }
-    } catch (err) {
-      throw err;
+      const { data } = await api.loginUser(state);
+      console.log(data)
+      setLoggedIn(true);
+      navigate('/explore');
+    } catch (error) {
+      console.log(error.message)
     }
   };
 

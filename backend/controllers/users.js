@@ -38,20 +38,20 @@ export const loginUser = async (req, res) => {
         const user = await Users.findOne({ email: data.email });
  
         if (!user) {
-            return res.status(404).json({ err: 'Invalid username or password' });
+            return res.status(400).json({ err: 'Invalid username or password' });
         }
 
         const isPasswordValid = await bcrypt.compare(data.password + process.env.BCRYPT_PEPPER, user.password)
 
         if(!isPasswordValid) {
-            return res.json({ err: 'Invalid username or password' });
+            return res.status(400).json({ err: 'Invalid username or password' });
         }
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
 
         res.status(200).json({ data: user });
     } catch (err) {
-        res.status(500).json({ err: err.message });
+        res.status(500).json({ err: err.message || "Something went wrong" });
     }
 };
 
