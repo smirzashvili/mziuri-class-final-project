@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
 
         res.status(201).json({ data: newUser });
     } catch (err) {
-        res.status(500).json({ err: err.message });
+        res.status(500).json({ err: err.message || "Something went wrong" });
     }
 };
 
@@ -50,7 +50,7 @@ export const loginUser = async (req, res) => {
 
         res.status(200).json({ data: user });
     } catch (err) {
-        res.status(500).json({ err: err || "Something went wrong" });
+        res.status(500).json({ err: err.message || "Something went wrong" });
     }
 };
 

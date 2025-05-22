@@ -12,7 +12,7 @@ export const registerUser = async (data) => {
     );
     return response.data;
   } catch (error) {
-    const message = error.response?.data?.error || "Something went wrong";
+    const message = error.response?.data?.err || "Something went wrong";
     throw new Error(message);
   }
 };
