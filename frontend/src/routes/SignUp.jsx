@@ -68,7 +68,7 @@ function SignUp() {
       setLoggedIn(true);
       navigate('/explore');
     } catch (error) {
-      console.log(error.message)
+      setErrorMessages({ error: error?.message });
     }
   };
 
@@ -79,9 +79,9 @@ function SignUp() {
       const fullNameError = validateFullName(formData.fullName);
       const emailError = validateEmail(formData.email);
       const passwordError = validatePassword(formData.password);
-      const confirmPasswordError = validateConfirmPassword(formData.confirmPassword);
-      const cityError = validateSelect(formData.city);
-      const genderError = validateSelect(formData.gender);
+      const confirmPasswordError = validateConfirmPassword(formData.password, formData.confirmPassword);
+      const cityError = validateSelect(formData.city, 'city');
+      const genderError = validateSelect(formData.gender, 'gender');
       const dateError = validateDate(formData.date);
       const termsError = validateCheckbox(formData.terms);
 
@@ -96,8 +96,8 @@ function SignUp() {
     }
 
     if (activeStep === 2) {
-      const genreError = validateSelect(formData.favoriteGenre);
-      const instrumentError = validateSelect(formData.favoriteInstrument);
+      const genreError = validateSelect(formData.favoriteGenre, 'genre');
+      const instrumentError = validateSelect(formData.favoriteInstrument, 'instrument');
       // const bioError = validateBio(formData.bio);
 
       if (genreError) errors.favoriteGenre = genreError;
@@ -160,7 +160,7 @@ function SignUp() {
               >
                 <input
                   type="text"
-                  className="input"
+                  className={`input ${errorMessages.fullName ? 'error' : ''}`}
                   name="fullName"
                   id="fullName"
                   value={state.fullName || ""}
@@ -175,7 +175,7 @@ function SignUp() {
               >
                 <input
                   type="text"
-                  className="input"
+                  className={`input ${errorMessages.email ? 'error' : ''}`}
                   name="email"
                   id="email"
                   value={state.email || ""}
@@ -192,7 +192,7 @@ function SignUp() {
                   <>
                     <input
                       type={isPasswordVisible ? 'text' : 'password'}
-                      className="input"
+                      className={`input ${errorMessages.password ? 'error' : ''}`}
                       name="password"
                       id="password"
                       placeholder="enter your password"
@@ -216,7 +216,7 @@ function SignUp() {
                   <>
                     <input
                       type={isConfirmPasswordVisible ? 'text' : 'password'}
-                      className="input"
+                      className={`input ${errorMessages.confirmPassword ? 'error' : ''}`}
                       name="confirmPassword"
                       id="confirmPassword"
                       placeholder="confirm your password"
@@ -240,7 +240,7 @@ function SignUp() {
                   error={errorMessages.city}
                 >
                   <select
-                    className={`select ${!state.city || state.city === '' ? 'placeholder-selected' : ''}`}
+                    className={`select ${errorMessages.city ? 'error' : ''} ${!state.city || state.city === '' ? 'placeholder-selected' : ''}`}
                     name="city"
                     id="city"
                     value={state.city || ""}
@@ -271,7 +271,7 @@ function SignUp() {
                   error={errorMessages.gender}
                 >
                   <select
-                    className={`select ${!state.gender || state.gender === '' ? 'placeholder-selected' : ''}`}
+                    className={`select ${errorMessages.gender ? 'error' : ''} ${!state.gender || state.gender === '' ? 'placeholder-selected' : ''}`}
                     name="gender"
                     id="gender"
                     value={state.gender || ""}
@@ -298,7 +298,7 @@ function SignUp() {
               >
                 <input
                   type="date"
-                  className="input"
+                  className={`input ${errorMessages.date ? 'error' : ''}`}
                   name="date"
                   id="date"
                   value={state.date || "2001-01-01"}
@@ -317,6 +317,7 @@ function SignUp() {
                     name="terms"
                     checked={state.terms || false}
                     onChange={(e) => handleChange(e)}
+                    className={`${errorMessages.email ? 'error' : ''}`}
                   />
                   <span className="acceptTerms">
                     I agree to the MelodyMatch's <Link to="/terms">Terms and Conditions</Link>
@@ -332,7 +333,7 @@ function SignUp() {
                 error={errorMessages.favoriteGenre}
               >
                 <select
-                  className={`select ${!state.favoriteGenre || state.favoriteGenre === '' ? 'placeholder-selected' : ''}`}
+                  className={`select ${errorMessages.favoriteGenre ? 'error' : ''} ${!state.favoriteGenre || state.favoriteGenre === '' ? 'placeholder-selected' : ''}`}
                   name="favoriteGenre"
                   id="favoriteGenre"
                   value={state.favoriteGenre || ""}
@@ -362,7 +363,7 @@ function SignUp() {
                 error={errorMessages.favoriteInstrument}
               >
                 <select
-                  className={`select ${!state.favoriteInstrument || state.favoriteInstrument === '' ? 'placeholder-selected' : ''}`}
+                  className={`select ${errorMessages.favoriteInstrument ? 'error' : ''} ${!state.favoriteInstrument || state.favoriteInstrument === '' ? 'placeholder-selected' : ''}`}
                   name="favoriteInstrument"
                   id="favoriteInstrument"
                   value={state.favoriteInstrument || ""}
@@ -392,7 +393,7 @@ function SignUp() {
                 error={errorMessages.bio}
               >
                 <textarea
-                  className="textarea"
+                  className={`textarea ${errorMessages.email ? 'error' : ''}`}
                   name="bio"
                   id="bio"
                   placeholder="write what you want"
@@ -464,6 +465,7 @@ function SignUp() {
             <Button type="submit">{activeStep !== 3 ? 'Continue' : 'Complete'}</Button>
           </div>
           <div className="additionalContainer">
+            <span className={`error ${Object.values(errorMessages)[0] ? 'visible' : ''}`}>{Object.values(errorMessages)[0] || '.'}</span>
             <p className="alreadyHaveAcc">
               Already have an account? <Link to="/login">Log in</Link>
             </p>

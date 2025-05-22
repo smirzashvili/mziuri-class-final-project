@@ -1,6 +1,6 @@
 export const validateFullName = (value) => {
   if (!value) {
-    return 'Name is required';
+    return 'Full name is required';
   }
 };
 
@@ -20,23 +20,23 @@ export const validatePassword = (value) => {
   }
 };
 
-export const validateConfirmPassword = (value) => {
-  if (!value) {
-    return 'Password is required';
-  } else if (value.length < 8) {
-    return 'Password must be at least 8 characters';
+export const validateConfirmPassword = (passwordValue, confirmPasswordValue) => {
+  if (!passwordValue || !confirmPasswordValue) {
+    return 'Confirm Password is required';
+  } else if (passwordValue !== confirmPasswordValue) {
+    return 'Password and Confirm Password are different';
   }
 };
 
-export const validateSelect = (value) => {
+export const validateSelect = (value, inputFieldName) => {
   if (!value || value === '') {
-    return 'This field is required';
+    return `${inputFieldName} is required`;
   }
 };
 
 export const validateDate = (value) => {
   if (!value || value === '') {
-    return 'This field is required';
+    return 'Date is required';
   } else if(typeof(parseInt(value)) === "string" || parseInt(value).toString() === "NaN") {
     return 'Enter Valid Age';
   } else if(Number(value) < 18) {

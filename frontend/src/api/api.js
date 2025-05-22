@@ -4,7 +4,7 @@ export const registerUser = async (data) => {
   try {
     const response = await axios.post(
       'http://localhost:3003/api/users/register',
-      JSON.stringify({ data }),
+      JSON.stringify(data),
       {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,

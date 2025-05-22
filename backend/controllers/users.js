@@ -5,19 +5,19 @@ import jwt from 'jsonwebtoken'
 
 export const registerUser = async (req, res) => {
     try {
-        const { data } = req.body;
+        const { fullName, email, city, password, gender, favoriteGenre, favoriteInstrument } = req.body;
 
-        const hashedPassword = await hashPassword(data.password)
+        const hashedPassword = await hashPassword(password)
 
         const newUser = new Users({
-            fullName: data.fullName,
-            email: data.email,
-            city: data.city,
+            fullName: fullName,
+            email: email,
+            city: city,
             password: hashedPassword,
-            gender: data.gender,
-            favoriteGenre: data.favoriteGenre,
-            favoriteInstrument: data.favoriteInstrument,
-            // media: data.media,
+            gender: gender,
+            favoriteGenre: favoriteGenre,
+            favoriteInstrument: favoriteInstrument,
+            // media: media,
         });
 
         await newUser.save()
@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
 
         res.status(201).json({ data: newUser });
     } catch (err) {
-        res.status(500).json({ err: err.message || "Something went wrong" });
+        res.status(500).json({ err: "Something went wrong" });
     }
 };
 
@@ -50,7 +50,7 @@ export const loginUser = async (req, res) => {
 
         res.status(200).json({ data: user });
     } catch (err) {
-        res.status(500).json({ err: err.message || "Something went wrong" });
+        res.status(500).json({ err: "Something went wrong" });
     }
 };
 
