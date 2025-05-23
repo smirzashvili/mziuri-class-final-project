@@ -2,9 +2,9 @@ import React from 'react';
 
 function Checkbox({ additionalClassnames, ...props }) {
   return (
-    <div className={`checkbox ${additionalClassnames ? additionalClassnames : ''}`}>
+    <div className={`checkbox`}>
       <input {...props} />
-      <span className="checkmark"></span>
+      <span className={`checkmark ${additionalClassnames ? additionalClassnames : ''}`}></span>
     </div>
   );
 }

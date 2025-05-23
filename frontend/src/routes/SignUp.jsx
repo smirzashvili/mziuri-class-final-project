@@ -19,12 +19,13 @@ import { useUserData } from '../context/UserContext.jsx';
 
 function SignUp() {
   const [state, setState] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
+  const errorToDisplay = Object.values(errorMessages)[0];
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
   const [uploadedMedias, setUploadedMedias] = useState(Array(9).fill(null));
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { setLoggedIn } = useUserData();
 
@@ -39,7 +40,7 @@ function SignUp() {
     });
 
     if (isSubmitted) {
-      const potentialNextState = { ...state, [name]: value };
+      const potentialNextState = { ...state, [name]: type === 'checkbox' ? checked : value, };
       const errors = validate(potentialNextState);
       setErrorMessages(errors || {});
     }
@@ -317,7 +318,7 @@ function SignUp() {
                     name="terms"
                     checked={state.terms || false}
                     onChange={(e) => handleChange(e)}
-                    className={`${errorMessages.email ? 'error' : ''}`}
+                    additionalClassnames={errorMessages.email ? 'error' : ''}
                   />
                   <span className="acceptTerms">
                     I agree to the MelodyMatch's <Link to="/terms">Terms and Conditions</Link>
@@ -465,7 +466,7 @@ function SignUp() {
             <Button type="submit">{activeStep !== 3 ? 'Continue' : 'Complete'}</Button>
           </div>
           <div className="additionalContainer">
-            <span className={`error ${Object.values(errorMessages)[0] ? 'visible' : ''}`}>{Object.values(errorMessages)[0] || '.'}</span>
+            <span className={`error ${errorToDisplay ? 'visible' : ''}`}>{errorToDisplay || '.'}</span>
             <p className="alreadyHaveAcc">
               Already have an account? <Link to="/login">Log in</Link>
             </p>

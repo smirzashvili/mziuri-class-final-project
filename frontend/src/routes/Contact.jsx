@@ -14,8 +14,9 @@ import * as api from '../api/api.js';
 
 function Contact() {
   const [state, setState] = useState({});
-  const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessages, setErrorMessages] = useState({});
+  const errorToDisplay = Object.values(errorMessages)[0]
 
   // const navigate = useNavigate();
 
@@ -117,7 +118,7 @@ function Contact() {
             >
               <input
                 type="text"
-                className="input"
+                className={`input ${errorMessages.name ? 'error' : ''}`}
                 name="name"
                 id="name"
                 value={state.name || ""}
@@ -132,7 +133,7 @@ function Contact() {
             >
               <input
                 type="text"
-                className="input"
+                className={`input ${errorMessages.email ? 'error' : ''}`}
                 name="email"
                 id="email"
                 placeholder="enter your email"
@@ -148,7 +149,7 @@ function Contact() {
           >
             <input
               type="text"
-              className="input"
+              className={`input ${errorMessages.subject ? 'error' : ''}`}
               name="subject"
               id="subject"
               placeholder="enter subject"
@@ -162,7 +163,7 @@ function Contact() {
             error={errorMessages.message}
           >
             <textarea
-              className="textarea"
+              className={`textarea ${errorMessages.message ? 'error' : ''}`}
               name="message"
               id="message"
               placeholder="how can we help you?"
@@ -171,6 +172,9 @@ function Contact() {
             />
           </InputGroup>
           <Button type="submit">Send Message</Button>
+          <div className="additionalContainer">
+            <span className={`error ${errorToDisplay ? 'visible' : ''} clearable`}>{errorToDisplay || '.'}</span>
+          </div>
         </Form>
       </div>
     </div>

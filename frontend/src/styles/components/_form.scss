@@ -40,6 +40,13 @@
             &.visible {
                 opacity: 1;
                 visibility: visible;
+                display: unset;
+            }
+
+            &.clearable {
+                &:not(.visible) {
+                    display: none;
+                }
             }
         }
     }

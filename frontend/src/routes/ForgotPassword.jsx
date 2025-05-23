@@ -6,8 +6,9 @@ import * as api from '../api/api.js';
 
 function ForgotPassword() {
   const [state, setState] = useState({});
-  const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessages, setErrorMessages] = useState({});
+  const errorToDisplay = Object.values(errorMessages)[0];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,7 +74,7 @@ function ForgotPassword() {
           >
             <input
               type="text"
-              className="input"
+              className={`input ${errorMessages.email ? 'error' : ''}`}
               name="email"
               id="email"
               value={state.email || ""}
@@ -83,6 +84,7 @@ function ForgotPassword() {
           </InputGroup>
           <Button type="submit">Send</Button>
           <div className="additionalContainer">
+            <span className={`error ${errorToDisplay ? 'visible' : ''}`}>{errorToDisplay || '.'}</span>
             <p className="rememberPass">
               Remember your password? <Link to="/login">Log In</Link>
             </p>

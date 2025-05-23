@@ -9,9 +9,10 @@ import { useUserData } from '../context/UserContext.jsx';
 
 function SignIn() {
   const [state, setState] = useState({});
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessages, setErrorMessages] = useState({});
+  const errorToDisplay = Object.values(errorMessages)[0];
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const { setLoggedIn, setUserData } = useUserData();
 
@@ -115,7 +116,7 @@ function SignIn() {
           </InputGroup>
           <Button type="submit">Log in</Button>
           <div className="additionalContainer">
-            <span className={`error ${Object.values(errorMessages)[0] ? 'visible' : ''}`}>{Object.values(errorMessages)[0] || '.'}</span>
+            <span className={`error ${errorToDisplay ? 'visible' : ''}`}>{errorToDisplay || '.'}</span>
             <Link className='forgotPass' to="/forgot-password">Forgot Password?</Link>
             <p className="dontHaveAcc">
               Don't have an account? <Link to="/registration">Register</Link>

@@ -8,7 +8,9 @@ import EyeClosed from '../assets/icons/eye-closed.svg';
 
 function ResetPassword() {
   const [state, setState] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
+  const errorToDisplay = Object.values(errorMessages)[0];
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
@@ -32,6 +34,8 @@ function ResetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsSubmitted(true)
+
     const errors = validate(state);
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
@@ -39,15 +43,10 @@ function ResetPassword() {
     }
 
     try {
-      const response = await api.resetPasswordUser(state, token);
-
-      if (response.data) {
-        // alert('email has sent')
-        // setLoggedIn(true);
-        // navigate('/explore');
-      }
-    } catch (err) {
-      throw err;
+      const { data } = await api.resetPasswordUser(state, token);
+      setErrorMessages({})
+    } catch (error) {
+      setErrorMessages({ error: error?.message });
     }
   };
 
@@ -55,7 +54,7 @@ function ResetPassword() {
     const errors = {};
 
     const passwordError = validatePassword(state.password);
-    const confirmPasswordError = validateConfirmPassword(state.confirmPassword);
+    const confirmPasswordError = validateConfirmPassword(state.password, state.confirmPassword);
 
     if (passwordError) errors.password = passwordError;
     if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
@@ -69,7 +68,6 @@ function ResetPassword() {
         <Form onSubmit={(e) => handleSubmit(e)}>
           <div className="titlesContainer">
             <h1 className="title">Reset Your Password</h1>
-            {/* <h3 className="subtitle">Sign in to continue your journey</h3> */}
           </div>
           <InputGroup
             label="New Password"
@@ -79,7 +77,7 @@ function ResetPassword() {
             <>
                 <input
                     type={isPasswordVisible ? 'text' : 'password'}
-                    className="input"
+                    className={`input ${errorMessages.password ? 'error' : ''}`}
                     name="password"
                     id="password"
                     placeholder="enter new password"
@@ -103,7 +101,7 @@ function ResetPassword() {
             <>
                 <input
                     type={isConfirmPasswordVisible ? 'text' : 'password'}
-                    className="input"
+                    className={`input ${errorMessages.confirmPassword ? 'error' : ''}`}
                     name="confirmPassword"
                     id="confirmPassword"
                     placeholder="confirm new password"
@@ -121,6 +119,7 @@ function ResetPassword() {
             </InputGroup>
           <Button type="submit">Reset Password</Button>
           <div className="additionalContainer">
+            <span className={`error ${errorToDisplay ? 'visible' : ''}`}>{errorToDisplay || '.'}</span>
             <p className="backToLogin">
               Back to <Link to="/login">Log In</Link>
             </p>
