@@ -20,14 +20,11 @@ function Sidebar() {
 
   const handleLogout = async () => {
     try {
-      const response = await api.logoutUser();
+      const { data } = await api.logoutUser();
+      setLoggedIn(false);
+      navigate('/login');
+    } catch (error) {
 
-      if (response.data) {
-        setLoggedIn(false);
-        navigate('/login');
-      }
-    } catch (err) {
-      throw err;
     }
   };
 

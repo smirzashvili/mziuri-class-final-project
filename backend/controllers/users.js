@@ -25,9 +25,9 @@ export const registerUser = async (req, res) => {
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
 
-        res.status(201).json({ data: newUser });
+        return res.status(201).json({ data: newUser });
     } catch (err) {
-        res.status(500).json({ err: "Something went wrong" });
+        return res.status(500).json({ err: "Something went wrong" });
     }
 };
 
@@ -48,18 +48,18 @@ export const loginUser = async (req, res) => {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
 
-        res.status(200).json({ data: user });
+        return res.status(200).json({ data: user });
     } catch (err) {
-        res.status(500).json({ err: "Something went wrong" });
+        return res.status(500).json({ err: "Something went wrong" });
     }
 };
 
 export const logoutUser = (req, res) => {
     try {
         res.clearCookie('token');
-        res.status(200).json({ data: 'User has logged out' });
+        return res.status(200).json({ data: 'User has logged out' });
     } catch (err) {
-        res.status(500).json({ err: err.message });
+        return res.status(500).json({ err: "Something went wrong" });
     }
 };
 
@@ -70,10 +70,10 @@ export const getToken = (req, res) => {
 
         jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
             if (err) return res.status(400).json({ msg: 'Please login now!' });
-            res.json({ token });
+            return res.status(200).json({ data: token });
         });
     } catch (err) {
-        res.status(500).json({ msg: err.message });
+        return res.status(500).json({ err: "Something went wrong" });
     }
     
 };
@@ -87,9 +87,9 @@ export const getUser = async (req, res) => {
 
         const userData = await Users.findById(userId).select('-password');
 
-        res.status(200).json({ data: userData });
+        return res.status(200).json({ data: userData });
     } catch (err) {
-        res.status(500).json({ msg: err.message });
+        return res.status(500).json({ err: "Something went wrong" });
     }
 };
 
@@ -99,7 +99,7 @@ export const forgotPasswordUser = async (req, res) => {
 
         let user = await Users.findOne({ email: email });
         if(!user) {
-            return res.status(400).json({msg: "Email is incorrect!"})
+            return res.status(400).json({err: "Email is incorrect!"})
         }
 
         const access_token = jwt.sign({ id: user._id }, process.env.JWT_RESET_PASS_SECRET_KEY, { expiresIn: '15m' });
@@ -107,9 +107,9 @@ export const forgotPasswordUser = async (req, res) => {
 
         await sendResetPasswordMail(email, url)
 
-        res.status(200).json({msg: "Check your email for further instructions"})
+        return res.status(200).json({ data: "Check your email for further instructions" })
     } catch (err) {
-        return res.status(500).json({msg: err.message})
+        return res.status(500).json({ err: "Something went wrong" });
     }
 
 }
@@ -128,12 +128,9 @@ export const resetPasswordUser = async (req, res) => {
             password: hashedPassword
         })
 
-        console.log(decoded)
-
-        res.status(200).json({msg: "Password successfully changed!"})
+        return res.status(200).json({ data: "Password successfully changed!" })
     } catch (err) {
-        console.log(err)
-        return res.status(500).json({msg: err.message})
+        return res.status(500).json({ err: "Something went wrong" });
     }
 
 }
@@ -141,13 +138,11 @@ export const resetPasswordUser = async (req, res) => {
 export const contact = async (req, res) => {
     try {
         const { email, subject, message } = req.body;
-        console.log(req.body)
         await sendContactMail(email, subject, message)
 
-        res.status(200).json({msg: "Email has sent!"})
+        return res.status(200).json({ data: "Email has sent!" })
     } catch (err) {
-        console.log(err)
-        return res.status(500).json({msg: err.message})
+        return res.status(500).json({ err: "Something went wrong" });
     }
 
 }

@@ -20,13 +20,15 @@ function App() {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const res = await api.getToken();
-      if (res.data.token) {
-        const res2 = await api.getUser(res.data.token);
-        if (res2.data) {
+      try {
+        const {data} = await api.getToken();
+        const res = await api.getUser(data);
+        if (res.data) {
           setLoggedIn(true);
           navigate('/explore');
         }
+      } catch(error) {
+        console.error(error)
       }
     };
     getUserInfo();

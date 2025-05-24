@@ -12,69 +12,102 @@ export const registerUser = async (data) => {
     );
     return response.data;
   } catch (error) {
-    const message = error.response?.data?.err || "Something went wrong";
-    throw new Error(message);
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
   }
 };
 
 export const loginUser = async (data) => {
-  try {
-    const response = await axios.post(
-      'http://localhost:3003/api/users/login',
-      JSON.stringify(data), 
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      }
-    );
-    console.log(response)
-    return response.data;
-  } catch (error) {
-    const message = error.response?.data?.err || "Something went wrong";
-    throw new Error(message);
-  }
+  try {
+    const response = await axios.post(
+      'http://localhost:3003/api/users/login',
+      JSON.stringify(data), 
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+ }
 };
 
 export const logoutUser = async () => {
-  const response = await axios.post('http://localhost:3003/api/users/logout', null, {
-    withCredentials: true,
-  });
-  return response.data;
+  try {
+    const response = await axios.post('http://localhost:3003/api/users/logout', null, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
 };
 
-export const getToken = () => {
-  return axios.post(`http://localhost:3003/api/users/get-token`, null, {
-    withCredentials: true,
-  });
+export const getToken = async () => {
+  try {
+    const response = await axios.post(`http://localhost:3003/api/users/get-token`, null, {
+      withCredentials: true,
+    })
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
 };
 
 export const getUser = async (token) => {
-  const response = await axios.get(`http://localhost:3003/api/users/get-user`, {
-    headers: { Authorization: token },
-  });
-  return response.data;
+  try {
+    const response = await axios.get(`http://localhost:3003/api/users/get-user`, {
+      headers: { Authorization: token },
+    });
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
 };
 
 export const forgotPasswordUser = (data) => {
-  return axios.put(`http://localhost:3003/api/users/forgot-password`, data, {
-    withCredentials: true,
-  });
+  try {
+    const response = axios.put(`http://localhost:3003/api/users/forgot-password`, data, {
+      withCredentials: true,
+    })
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
 }
 
 export const resetPasswordUser = (data, token) => {
-  return axios.put(`http://localhost:3003/api/users/reset-password`, data, {
-    headers: { Authorization: token },
-    withCredentials: true,
-  });
+  try {
+    const response = axios.put(`http://localhost:3003/api/users/reset-password`, data, {
+      headers: { Authorization: token },
+      withCredentials: true,
+    }) 
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
 }
 
 export const contact = async (data) => {
-  return axios.post(
-    'http://localhost:3003/api/users/contact',
-    data,
-    {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    }
-  );
+  try {
+    const response = axios.post(
+      'http://localhost:3003/api/users/contact',
+      data,
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    )
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
 };
