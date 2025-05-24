@@ -3,7 +3,7 @@ import './styles/main.scss';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { Sidebar, Main, Footer } from './layouts';
 import { About, Chat, Contact, Explore, Intro, Profile, SignIn, SignUp, Terms, ForgotPassword, ResetPassword } from './routes';
-import { LoadingScreen } from './components';
+import { LoadingScreen, Notification } from './components';
 import useDocumentTitle from './hooks/useDocumentTitle';
 import useScrollTop from './hooks/useScrollTop';
 import * as api from './api/api.js';
@@ -94,6 +94,7 @@ function App() {
       </Main>
       <Footer />
       <LoadingScreen />
+      <Notification />
     </div>
   );
 }

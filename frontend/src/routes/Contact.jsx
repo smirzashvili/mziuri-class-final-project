@@ -11,6 +11,7 @@ import {
   validateMessage,
 } from '../utils/validations';
 import * as api from '../api/api.js';
+import { useNotification } from '../context/NotificationContext';
 
 function Contact() {
   const [state, setState] = useState({});
@@ -18,7 +19,7 @@ function Contact() {
   const [errorMessages, setErrorMessages] = useState({});
   const errorToDisplay = Object.values(errorMessages)[0]
 
-  // const navigate = useNavigate();
+  const {showNotification} = useNotification();
 
   const { useFakeLoader } = useLoader();
   useEffect(() => useFakeLoader(), []);
@@ -43,30 +44,28 @@ function Contact() {
 
     setIsSubmitted(true)
 
-    const errors = validate();
+    const errors = validate(state);
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
       return;
     }
 
     try {
-      const response = await api.contact(state);
-      console.log(response)
-      if (response.data) {
-        alert('email has sent')
-      }
-    } catch (err) {
-      throw err;
+      const { data } = await api.contact(state);
+      showNotification('Contact form has successfully sent!')
+      setErrorMessages({})
+    } catch (error) {
+      setErrorMessages({ error: error?.message });
     }
   };
 
-  const validate = () => {
+  const validate = (formData) => {
     const errors = {};
 
-    const nameError = validateFullName(state.name);
-    const emailError = validateEmail(state.email);
-    const subjectError = validateSubject(state.subject);
-    const messageError = validateMessage(state.message);
+    const nameError = validateFullName(formData.name);
+    const emailError = validateEmail(formData.email);
+    const subjectError = validateSubject(formData.subject);
+    const messageError = validateMessage(formData.message);
 
     if (nameError) errors.name = nameError;
     if (emailError) errors.email = emailError;

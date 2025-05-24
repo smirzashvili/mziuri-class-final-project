@@ -3,12 +3,15 @@ import { Button, InputGroup, Form, IconButton, FakeCard } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { validateEmail } from '../utils/validations';
 import * as api from '../api/api.js';
+import { useNotification } from '../context/NotificationContext';
 
 function ForgotPassword() {
   const [state, setState] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
   const errorToDisplay = Object.values(errorMessages)[0];
+
+  const {showNotification} = useNotification();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,22 +40,18 @@ function ForgotPassword() {
     }
 
     try {
-      const response = await api.forgotPasswordUser(state);
-
-      if (response.data) {
-        alert('email has sent')
-        // setLoggedIn(true);
-        // navigate('/explore');
-      }
-    } catch (err) {
-      throw err;
+      const { data } = await api.forgotPasswordUser(state);
+      setErrorMessages({})
+      showNotification('Sucessfully sent! Check email for further information')
+    } catch (error) {
+      setErrorMessages({ error: error?.message });
     }
   };
 
-  const validate = () => {
+  const validate = (formData) => {
     const errors = {};
 
-    const emailError = validateEmail(state.email);
+    const emailError = validateEmail(formData.email);
 
     if (emailError) errors.email = emailError;
 

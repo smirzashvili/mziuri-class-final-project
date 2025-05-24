@@ -1,0 +1,30 @@
+@use '../abstracts' as *;
+
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background-color: $primary-green;
+    color: white;
+    border: 1px solid $border-grey;
+    padding: 10px 20px;
+    border-radius: 4px;
+    z-index: 9999;
+    font-size: 14px;
+    transition: 500ms;
+    transition-timing-function: ease-in-out;
+    opacity: 0;
+
+    &.fade-in {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    &.fade-out {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}

@@ -5,6 +5,7 @@ import { validateConfirmPassword, validatePassword } from '../utils/validations'
 import * as api from '../api/api.js';
 import Eye from '../assets/icons/eye.svg';
 import EyeClosed from '../assets/icons/eye-closed.svg';
+import { useNotification } from '../context/NotificationContext';
 
 function ResetPassword() {
   const [state, setState] = useState({});
@@ -15,6 +16,8 @@ function ResetPassword() {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
   const { token } = useParams()
+  
+  const {showNotification} = useNotification();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,17 +47,18 @@ function ResetPassword() {
 
     try {
       const { data } = await api.resetPasswordUser(state, token);
+      showNotification('The password has been reset!')
       setErrorMessages({})
     } catch (error) {
       setErrorMessages({ error: error?.message });
     }
   };
 
-  const validate = () => {
+  const validate = (formData) => {
     const errors = {};
 
-    const passwordError = validatePassword(state.password);
-    const confirmPasswordError = validateConfirmPassword(state.password, state.confirmPassword);
+    const passwordError = validatePassword(formData.password);
+    const confirmPasswordError = validateConfirmPassword(formData.password, formData.confirmPassword);
 
     if (passwordError) errors.password = passwordError;
     if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
