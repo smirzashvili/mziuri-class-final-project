@@ -1,0 +1,207 @@
+@use '../abstracts' as *;
+
+.chat {
+    width: 100%;
+    height: 100vh;
+    padding: 24px;
+    padding-bottom: 0;
+    @include flexbox(row, flex-start, flex-start);
+
+    & > .leftBar {
+        height: 100%;
+        width: 20%;
+        background-color: white;
+        & > .upperContainer {
+            padding: 0 16px;
+            height: 80px;
+            @include flexbox(row, flex-start, center);
+            border-bottom: 1px solid $border-grey;
+
+            & > input {
+                width: 100%;
+                padding: 12px 6px;
+                background: $bg-color;
+                border: 1px solid $border-grey;
+                border-radius: 4px;
+            }
+        }
+
+        & > .matchesList {
+            @include flexbox(column, flex-start, flex-start);
+
+            & > .item {
+                border-bottom: 1px solid $border-grey;
+                width: 100%;
+                padding: 16px;
+                @include flexbox(row, space-between, flex-start);
+                cursor: pointer;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration: 150ms;
+
+                &:hover {
+                    background-color: $bg-color;
+                }
+
+                &.active {
+                    background-color: $bg-color;
+                    cursor: unset;
+                }
+
+                & > div {
+                    @include flexbox(row, flex-start, flex-start, 12px);
+                    & > .nameAndMessageContainer {
+                        @include flexbox(column, flex-start, flex-start, 3px);
+                        height: 100%;
+                        
+                        & > p:nth-child(2) {
+                            font-size: 14px;
+                            color: $darker-grey;
+                            @include flexbox(row, flex-start, center, 6px);
+
+                            & > .icon {
+                                width: 10px;
+                                height: 10px;
+                            }
+    
+                            & > .greenCircle {
+                                width: 6px;
+                                height: 6px;
+                                border-radius: 100%;
+                                background-color: rgba(55, 175, 145, 1);
+                            }
+                        }
+                    }
+
+                }
+
+                & > .messageTime {
+                    font-size: 12px;
+                    color: $darker-grey;
+                }
+            }
+        }
+    }
+    & > .rightBar {
+        height: 100%;
+        width: 80%;
+        background-color: white;
+        border-left: 1px solid $border-grey;
+        @include flexbox(column, space-between);
+        
+        & > .upperContainer {
+            width: 100%;
+            padding: 0 16px;
+            border-bottom: 1px solid $border-grey;
+            height: 80px;
+            min-height: 80px;
+            @include flexbox(row, space-between, center);
+
+            & > div {
+                @include flexbox(row, flex-start, center, 12px);
+                & > p:nth-child(2) {
+                    color: $darker-grey;
+                }
+            }
+        }
+        & > .chatContainer {
+            width: 100%;
+            background-color: $bg-color;
+            height: 100%;
+            @include flexbox(row, center, flex-end, 6px);
+
+            & > .chatBox {
+                max-width: 768px;
+                width: 100%;
+
+                & > .item {
+                    @include flexbox(row, flex-start, flex-start, 6px);
+                    width: 100%;
+                    margin-bottom: 16px;
+
+                    & > .messageAndTime {
+                        max-width: 70%;
+                    }
+
+                    p {
+                        padding: 12px;
+                        border-radius: 8px;
+                    }
+
+                    .time {
+                        font-size: 12px;
+                        color: $darker-grey;
+                        width: 100%;
+                        display: inline-block;
+                        text-align: right;
+                    }
+
+                    &.send {
+                        justify-content: flex-end;
+                        p {
+                            background-color: $primary-green;
+                            border-top-right-radius: 0;
+                            color: white;
+                        }
+                    }
+                    &.receive {
+                        justify-content: flex-start;
+                        p {
+                            background-color: white;
+                            border-top-left-radius: 0;
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
+        & > .bottomContainer {
+            width: 100%;
+            padding: 0 16px;
+            border-top: 1px solid $border-grey;
+            height: 80px;
+            @include flexbox(row, flex-start, center, 8px);
+
+            & > input {
+                width: 100%;
+                padding: 12px 6px;
+                background: $bg-color;
+                border: 1px solid $border-grey;
+                border-radius: 4px;
+            }
+            & .iconButton {
+                padding: 15px;
+                border-radius: 4px;
+
+                &.green {
+                    background-color: $primary-green;
+                }
+            }
+
+            & > .emojiContainer {
+                position: relative;
+
+                & > .emojiPicker {
+                    position: absolute;
+                    bottom: 56px;
+                    right: 0;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: none!important;
+                    
+                    &.visible {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+    }
+
+    .userImage {
+        width: 40px;
+        height: 40px;
+        aspect-ratio: 1/1;
+        border-radius: 100%;
+        background-color: $border-grey;
+    }
+}

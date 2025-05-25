@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import UserImage from '../assets/icons/eye-closed.svg';
 import IconButton from './IconButton';
 import Info from '../assets/icons/info.svg';
+import Close from '../assets/icons/close.svg';
+import Heart from '../assets/icons/heart.svg';
+import Refresh from '../assets/icons/refresh.svg';
 
 function MusicianCard() {
   const [state, setState] = useState({
@@ -80,7 +83,7 @@ function MusicianCard() {
         cancelAnimationFrame(indicatorAnimationIdRef.current);
       }
     };
-  }, [currentMediaRef.current]); 
+  }, [currentMediaIndex, currentMediaRef]); 
 
 
   const updateIndicatorProgress = () => {
@@ -106,12 +109,11 @@ function MusicianCard() {
         const elapsed = Date.now() - startTime;
         const progress = Math.min((elapsed / duration) * 100, 100).toFixed(1);
         setIndicatorProgress(progress);
-
         if (elapsed < duration) {
           indicatorAnimationIdRef.current = requestAnimationFrame(animateImageProgress);
         } else {
+          console.log('2312312')
           handleNextMedia();
-          console.log('here')
         }
       };
 
@@ -119,90 +121,129 @@ function MusicianCard() {
     }
   };
 
+  const handleRefresh = () => {
+    setCurrentMediaIndex(0)
+
+    if(indicatorAnimationIdRef.current) {
+      cancelAnimationFrame(indicatorAnimationIdRef.current)
+    }
+    setIndicatorProgress(0)
+    indicatorAnimationIdRef.current = requestAnimationFrame(updateIndicatorProgress);
+  }
+
+  const handleLike = () => {
+    // watermarkState = 'like'
+    // watermarkOpacity = 1
+  }
+
+  const handleDislike = () => {
+    // watermarkState = 'nope'
+    // watermarkOpacity = 1
+  }
 
   return (
-    <div 
-      className="musicianCard"
-      onMouseDown={handleMouseDown}
-      style={{transform: `translateX(${position.x}px) rotate(${rotation}deg)`}}
-    >
-      <div className="indicators">
-        {state.media.map((_, index) => (
-          <div
-            key={index}
-            className={`indicator ${index === currentMediaIndex ? 'active' : ''}`}
-          >
-            <div 
-              className='currentProgress'
-              style={
-                index === currentMediaIndex
-                ? { width: `${indicatorProgress}%` }
-                : index > currentMediaIndex 
-                ? { width: 0 }
-                : { width: `100%` }
-              } 
+    <div className="musicianCard">
+      <div 
+        className='card'
+        onMouseDown={handleMouseDown} 
+        style={{transform: `translateX(${position.x}px) rotate(${rotation}deg)`}}
+      >
+        <div className="indicators">
+          {state.media.map((_, index) => (
+            <div
+              key={index}
+              className={`indicator ${index === currentMediaIndex ? 'active' : ''}`}
             >
+              <div 
+                className='currentProgress'
+                style={
+                  index === currentMediaIndex
+                  ? { width: `${indicatorProgress}%` }
+                  : index > currentMediaIndex 
+                  ? { width: 0 }
+                  : { width: `100%` }
+                } 
+              >
+              </div>
             </div>
+          ))}
+        </div>
+
+        <div
+          className={`media`}
+        >
+          <>
+            {state.media[currentMediaIndex].match(/\.(mp4|webm|ogg)$/i) ? (
+              <video
+                src={state.media[currentMediaIndex]}
+                autoPlay
+                // onEnded={handleNextMedia}
+                ref={currentMediaRef}
+              />
+            ) : (
+              <img
+                src={state.media[currentMediaIndex]}
+                ref={currentMediaRef}
+                // onLoadedMetadata={handleMediaLoadedMetadata}
+              />
+            )}
+          </>
+          <div className='half' onMouseUp={handlePrevMedia}></div>
+          <div className='half second' onMouseUp={handleNextMedia}></div>
+        </div>
+
+        <div
+          className={`infoContainer ${infoActive ? 'active' : ''}`}
+        >
+          <IconButton
+            icon={Info}
+            onClick={() => setInfoActive(!infoActive)}
+            size={16}
+          />
+          <div className='section'>
+            <h2>{state.fullName}, {state.age}</h2>
+            <p>{state.city}</p>
           </div>
-        ))}
+          {infoActive && <div className='additional'>
+            <div className='section'>
+              <h3>Bio</h3>
+              <p>{state.bio}</p>
+            </div>
+            <div className='section'>
+              <h3>Favorite Genre</h3>
+              <p>{state.favoriteGenre}</p>
+            </div>
+            <div className='section'>
+              <h3>Favorite Instruemnt</h3>
+              <p>{state.favoriteInstrument}</p>
+            </div>
+          </div>}
+        </div>
+
+        <div 
+          className={`watermark ${watermarkState}`}
+          style={{opacity: watermarkOpacity}}
+        >
+          {watermarkState}      
+        </div>
       </div>
 
-      <div
-        className={`media`}
-      >
-        <>
-          {state.media[currentMediaIndex].match(/\.(mp4|webm|ogg)$/i) ? (
-            <video
-              src={state.media[currentMediaIndex]}
-              autoPlay
-              onEnded={handleNextMedia}
-              ref={currentMediaRef}
-            />
-          ) : (
-            <img
-              src={state.media[currentMediaIndex]}
-              ref={currentMediaRef}
-              // onLoadedMetadata={handleMediaLoadedMetadata}
-            />
-          )}
-        </>
-        <div className='half' onClick={handlePrevMedia}></div>
-        <div className='half second' onClick={handleNextMedia}></div>
-      </div>
-
-      <div
-        className={`infoContainer ${infoActive ? 'active' : ''}`}
-      >
+      <div className="controlPanel">
         <IconButton
-          icon={Info}
-          onClick={() => setInfoActive(!infoActive)}
+          icon={Close}
+          onClick={handleDislike}
+          size={14}
+        />
+        <IconButton
+          icon={Heart}
+          onClick={handleLike}
           size={16}
         />
-        <div className='section'>
-          <h2>{state.fullName}, {state.age}</h2>
-          <p>{state.city}</p>
-        </div>
-        {infoActive && <div className='additional'>
-          <div className='section'>
-            <h3>Bio</h3>
-            <p>{state.bio}</p>
-          </div>
-          <div className='section'>
-            <h3>Favorite Genre</h3>
-            <p>{state.favoriteGenre}</p>
-          </div>
-          <div className='section'>
-            <h3>Favorite Instruemnt</h3>
-            <p>{state.favoriteInstrument}</p>
-          </div>
-        </div>}
-      </div>
-
-      <div 
-        className={`watermark ${watermarkState}`}
-        style={{opacity: watermarkOpacity}}
-      >
-        {watermarkState}      
+        <IconButton
+          icon={Refresh}
+          onClick={handleRefresh}
+          size={14}
+        />
       </div>
     </div>
   );

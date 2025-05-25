@@ -1,35 +1,6 @@
 @use '../abstracts' as *;
 
 .explore {
-    @include flexbox(column, center, center, 32px);
+    @include flexbox(column, center, center);
     margin: 102px 0;
-
-    & > .controlPanel {
-        @include flexbox(row, center, flex-start, 16px);
-
-        & > .iconButton {
-            background-color: white;
-            padding: 20px;
-            border-radius: 100%;
-            outline: 1px solid rgba($darker-grey, .3);
-            box-shadow: $shadow-sm;
-
-            &:hover {
-                opacity: 1;
-                background-color: #e7edf3;
-            }
-
-            &:nth-child(2) {
-                outline: none;
-                padding: 24px;
-                background-color: $secondary-green;
-                box-shadow: $shadow-md;
-
-                &:hover {
-                    opacity: .8;
-                    background-color: $darker-green;
-                }
-            }
-        }
-    }
 }
