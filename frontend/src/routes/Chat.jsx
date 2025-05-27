@@ -25,7 +25,7 @@ function Chat() {
 
   const handleEmojiClick = (emojiData) => {
     const emoji = emojiData.emoji;
-    handleChange('message', (message || '') + emoji);
+    setMessage(prev => prev + emoji);
   };
 
   useEffect(() => {
@@ -53,8 +53,7 @@ function Chat() {
   const sendMessage = () => {
     const msgData = {
       message,
-      sender: 'bla',
-      time: new Date().toLocaleTimeString()
+      sender: 'bla'
     };
     socketRef.current.emit("send_message", msgData);
   };

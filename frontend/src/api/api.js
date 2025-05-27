@@ -70,9 +70,9 @@ export const getUser = async (token) => {
   }
 };
 
-export const forgotPasswordUser = (data) => {
+export const forgotPasswordUser = async (data) => {
   try {
-    const response = axios.put(`http://localhost:3003/api/users/forgot-password`, data, {
+    const response = await axios.put(`http://localhost:3003/api/users/forgot-password`, data, {
       withCredentials: true,
     })
     return response.data;
@@ -82,22 +82,10 @@ export const forgotPasswordUser = (data) => {
   }
 }
 
-export const resetPasswordUser = (data, token) => {
-  try {
-    const response = axios.put(`http://localhost:3003/api/users/reset-password`, data, {
-      headers: { Authorization: token },
-      withCredentials: true,
-    }) 
-    return response.data;
-  } catch (error) {
-    const message = error.response?.data?.err || "Something went wrong";
-    throw new Error(message);
-  }
-}
 
 export const contact = async (data) => {
   try {
-    const response = axios.post(
+    const response = await axios.post(
       'http://localhost:3003/api/users/contact',
       data,
       {

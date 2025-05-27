@@ -139,7 +139,6 @@ export const contact = async (req, res) => {
     try {
         const { email, subject, message } = req.body;
         await sendContactMail(email, subject, message)
-
         return res.status(200).json({ data: "Email has sent!" })
     } catch (err) {
         return res.status(500).json({ err: "Something went wrong" });
