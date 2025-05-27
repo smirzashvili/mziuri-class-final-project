@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { IconButton } from '../components'
 import ThreeDot from '../assets/icons/threeDot.svg';
 import SendMessage from '../assets/icons/sendMessage.svg';
@@ -6,23 +6,58 @@ import Emoji from '../assets/icons/emoji.svg';
 import MessageSend from '../assets/icons/messageSend.svg';
 // import MessageReceive from '../assets/icons/messageReceive.svg';
 import EmojiPicker from 'emoji-picker-react';
+import io from 'socket.io-client';
 
 function Chat() {
+  const [chat, setChat] = useState([
+    {
+      sender: 'Sarah', //userId
+      message: "Hey, how's it going?"
+    },
+    {
+      sender: 'Saba', //userId
+      message: "Hey, how's it going? sssssssssssssssss dasd asda ssssssssssssssssssssssssssss sssssssssssssssssssss ssssssssssssssssssssssssssssssssssssss"
+    },
+  ]);
+  const [message, setMessage] = useState('');
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
-  const [state, setState] = useState('');
-
-  const handleChange = (name, value) => {
-    setState({
-      ...state,
-      [name]: value,
-    });
-  };
+  const socketRef = useRef(null);
 
   const handleEmojiClick = (emojiData) => {
     const emoji = emojiData.emoji;
-    handleChange('message', (state.message || '') + emoji);
+    handleChange('message', (message || '') + emoji);
   };
 
+  useEffect(() => {
+    socketRef.current = io('http://localhost:3003', {
+      withCredentials: true,
+    });
+
+    const socket = socketRef.current;
+
+    socket.on("receive_message", (data) => {
+      setChat(prev => [...prev, data]);
+    });
+
+    socket.on("chat_history", (data) => {
+      setChat(data);
+    });
+
+    return () => {
+      socket.off("receive_message");
+      socket.off("chat_history");
+      socket.disconnect(); //clean up on unmount
+    };
+  }, []);
+
+  const sendMessage = () => {
+    const msgData = {
+      message,
+      sender: 'bla',
+      time: new Date().toLocaleTimeString()
+    };
+    socketRef.current.emit("send_message", msgData);
+  };
 
 
   return (
@@ -52,19 +87,6 @@ function Chat() {
             </div>
             <span className='messageTime'>2m</span>
           </div>     
-
-          {/* <div className='item'>
-            <div>
-              <div className='userImage'>
-
-              </div>
-              <div className='nameAndMessageContainer'>
-                <p>Sarah</p>
-                <p>Hey, how's it going? <span className='greenCircle'></span></p>
-              </div>
-            </div>
-            <span className='messageTime'>2m</span>
-          </div> */}
         </div>
       </div>
       <div className='rightBar'>
@@ -82,6 +104,9 @@ function Chat() {
         </div>
         <div className='chatContainer'>
           <div className='chatBox'>
+            {chat.map(item => 
+              <p>{item.message}</p>
+            )}
             <div className='item receive'>
               <div className='userImage'>
 
@@ -106,8 +131,8 @@ function Chat() {
         <div className='bottomContainer'>
             <input 
               name='message'
-              value={state.message || ''}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
+              value={message || ''}
+              onChange={(e) => setMessage(e.target.value)}
               placeholder='Type a message...'
               onFocus={() => setEmojiPickerVisible(false)}
             />
@@ -127,6 +152,7 @@ function Chat() {
               size={16}
               additionalClassnames={'green'}
               onFocus={() => setEmojiPickerVisible(false)}
+              onClick={sendMessage}
             />
         </div>
       </div>

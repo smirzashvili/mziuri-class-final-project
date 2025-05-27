@@ -8,8 +8,20 @@ import UsersRouter from './routes/users.js';
 import { rateLimit } from 'express-rate-limit'
 import helmet from "helmet";
 import compression from 'compression';
+import { Server } from 'socket.io';
+import http from 'http';
+import Message from './models/messages.js';
 
 const app = express()
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173", // React frontend
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
 
 dotenv.config()
 
@@ -22,9 +34,7 @@ const limiter = rateLimit({
 app.use(limiter)
 
 app.use(cors({
-    origin: (origin, callback) => {
-        callback(null, origin || '*'); // Allow any origin
-    },    
+    origin: "http://localhost:5173",    
     credentials: true // Allow cookies to be sent
 }));
 
@@ -36,7 +46,31 @@ app.use(compression())
 // app.use('/api/todos', auth, TodosRouter)
 app.use('/api/users', UsersRouter)
 
-app.listen(process.env.PORT || 3003, () => {
+
+// Socket.IO setup
+io.on('connection', async (socket) => {
+  console.log('socket connected:', socket.id);
+
+  // Send chat history
+  const messages = await Message.find().sort({ createdAt: 1 }).limit(100);
+  console.log(messages)
+  socket.emit('chat_history', messages);
+
+  // Receive message and save to DB
+  socket.on('send_message', async (data) => {
+    const newMessage = new Message(data);
+    console.log(newMessage)
+    await newMessage.save();
+    io.emit('receive_message', data); // broadcast
+  });
+
+  socket.on('disconnect', () => {
+    console.log('socket disconnected:', socket.id);
+  });
+});
+
+
+server.listen(process.env.PORT || 3003, () => {
     console.log('server has started')
     connectDB(process.env.CONNECTION_STRING)
 })
