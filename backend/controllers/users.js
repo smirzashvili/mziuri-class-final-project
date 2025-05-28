@@ -25,7 +25,10 @@ export const registerUser = async (req, res) => {
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
 
-        return res.status(201).json({ data: newUser });
+        const userObj = newUser.toObject();
+        delete userObj.password;
+
+        return res.status(201).json({ data: userObj });
     } catch (err) {
         return res.status(500).json({ err: "Something went wrong" });
     }
@@ -35,7 +38,7 @@ export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await Users.findOne({ email: email });
+        const user = await Users.findOne({ email: email })
         if (!user) {
             return res.status(400).json({ err: 'Invalid username or password' });
         }
@@ -48,7 +51,10 @@ export const loginUser = async (req, res) => {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
 
-        return res.status(200).json({ data: user });
+        const userObj = user.toObject();
+        delete userObj.password;
+
+        return res.status(200).json({ data: userObj });
     } catch (err) {
         return res.status(500).json({ err: "Something went wrong" });
     }
@@ -116,7 +122,7 @@ export const forgotPasswordUser = async (req, res) => {
 
 export const resetPasswordUser = async (req, res) => {
     try {
-        const {password, confirm_password} = req.body;
+        const { password } = req.body;
         const token = req.header('Authorization');
 
         const decoded = jwt.verify(token, process.env.JWT_RESET_PASS_SECRET_KEY);
@@ -146,35 +152,38 @@ export const contact = async (req, res) => {
 
 }
 
-// export const updateUser = async (req, res) => {
-//     try {
-//         const { userId, newInfo } = req.body;
-//         let updatedUser;
-//         try {
-//             let hashedPass;
-//             if(newInfo.newPassword.length)  hashedPass = await bcrypt.hash(newInfo.newPassword + process.env.BCRYPT_PEPPER, 11);  
-            
-//             let updatedData;
-//             if(hashedPass) 
-//             {
-//                 updatedData = {
-//                     email: newInfo.newEmail,
-//                     password: hashedPass  
-//                 };
-//             }
-//             else {
-//                 updatedData = {
-//                     email: newInfo.newEmail,
-//                 };
-//             }
+export const updateUser = async (req, res) => {
+  try {
+    const { _id, fullName, email, city, gender, favoriteGenre, favoriteInstrument, date, password } = req.body;
 
-//             updatedUser = await Users.findByIdAndUpdate(userId, updatedData, { new: true });
-//             return res.status(200).json({ updatedUser: updatedUser });
-//         } catch(err) {
-//             console.log(err);
-//             return res.status(500).json({ err: err });
-//         }
-//     } catch(Err) {
-//         return res.status(500).json({ err: Err });
-//     }
-// }
+    // Validate user exists
+    const user = await Users.findById(_id);
+    if (!user) {
+      return res.status(404).json({ err: 'User not found' });
+    }
+
+    const updatedData = {
+      fullName,
+      email,
+      city,
+      gender,
+      favoriteGenre,
+      favoriteInstrument,
+      date
+    };
+
+    // If password is provided and confirmed, hash and include it
+    if (password) {
+      updatedData.password = await hashPassword(password);
+    }
+
+    const updatedUser = await Users.findByIdAndUpdate(_id, updatedData, {
+      new: true,
+      select: '-password', // exclude password from response
+    });
+
+    return res.status(200).json({ data: updatedUser });
+  } catch (err) {
+    return res.status(500).json({ err: 'Failed to update user' });
+  }
+};

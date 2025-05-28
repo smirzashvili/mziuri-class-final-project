@@ -19,6 +19,7 @@
 @use './routes/forgotPassword';
 @use './routes/resetPassword';
 @use './routes/chat';
+@use './routes/profile';
 
 @use './components/loadingScreen';
 @use './components/logo';

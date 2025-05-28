@@ -60,7 +60,7 @@ export const getToken = async () => {
 
 export const getUser = async (token) => {
   try {
-    const response = await axios.get(`http://localhost:3003/api/users/get-user`, {
+    const response = await axios.get(`http://localhost:3003/api/users/get`, {
       headers: { Authorization: token },
     });
     return response.data;
@@ -98,4 +98,22 @@ export const contact = async (data) => {
     const message = error.response?.data?.err || "Something went wrong";
     throw new Error(message);
   }
+};
+
+export const updateUser = async (data) => {
+  try {
+    const response = await axios.put(
+      'http://localhost:3003/api/users/update',
+      JSON.stringify(data), 
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error)
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+ }
 };
