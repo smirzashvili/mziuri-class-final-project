@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { IconButton } from '../components'
 import ThreeDot from '../assets/icons/threeDot.svg';
 import SendMessage from '../assets/icons/sendMessage.svg';
 import Emoji from '../assets/icons/emoji.svg';
 import MessageSend from '../assets/icons/messageSend.svg';
 // import MessageReceive from '../assets/icons/messageReceive.svg';
-import EmojiPicker from 'emoji-picker-react';
 import io from 'socket.io-client';
 import { useUserData } from '../context/UserContext';
 import { formatTime } from '../utils/textFormat';
 import { useSocket } from '../context/SocketContext';
+const LazyEmojiPicker = lazy(() => import('emoji-picker-react'));
 
 function Chat() {
   const [chat, setChat] = useState([]);
@@ -56,6 +56,7 @@ function Chat() {
   };
   
   useEffect(() => {
+    setMessage('')
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
@@ -139,10 +140,19 @@ function Chat() {
                 size={16}
                 onClick={() => setEmojiPickerVisible(!emojiPickerVisible)}
               />
-              {/* <EmojiPicker 
+                {/* <EmojiPicker 
                 className={`emojiPicker ${emojiPickerVisible ? 'visible' : ''}`} 
                 onEmojiClick={handleEmojiClick}
               /> */}
+
+              <Suspense fallback={null}>
+                {emojiPickerVisible && (
+                  <LazyEmojiPicker 
+                    className='emojiPicker visible' 
+                    onEmojiClick={handleEmojiClick} 
+                  />
+                )}
+              </Suspense>
             </div>
             <IconButton
               icon={SendMessage}
