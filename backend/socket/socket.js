@@ -5,16 +5,15 @@ const initializeSocket = (io) => {
   io.on('connection', async (socket) => {
     console.log('socket connected:', socket.id);
 
-    // Send chat history to the newly connected client
-    try {
-      const messages = await Messages.find().sort({ createdAt: 1 }).limit(100);
-      socket.emit('chat_history', messages);
-      console.log(`Sent chat history to ${socket.id}`);
-    } catch (error) {
-      console.error('Error fetching chat history:', error);
-      // Optionally, emit an error to the client
-      socket.emit('error', 'Failed to load chat history.');
-    }
+    socket.on('get_chat_history', async () => {
+        try {
+            const messages = await Messages.find().sort({ createdAt: 1 }).limit(100);
+            socket.emit('chat_history', messages);
+        } catch (error) {
+            console.error('Error fetching chat history:', error);
+            socket.emit('error', 'Failed to load chat history.');
+        }
+    });
 
     // Handle incoming messages from clients
     socket.on('send_message', async (data) => {

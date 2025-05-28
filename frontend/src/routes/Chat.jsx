@@ -17,6 +17,7 @@ function Chat() {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
   const { userData } = useUserData()
   const { socket } = useSocket();
+  const chatBoxRef = useRef(null);
 
   const handleEmojiClick = (emojiData) => {
     const emoji = emojiData.emoji;
@@ -24,23 +25,28 @@ function Chat() {
   };
 
   useEffect(() => {
-    console.log(socket)
     if (!socket) return;
 
-    socket.on("receive_message", (data) => {
-      setChat(prev => [...prev, data]);
-    });
+    socket.emit("get_chat_history");
 
-    socket.on("chat_history", (data) => {
+    const historyHandler = (data) => {
       setChat(data);
-    });
+    };
+
+    const receiveHandler = (data) => {
+      setChat(prev => [...prev, data]);
+    };
+
+    socket.on("chat_history", historyHandler);
+    socket.on("receive_message", receiveHandler);
 
     return () => {
-      socket.off("receive_message");
-      socket.off("chat_history");
+      socket.off("chat_history", historyHandler);
+      socket.off("receive_message", receiveHandler);
     };
   }, [socket]);
 
+  
   const sendMessage = () => {
     const data = {
       sender: userData._id,
@@ -48,10 +54,12 @@ function Chat() {
     };
     socket.emit("send_message", data);
   };
-
-  if (!socket) {
-    return <div>Connecting to chat...</div>; // Or some other loading/connection state UI
-  }
+  
+  useEffect(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [chat]);
 
   return (
     <div className='chat'>
@@ -96,7 +104,7 @@ function Chat() {
             />
         </div>
         <div className='chatContainer'>
-          <div className='chatBox'>
+          <div className='chatBox' ref={chatBoxRef}>
             {chat.map((item, index) => {
               let isYou = item.sender === userData?._id
               return (
@@ -131,10 +139,10 @@ function Chat() {
                 size={16}
                 onClick={() => setEmojiPickerVisible(!emojiPickerVisible)}
               />
-              <EmojiPicker 
+              {/* <EmojiPicker 
                 className={`emojiPicker ${emojiPickerVisible ? 'visible' : ''}`} 
                 onEmojiClick={handleEmojiClick}
-              />
+              /> */}
             </div>
             <IconButton
               icon={SendMessage}
