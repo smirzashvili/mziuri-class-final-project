@@ -14,7 +14,7 @@ function SignIn() {
   const errorToDisplay = Object.values(errorMessages)[0];
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const { setLoggedIn, setUserData } = useUserData();
+  const { login } = useUserData();
 
   const navigate = useNavigate();
 
@@ -47,8 +47,7 @@ function SignIn() {
     try {
       const { data } = await api.loginUser(state);
       setErrorMessages({})
-      setLoggedIn(true);
-      setUserData(data)
+      login(data)
       navigate('/explore');
     } catch (error) {
       setErrorMessages({ error: error?.message });

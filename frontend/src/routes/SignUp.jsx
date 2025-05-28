@@ -27,7 +27,7 @@ function SignUp() {
   const [activeStep, setActiveStep] = useState(1);
   const [uploadedMedias, setUploadedMedias] = useState(Array(9).fill(null));
 
-  const { setLoggedIn } = useUserData();
+  const { login } = useUserData();
 
   const navigate = useNavigate();
 
@@ -66,7 +66,7 @@ function SignUp() {
 
     try {
       const { data } = await api.registerUser(state);
-      setLoggedIn(true);
+      login(data)
       navigate('/explore');
     } catch (error) {
       setErrorMessages({ error: error?.message });

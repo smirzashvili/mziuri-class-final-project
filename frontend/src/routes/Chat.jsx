@@ -7,6 +7,8 @@ import MessageSend from '../assets/icons/messageSend.svg';
 // import MessageReceive from '../assets/icons/messageReceive.svg';
 import EmojiPicker from 'emoji-picker-react';
 import io from 'socket.io-client';
+import { useUserData } from '../context/UserContext';
+import { formatTime } from '../utils/textFormat';
 
 function Chat() {
   const [chat, setChat] = useState([
@@ -22,7 +24,8 @@ function Chat() {
   const [message, setMessage] = useState('');
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
   const socketRef = useRef(null);
-
+  const { userData } = useUserData()
+  
   const handleEmojiClick = (emojiData) => {
     const emoji = emojiData.emoji;
     setMessage(prev => prev + emoji);
@@ -51,11 +54,11 @@ function Chat() {
   }, []);
 
   const sendMessage = () => {
-    const msgData = {
-      message,
-      sender: 'bla'
+    const data = {
+      sender: userData._id,
+      message
     };
-    socketRef.current.emit("send_message", msgData);
+    socketRef.current.emit("send_message", data);
   };
 
 
@@ -103,28 +106,24 @@ function Chat() {
         </div>
         <div className='chatContainer'>
           <div className='chatBox'>
-            {chat.map(item => 
-              <p>{item.message}</p>
-            )}
-            <div className='item receive'>
-              <div className='userImage'>
+            {chat.map((item, index) => {
+              let isYou = item.sender === userData?._id
+              return (
+                <div key={index} className={`item ${isYou ? 'send' : 'receive'}`}>
+                  {!isYou && 
+                    <div className='userImage'>
 
-              </div>
-              <div className='messageAndTime'>
-                <p>
-                  Hey, how's it going? sssssssssssssssss dasd asda ssssssssssssssssssssssssssss sssssssssssssssssssss ssssssssssssssssssssssssssssssssssssss
-                </p>
-                <span className='time'>10:25 AM</span>
-              </div>
-            </div>
-            <div className='item send'>
-              <div className='messageAndTime'>
-                <p>
-                  Hey, how's it going? 
-                </p>
-                <span className='time'>10:25 AM</span>
-              </div>
-            </div>
+                    </div>
+                  }
+                  <div className='messageAndTime'>
+                    <p>
+                      {item.message}
+                    </p>
+                    <span className='time'>{formatTime(item.createdAt)}</span>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
         <div className='bottomContainer'>

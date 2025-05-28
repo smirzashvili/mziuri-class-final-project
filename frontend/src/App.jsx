@@ -13,7 +13,7 @@ function App() {
   useDocumentTitle();
   useScrollTop();
 
-  const { loggedIn, setLoggedIn } = useUserData();
+  const { loggedIn, login } = useUserData();
 
   const navigate = useNavigate();
   // const location = useLocation();
@@ -24,7 +24,7 @@ function App() {
         const {data} = await api.getToken();
         const res = await api.getUser(data);
         if (res.data) {
-          setLoggedIn(true);
+          login(res.data)
           navigate('/explore');
         }
       } catch(error) {

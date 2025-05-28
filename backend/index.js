@@ -10,7 +10,7 @@ import helmet from "helmet";
 import compression from 'compression';
 import { Server } from 'socket.io';
 import http from 'http';
-import Message from './models/messages.js';
+import Messages from './models/messages.js';
 
 const app = express()
 
@@ -52,13 +52,12 @@ io.on('connection', async (socket) => {
   console.log('socket connected:', socket.id);
 
   // Send chat history
-  const messages = await Message.find().sort({ createdAt: 1 }).limit(100);
-  console.log(messages)
+  const messages = await Messages.find().sort({ createdAt: 1 }).limit(100);
   socket.emit('chat_history', messages);
 
   // Receive message and save to DB
   socket.on('send_message', async (data) => {
-    const newMessage = new Message(data);
+    const newMessage = new Messages(data);
     console.log(newMessage)
     await newMessage.save();
     io.emit('receive_message', data); // broadcast

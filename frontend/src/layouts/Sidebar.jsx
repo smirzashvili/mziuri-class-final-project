@@ -11,7 +11,7 @@ import Profile from '../assets/icons/profile.svg';
 function Sidebar() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
 
-  const { loggedIn, setLoggedIn } = useUserData();
+  const { loggedIn, logout } = useUserData();
   
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function Sidebar() {
   const handleLogout = async () => {
     try {
       const { data } = await api.logoutUser();
-      setLoggedIn(false);
+      logout()
       navigate('/login');
     } catch (error) {
 
