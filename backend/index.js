@@ -11,6 +11,7 @@ import compression from 'compression';
 import { Server } from 'socket.io';
 import http from 'http';
 import Messages from './models/messages.js';
+import initializeSocket from './socket/socket.js';
 
 const app = express()
 
@@ -46,28 +47,8 @@ app.use(compression())
 // app.use('/api/todos', auth, TodosRouter)
 app.use('/api/users', UsersRouter)
 
-
 // Socket.IO setup
-io.on('connection', async (socket) => {
-  console.log('socket connected:', socket.id);
-
-  // Send chat history
-  const messages = await Messages.find().sort({ createdAt: 1 }).limit(100);
-  socket.emit('chat_history', messages);
-
-  // Receive message and save to DB
-  socket.on('send_message', async (data) => {
-    const newMessage = new Messages(data);
-    console.log(newMessage)
-    await newMessage.save();
-    io.emit('receive_message', data); // broadcast
-  });
-
-  socket.on('disconnect', () => {
-    console.log('socket disconnected:', socket.id);
-  });
-});
-
+initializeSocket(io); // Call the function to set up socket listeners
 
 server.listen(process.env.PORT || 3003, () => {
     console.log('server has started')

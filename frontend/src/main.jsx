@@ -5,6 +5,7 @@ import App from './App.jsx';
 import { LoaderProvider } from './context/LoaderContext.jsx';
 import { UserProvider } from './context/UserContext.jsx';
 import { NotificationProvider } from './context/NotificationContext.jsx';
+import { SocketProvider } from './context/SocketContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -12,7 +13,9 @@ createRoot(document.getElementById('root')).render(
       <UserProvider>
         <LoaderProvider>
           <NotificationProvider>
-            <App />
+            <SocketProvider>
+              <App />
+            </SocketProvider>
           </NotificationProvider>
         </LoaderProvider>
       </UserProvider>

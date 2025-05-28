@@ -9,34 +9,23 @@ import EmojiPicker from 'emoji-picker-react';
 import io from 'socket.io-client';
 import { useUserData } from '../context/UserContext';
 import { formatTime } from '../utils/textFormat';
+import { useSocket } from '../context/SocketContext';
 
 function Chat() {
-  const [chat, setChat] = useState([
-    {
-      sender: 'Sarah', //userId
-      message: "Hey, how's it going?"
-    },
-    {
-      sender: 'Saba', //userId
-      message: "Hey, how's it going? sssssssssssssssss dasd asda ssssssssssssssssssssssssssss sssssssssssssssssssss ssssssssssssssssssssssssssssssssssssss"
-    },
-  ]);
+  const [chat, setChat] = useState([]);
   const [message, setMessage] = useState('');
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
-  const socketRef = useRef(null);
   const { userData } = useUserData()
-  
+  const { socket } = useSocket();
+
   const handleEmojiClick = (emojiData) => {
     const emoji = emojiData.emoji;
     setMessage(prev => prev + emoji);
   };
 
   useEffect(() => {
-    socketRef.current = io('http://localhost:3003', {
-      withCredentials: true,
-    });
-
-    const socket = socketRef.current;
+    console.log(socket)
+    if (!socket) return;
 
     socket.on("receive_message", (data) => {
       setChat(prev => [...prev, data]);
@@ -49,18 +38,20 @@ function Chat() {
     return () => {
       socket.off("receive_message");
       socket.off("chat_history");
-      socket.disconnect(); //clean up on unmount
     };
-  }, []);
+  }, [socket]);
 
   const sendMessage = () => {
     const data = {
       sender: userData._id,
       message
     };
-    socketRef.current.emit("send_message", data);
+    socket.emit("send_message", data);
   };
 
+  if (!socket) {
+    return <div>Connecting to chat...</div>; // Or some other loading/connection state UI
+  }
 
   return (
     <div className='chat'>

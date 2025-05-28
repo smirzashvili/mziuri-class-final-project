@@ -111,9 +111,16 @@
             overflow: hidden;
 
             & > .chatBox {
-                max-width: 768px;
+                padding: 16px 128px;
                 width: 100%;
-                margin: 16px;
+                overflow-y: auto;
+                max-height: 100%;
+                /* Hide scrollbar in WebKit browsers (Chrome, Safari) */
+                scrollbar-width: none;        /* Firefox */
+                -ms-overflow-style: none;     /* IE and Edge */
+                &::-webkit-scrollbar {
+                    display: none;                /* Chrome, Safari */
+                }
 
                 & > .item {
                     @include flexbox(row, flex-start, flex-start, 6px);
