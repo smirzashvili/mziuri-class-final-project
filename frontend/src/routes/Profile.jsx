@@ -72,7 +72,7 @@ function Profile() {
 
     try {
       const { data } = await api.updateUser(state);
-      showNotification('Contact form has successfully sent!')
+      showNotification('User details have been successfully updated');
       setErrorMessages({})
     } catch (error) {
       setErrorMessages({ error: error?.message });
