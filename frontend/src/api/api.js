@@ -117,3 +117,15 @@ export const updateUser = async (data) => {
     throw new Error(message);
  }
 };
+
+export const discover = async (userId) => {
+  try {
+    const response = await axios.get(`http://localhost:3003/api/users/discover/${userId}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
+};

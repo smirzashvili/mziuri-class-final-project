@@ -9,3 +9,22 @@ export const formatTime = (timestamp) => {
     hour12: true
   });
 };
+
+export const formatAge = (date) => {
+  if (!date) return null;
+
+  const birthDate = new Date(date);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+
+  const hasHadBirthdayThisYear =
+    today.getMonth() > birthDate.getMonth() ||
+    (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+  if (!hasHadBirthdayThisYear) {
+    age -= 1;
+  }
+
+  return age;
+};

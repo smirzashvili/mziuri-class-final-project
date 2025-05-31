@@ -33,6 +33,21 @@ const UsersSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  bio: {
+    type: String,
+  },
+  likedUsers: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User' 
+  }],
+  dislikedUsers: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User' 
+  }],
+  matches: [{ type: 
+    mongoose.Schema.Types.ObjectId, 
+    ref: 'User' 
+  }]
 });
 
 export default mongoose.model("Users", UsersSchema);

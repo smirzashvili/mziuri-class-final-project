@@ -5,10 +5,10 @@ import jwt from 'jsonwebtoken'
 
 export const registerUser = async (req, res) => {
     try {
-        const { fullName, email, city, password, gender, favoriteGenre, favoriteInstrument } = req.body;
-
+        const { fullName, email, city, password, gender, favoriteGenre, favoriteInstrument, date } = req.body;
+        
         const hashedPassword = await hashPassword(password)
-
+        
         const newUser = new Users({
             fullName: fullName,
             email: email,
@@ -17,19 +17,21 @@ export const registerUser = async (req, res) => {
             gender: gender,
             favoriteGenre: favoriteGenre,
             favoriteInstrument: favoriteInstrument,
+            date: date,
             // media: media,
         });
-
+        
         await newUser.save()
-
+        
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
-
+        
         const userObj = newUser.toObject();
         delete userObj.password;
-
+        
         return res.status(201).json({ data: userObj });
     } catch (err) {
+        console.log(err)
         return res.status(500).json({ err: "Something went wrong" });
     }
 };
@@ -40,12 +42,12 @@ export const loginUser = async (req, res) => {
 
         const user = await Users.findOne({ email: email })
         if (!user) {
-            return res.status(400).json({ err: 'Invalid username or password' });
+            return res.status(400).json({ err: 'Invalid email or password' });
         }
 
         const isPasswordValid = await comparePassword(password, user.password)
         if(!isPasswordValid) {
-            return res.status(400).json({ err: 'Invalid username or password' });
+            return res.status(400).json({ err: 'Invalid email or password' });
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
@@ -187,3 +189,22 @@ export const updateUser = async (req, res) => {
     return res.status(500).json({ err: 'Failed to update user' });
   }
 };
+
+export const discover = async (req, res) => {
+    try {
+        const { userId } = req.params
+
+        const user = await Users.findById(userId);
+
+        const exclude = [...user.likedUsers, ...user.dislikedUsers, user._id];
+        const usersToShow = await Users.aggregate([
+            { $match: { _id: { $nin: exclude } } },
+            { $sample: { size: 1 } } // get one random user
+        ]);
+
+        return res.status(200).json({ data: usersToShow[0] })
+    } catch (err) {
+        return res.status(500).json({ err: "Something went wrong" });
+    }
+
+}

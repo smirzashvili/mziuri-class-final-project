@@ -5,15 +5,11 @@ import Info from '../assets/icons/info.svg';
 import Close from '../assets/icons/close.svg';
 import Heart from '../assets/icons/heart.svg';
 import Refresh from '../assets/icons/refresh.svg';
+import { formatAge } from '../utils/textFormat';
 
-function MusicianCard() {
+function MusicianCard({ musicianData }) {
   const [state, setState] = useState({
-    fullName: 'Emma Brown',
-    age: '24',
-    city: 'Tbilisi',
-    bio: 'Foodie and yoga instructor. Looking for someone to try new restaurants with.',
-    favoriteGenre: 'Rock',
-    favoriteInstrument: 'Doli',
+    ...musicianData,
     media: [
       'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
@@ -201,7 +197,7 @@ function MusicianCard() {
             size={16}
           />
           <div className='section'>
-            <h2>{state.fullName}, {state.age}</h2>
+            <h2>{state.fullName}, {formatAge(state.date)}</h2>
             <p>{state.city}</p>
           </div>
           {infoActive && <div className='additional'>
@@ -230,8 +226,8 @@ function MusicianCard() {
 
       <div className="controlPanel">
         <IconButton
-          icon={Close}
-          onClick={handleDislike}
+          icon={Refresh}
+          onClick={handleRefresh}
           size={14}
         />
         <IconButton
@@ -240,8 +236,8 @@ function MusicianCard() {
           size={16}
         />
         <IconButton
-          icon={Refresh}
-          onClick={handleRefresh}
+          icon={Close}
+          onClick={handleDislike}
           size={14}
         />
       </div>
