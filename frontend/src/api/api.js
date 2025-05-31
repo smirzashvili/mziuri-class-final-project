@@ -129,3 +129,37 @@ export const discover = async (userId) => {
     throw new Error(message);
   }
 };
+
+export const like = async (userId, targetUserId) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:3003/api/users/${targetUserId}/like`,
+      JSON.stringify({ userId: userId }),
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
+};
+
+export const dislike = async (userId, targetUserId) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:3003/api/users/${targetUserId}/dislike`,
+      JSON.stringify({ userId: userId }),
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
+};

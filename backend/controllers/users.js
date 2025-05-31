@@ -206,5 +206,65 @@ export const discover = async (req, res) => {
     } catch (err) {
         return res.status(500).json({ err: "Something went wrong" });
     }
+}
 
+export const like = async (req, res) => {
+    try {
+        const { userId } = req.body; // user who is liking
+        const { targetId } = req.params; // user who is being liked
+
+        if (userId === targetId) return res.status(400).json({ err: "Cannot like yourself" });
+
+        const user = await Users.findById(userId);
+        const targetUser = await Users.findById(targetId);
+
+        if (!user || !targetUser) return res.status(404).json({ err: "User not found" });
+
+        if (user.likedUsers.includes(targetId)) return res.status(400).json({ err: "Already liked" });
+
+        user.likedUsers.push(targetId);
+
+        // Check for match
+        const isMatch = targetUser.likedUsers.includes(userId);
+        if (isMatch) {
+            user.matches.push(targetId);
+            targetUser.matches.push(userId);
+
+            await targetUser.save(); // save target because matches updated
+        }
+
+        await user.save();
+
+        const responseData = {
+            message: isMatch ? "It's a match!" : "Liked",
+            isMatch: isMatch
+        }
+
+        return res.status(200).json({ data: responseData })
+    } catch (err) {
+        return res.status(500).json({ err: "Something went wrong" });
+    }
+}
+
+export const dislike = async (req, res) => {
+    try {
+        const { userId } = req.body; // user who is disliking
+        const { targetId } = req.params; // user who is being disliked
+
+        if (userId === targetId) return res.status(400).json({ err: "Cannot dislike yourself" });
+
+        const user = await Users.findById(userId);
+        const targetUser = await Users.findById(targetId);
+
+        if (!user || !targetUser) return res.status(404).json({ err: "User not found" });
+
+        if (user.dislikedUsers.includes(targetId)) return res.status(400).json({ err: "Already disliked" });
+
+        user.dislikedUsers.push(targetId);
+        await user.save();
+
+        return res.status(200).json({ data: 'Disliked' })
+    } catch (err) {
+        return res.status(500).json({ err: "Something went wrong" });
+    }
 }
