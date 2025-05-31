@@ -38,7 +38,7 @@
             .inputBox {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(3, 150px);
+                grid-template-rows: repeat(3, 1fr);
                 gap: 10px;
                 // margin-bottom: 20px;
 
@@ -50,6 +50,7 @@
                     cursor: pointer;
                     border: 1px solid $border-grey;
                     position: relative;
+                    aspect-ratio: 4 / 5;
                     // width: 30%;
                     // height: 30%;
                     // padding-top: 100%; /* 1:1 Aspect Ratio */

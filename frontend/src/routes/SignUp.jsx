@@ -14,7 +14,7 @@ import Eye from '../assets/icons/eye.svg';
 import EyeClosed from '../assets/icons/eye-closed.svg';
 import Close from '../assets/icons/close.svg';
 import * as api from '../api/api.js';
-import { musicalGenres, musicalInstruments } from '../data/data.js';
+import { cities, musicalGenres, musicalInstruments } from '../data/data.js';
 import { useUserData } from '../context/UserContext.jsx';
 
 function SignUp() {
@@ -255,15 +255,14 @@ function SignUp() {
                     >
                       select city
                     </option>
-                    <option value="tbilisi">Tbilisi</option>
-                    <option value="gori">Gori</option>
-                    <option value="batumi">Batumi</option>
-                    <option value="xashuri">Xashuri</option>
-                    <option value="kutaisi">Kutaisi</option>
-                    <option value="telavi">Telavi</option>
-                    <option value="poti">Poti</option>
-                    <option value="chiatura">Chiatura</option>
-                    <option value="kobuleti">Kobuleti</option>
+                    {cities.map((item, i) => (
+                      <option
+                        key={i}
+                        value={item}
+                      >
+                        {item}
+                      </option>
+                    ))}
                   </select>
                 </InputGroup>
                 <InputGroup
@@ -286,9 +285,9 @@ function SignUp() {
                     >
                       select gender
                     </option>
-                    <option value="tbilisi">Male</option>
-                    <option value="gori">Female</option>
-                    <option value="batumi">Other</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
                   </select>
                 </InputGroup>
               </div>
