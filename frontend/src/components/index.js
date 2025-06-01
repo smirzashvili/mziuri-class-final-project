@@ -9,3 +9,4 @@ export { default as Checkbox } from './ui/Checkbox';
 export { default as MusicianCard } from './MusicianCard';
 export { default as FakeCard } from './FakeCard';
 export { default as Notification } from './Notification';
+export { default as MediaIndicator } from './MediaIndicator';

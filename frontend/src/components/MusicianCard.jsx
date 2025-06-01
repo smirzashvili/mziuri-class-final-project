@@ -6,6 +6,7 @@ import Close from '../assets/icons/close.svg';
 import Heart from '../assets/icons/heart.svg';
 import Refresh from '../assets/icons/refresh.svg';
 import { formatAge } from '../utils/textFormat';
+import MediaIndicator from './MediaIndicator';
 
 function MusicianCard({ musicianData }) {
   const [state, setState] = useState({
@@ -25,9 +26,6 @@ function MusicianCard({ musicianData }) {
   const start = useRef({ x: 0, y: 0 });
   const watermarkState = position.x > 150 ? 'like' : position.x < -150 ? 'nope' : ''
   const watermarkOpacity = Math.min(Math.abs(watermarkState === 'like' ? (position.x - 150)/50 : watermarkState === 'nope' ? (position.x + 150)/50 : 0), 1)
-
-  const [indicatorProgress, setIndicatorProgress] = useState(0)
-  const indicatorAnimationIdRef = useRef();
 
   const handleMouseDown = (e) => {
     start.current = { x: e.clientX, y: e.clientY };
@@ -64,67 +62,8 @@ function MusicianCard({ musicianData }) {
     setCurrentMediaIndex((prevIndex) => prevIndex !== state.media.length - 1 ? prevIndex + 1 : prevIndex);
   };
 
-  useEffect(() => {
-    // Clear previous animation frame
-    if (indicatorAnimationIdRef.current) {
-      cancelAnimationFrame(indicatorAnimationIdRef.current);
-    }
-
-    setIndicatorProgress(0);
-    indicatorAnimationIdRef.current = requestAnimationFrame(updateIndicatorProgress);
-
-    // Clean up on unmount or ref change
-    return () => {
-      if (indicatorAnimationIdRef.current) {
-        cancelAnimationFrame(indicatorAnimationIdRef.current);
-      }
-    };
-  }, [currentMediaIndex, currentMediaRef]); 
-
-
-  const updateIndicatorProgress = () => {
-    const media = currentMediaRef.current;
-
-    if (media instanceof HTMLVideoElement) {
-      const duration = media.duration;
-      const currentTime = media.currentTime;
-      const progress = ((currentTime / duration) * 100).toFixed(1);
-      setIndicatorProgress(progress);
-
-      if (progress >= 100) {
-        handleNextMedia();
-        return;
-      }
-
-      indicatorAnimationIdRef.current = requestAnimationFrame(updateIndicatorProgress);
-    } else {
-      const startTime = Date.now();
-
-      const animateImageProgress = () => {
-        const duration = 3000;
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min((elapsed / duration) * 100, 100).toFixed(1);
-        setIndicatorProgress(progress);
-        if (elapsed < duration) {
-          indicatorAnimationIdRef.current = requestAnimationFrame(animateImageProgress);
-        } else {
-          console.log('2312312')
-          handleNextMedia();
-        }
-      };
-
-      indicatorAnimationIdRef.current = requestAnimationFrame(animateImageProgress);
-    }
-  };
-
   const handleRefresh = () => {
     setCurrentMediaIndex(0)
-
-    if(indicatorAnimationIdRef.current) {
-      cancelAnimationFrame(indicatorAnimationIdRef.current)
-    }
-    setIndicatorProgress(0)
-    indicatorAnimationIdRef.current = requestAnimationFrame(updateIndicatorProgress);
   }
 
   const handleLike = () => {
@@ -144,27 +83,12 @@ function MusicianCard({ musicianData }) {
         onMouseDown={handleMouseDown} 
         style={{transform: `translateX(${position.x}px) rotate(${rotation}deg)`}}
       >
-        <div className="indicators">
-          {state.media.map((_, index) => (
-            <div
-              key={index}
-              className={`indicator ${index === currentMediaIndex ? 'active' : ''}`}
-            >
-              <div 
-                className='currentProgress'
-                style={
-                  index === currentMediaIndex
-                  ? { width: `${indicatorProgress}%` }
-                  : index > currentMediaIndex 
-                  ? { width: 0 }
-                  : { width: `100%` }
-                } 
-              >
-              </div>
-            </div>
-          ))}
-        </div>
-
+        <MediaIndicator 
+          medias={state.media} 
+          currentMediaIndex={currentMediaIndex} 
+          currentMediaRef={currentMediaRef}
+          onHandleNextMedia={handleNextMedia}
+        />
         <div
           className={`media`}
         >
