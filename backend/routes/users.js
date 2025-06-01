@@ -14,7 +14,7 @@ UsersRouter.put('/reset-password', resetPasswordUser)
 UsersRouter.post('/contact', contact)
 UsersRouter.put('/update', auth, updateUser)
 UsersRouter.get('/discover/:userId', auth, discover)
-UsersRouter.get('/:targetId/like', auth, like)
-UsersRouter.get('/:targetId/dislike', auth, dislike)
+UsersRouter.post('/:targetId/like', auth, like)
+UsersRouter.post('/:targetId/dislike', auth, dislike)
 
 export default UsersRouter

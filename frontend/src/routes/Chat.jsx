@@ -18,37 +18,53 @@ function Chat() {
   const { userData } = useUserData()
   const { socket } = useSocket();
   const chatBoxRef = useRef(null);
+  const [activeMatchIndex, setActiveMatchIndex] = useState(0)
+  const [currentChatRoomId, setCurrentChatRoomId] = useState(null);
 
   const handleEmojiClick = (emojiData) => {
     const emoji = emojiData.emoji;
     setMessage(prev => prev + emoji);
   };
 
-  useEffect(() => {
-    if (!socket) return;
+   useEffect(() => {
+    if (!socket || !userData || !userData.matches?.length) return;
 
-    socket.emit("get_chat_history");
+    const selectedMatch = userData.matches[activeMatchIndex];
+    if (!selectedMatch) return;
 
-    const historyHandler = (data) => {
-      setChat(data);
+    // Emit event to select chat room between current user and selected match
+    socket.emit('select_match', {
+      userId: userData._id,
+      matchId: selectedMatch._id
+    });
+
+    // Handler for chat history (includes chatRoomId)
+    const historyHandler = ({ chatRoomId, messages }) => {
+      console.log(chatRoomId, messages)
+      setCurrentChatRoomId(chatRoomId);
+      setChat(messages);
     };
 
-    const receiveHandler = (data) => {
-      setChat(prev => [...prev, data]);
+    // Handler for receiving new messages in this chat room
+    const receiveHandler = (newMessage) => {
+      // Make sure the message is for the current chatRoom
+      if (newMessage.chatRoom === currentChatRoomId) {
+        setChat(prev => [...prev, newMessage]);
+      }
     };
 
-    socket.on("chat_history", historyHandler);
-    socket.on("receive_message", receiveHandler);
+    socket.on('chat_history', historyHandler);
+    socket.on('receive_message', receiveHandler);
 
     return () => {
-      socket.off("chat_history", historyHandler);
-      socket.off("receive_message", receiveHandler);
+      socket.off('chat_history', historyHandler);
+      socket.off('receive_message', receiveHandler);
     };
-  }, [socket]);
-
+  }, [socket, currentChatRoomId]);
   
   const sendMessage = () => {
     const data = {
+      chatRoomId: currentChatRoomId,
       sender: userData._id,
       message
     };
@@ -69,26 +85,33 @@ function Chat() {
           <input placeholder='Search conversations...' />
         </div>
         <div className='matchesList'>
-          <div className='item active'>
-            <div>
-              <div className='userImage'>
+          {userData?.matches.map((item, index) => {
+            return (
+              <div 
+                className={`item ${activeMatchIndex === index ? 'active' : ''}`}
+                onClick={() => activeMatchIndex !== index && setActiveMatchIndex(index)}
+              >
+                <div>
+                  <div className='userImage'>
 
-              </div>
-              <div className='nameAndMessageContainer'>
-                <p>Sarah</p>
-                <p>
-                  <img
-                    className='icon'
-                    src={MessageSend}
-                    alt="icon"
-                  />
-                  Hey, how's it going? 
-                  <span className='greenCircle'></span>
-                </p>
-              </div>
-            </div>
-            <span className='messageTime'>2m</span>
-          </div>     
+                  </div>
+                  <div className='nameAndMessageContainer'>
+                    <p>{item.fullName}</p>
+                    <p>
+                      <img
+                        className='icon'
+                        src={MessageSend}
+                        alt="icon"
+                      />
+                      {activeMatchIndex === index && chat.length > 0 ? chat[chat.length - 1]?.message : ''}
+                      <span className='greenCircle'></span>
+                    </p>
+                  </div>
+                </div>
+                <span className='messageTime'>2m</span>
+              </div>     
+            )
+          })}
         </div>
       </div>
       <div className='rightBar'>
@@ -97,7 +120,7 @@ function Chat() {
             <div className='userImage'>
 
             </div>
-            <p>You matched with Sarah at </p>
+            <p>You matched with {userData?.matches[activeMatchIndex].fullName} at </p>
           </div>
            <IconButton
               icon={ThreeDot}

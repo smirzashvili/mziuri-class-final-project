@@ -45,6 +45,7 @@
                 &.active {
                     background-color: $bg-color;
                     cursor: unset;
+                    pointer-events: none;
                 }
 
                 & > div {

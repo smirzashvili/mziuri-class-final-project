@@ -8,7 +8,7 @@ import Refresh from '../assets/icons/refresh.svg';
 import { formatAge } from '../utils/textFormat';
 import MediaIndicator from './MediaIndicator';
 
-function MusicianCard({ musicianData }) {
+function MusicianCard({ musicianData, onLike, onDislike }) {
   const [state, setState] = useState({
     ...musicianData,
     media: [
@@ -21,37 +21,49 @@ function MusicianCard({ musicianData }) {
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const currentMediaRef = useRef()
 
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
-  const start = useRef({ x: 0, y: 0 });
-  const watermarkState = position.x > 150 ? 'like' : position.x < -150 ? 'nope' : ''
-  const watermarkOpacity = Math.min(Math.abs(watermarkState === 'like' ? (position.x - 150)/50 : watermarkState === 'nope' ? (position.x + 150)/50 : 0), 1)
+  const positionX = useRef(0);
+  const startPositionX = useRef(0);
+  const [watermarkState, setWatermarkState] = useState('');
+  const [watermarkOpacity, setWatermarkOpacity] = useState(0);
+
+  useEffect(() => {
+    if (positionX.current > 150) {
+      setWatermarkState('like');
+      setWatermarkOpacity(Math.min((positionX.current - 150) / 50, 1));
+    } else if (positionX.current < -150) {
+      setWatermarkState('nope');
+      setWatermarkOpacity(Math.min((Math.abs(positionX.current) - 150) / 50, 1));
+    } else {
+      setWatermarkState('');
+      setWatermarkOpacity(0);
+    }
+  }, [rotation]); 
 
   const handleMouseDown = (e) => {
-    start.current = { x: e.clientX, y: e.clientY };
+    startPositionX.current = e.clientX;
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
   };
 
   const handleMouseMove = (e) => {
-    const dx = e.clientX - start.current.x;
-    const dy = e.clientY - start.current.y;
-    setPosition({ x: dx, y: dy });
+    const dx = e.clientX - startPositionX.current
+    positionX.current = dx;
     setRotation(dx / 20);
   };
 
   const handleMouseUp = () => {
     document.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('mouseup', handleMouseUp);
-
-    if (position.x > 200) {
-      console.log('like');
-    } else if (position.x < -200) {
-      console.log('dislike');
-    } else {
-      setPosition({ x: 0, y: 0 });
-      setRotation(0);
+    console.log(positionX.current)
+    if (positionX.current > 200) {
+      onLike();
+    } else if (positionX.current < -200) {
+      onDislike();
     }
+
+    positionX.current = 0;
+    setRotation(0);
   };
 
   const handlePrevMedia = () => {
@@ -67,13 +79,15 @@ function MusicianCard({ musicianData }) {
   }
 
   const handleLike = () => {
-    // watermarkState = 'like'
-    // watermarkOpacity = 1
+    setWatermarkState('like');
+    setWatermarkOpacity(1);
+    onLike()
   }
 
   const handleDislike = () => {
-    // watermarkState = 'nope'
-    // watermarkOpacity = 1
+    setWatermarkState('nope');
+    setWatermarkOpacity(1);
+    onDislike()
   }
 
   return (
@@ -81,7 +95,7 @@ function MusicianCard({ musicianData }) {
       <div 
         className='card'
         onMouseDown={handleMouseDown} 
-        style={{transform: `translateX(${position.x}px) rotate(${rotation}deg)`}}
+        style={{transform: `translateX(${positionX.current}px) rotate(${rotation}deg)`}}
       >
         <MediaIndicator 
           medias={state.media} 

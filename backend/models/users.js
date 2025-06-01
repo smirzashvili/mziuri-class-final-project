@@ -38,15 +38,15 @@ const UsersSchema = new mongoose.Schema({
   },
   likedUsers: [{ 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User' 
+    ref: 'Users' 
   }],
   dislikedUsers: [{ 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User' 
+    ref: 'Users' 
   }],
   matches: [{ type: 
     mongoose.Schema.Types.ObjectId, 
-    ref: 'User' 
+    ref: 'Users' 
   }]
 });
 

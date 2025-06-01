@@ -12,7 +12,6 @@ function Explore() {
     const getUserToShow = async () => {
       try {
         const { data } = await api.discover(userData._id);
-        console.log(data)
         setMusicianData(data)
         // setErrorMessages({})
         // login(data)
@@ -24,10 +23,35 @@ function Explore() {
 
     getUserToShow()
   }, []);
+
+  const handleLike = async () => {
+    try {
+      const { data } = await api.like(userData._id, musicianData._id);
+      console.log(data)
+    } catch (error) {
+
+    }
+  }
+
+  const handleDislike = async () => {
+    try {
+      const { data } = await api.dislike(userData._id, musicianData._id);
+      console.log(data)
+    } catch (error) {
+
+    }
+  }
   
   return (
     <div className="explore">
-      {musicianData && <MusicianCard musicianData={musicianData} />}
+      {
+      musicianData && 
+        <MusicianCard 
+          musicianData={musicianData} 
+          onLike={handleLike}
+          onDislike={handleDislike}
+        />
+      }
     </div>
   );
 }

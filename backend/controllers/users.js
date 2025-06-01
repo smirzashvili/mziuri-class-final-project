@@ -1,4 +1,5 @@
 import Users from '../models/users.js';
+import ChatRooms from '../models/chatRooms.js';
 import {hashPassword, comparePassword} from '../utils/bcrypt.js'
 import {sendResetPasswordMail, sendContactMail} from '../utils/mailSender.js'
 import jwt from 'jsonwebtoken'
@@ -93,7 +94,16 @@ export const getUser = async (req, res) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         const userId = decoded.id;
 
-        const userData = await Users.findById(userId).select('-password');
+        console.log(userId)
+
+        const userData = await Users.findById(userId)
+            .select('-password')
+            .populate({
+                path: 'matches',
+                select: '_id fullName', // customize fields to send
+            });
+
+        // console.log(userData)
 
         return res.status(200).json({ data: userData });
     } catch (err) {
@@ -196,7 +206,7 @@ export const discover = async (req, res) => {
 
         const user = await Users.findById(userId);
 
-        const exclude = [...user.likedUsers, ...user.dislikedUsers, user._id];
+        const exclude = [];//[...user.likedUsers, ...user.dislikedUsers, user._id];
         const usersToShow = await Users.aggregate([
             { $match: { _id: { $nin: exclude } } },
             { $sample: { size: 1 } } // get one random user
@@ -218,6 +228,8 @@ export const like = async (req, res) => {
         const user = await Users.findById(userId);
         const targetUser = await Users.findById(targetId);
 
+        console.log(targetUser.likedUsers, userId, targetUser.likedUsers.includes(userId))
+
         if (!user || !targetUser) return res.status(404).json({ err: "User not found" });
 
         if (user.likedUsers.includes(targetId)) return res.status(400).json({ err: "Already liked" });
@@ -231,6 +243,16 @@ export const like = async (req, res) => {
             targetUser.matches.push(userId);
 
             await targetUser.save(); // save target because matches updated
+
+            //find or create chatroom
+            let chatRoom = await ChatRooms.findOne({
+                participants: { $all: [userId, targetId] }
+            });
+
+            if (!chatRoom) {
+                chatRoom = new ChatRooms({ participants: [userId, targetId] });
+                await chatRoom.save();
+            }
         }
 
         await user.save();
