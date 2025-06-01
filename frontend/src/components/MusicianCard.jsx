@@ -9,14 +9,11 @@ import { formatAge } from '../utils/textFormat';
 import MediaIndicator from './MediaIndicator';
 
 function MusicianCard({ musicianData, onLike, onDislike }) {
-  const [state, setState] = useState({
-    ...musicianData,
-    media: [
-      'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
-      'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
-    ]
-  })
+  const media = [
+    'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+    'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
+  ];
   const [infoActive, setInfoActive] = useState(false);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const currentMediaRef = useRef()
@@ -71,7 +68,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
   };
 
   const handleNextMedia = () => {
-    setCurrentMediaIndex((prevIndex) => prevIndex !== state.media.length - 1 ? prevIndex + 1 : prevIndex);
+    setCurrentMediaIndex((prevIndex) => prevIndex !== media.length - 1 ? prevIndex + 1 : prevIndex);
   };
 
   const handleRefresh = () => {
@@ -98,7 +95,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
         style={{transform: `translateX(${positionX.current}px) rotate(${rotation}deg)`}}
       >
         <MediaIndicator 
-          medias={state.media} 
+          medias={media} 
           currentMediaIndex={currentMediaIndex} 
           currentMediaRef={currentMediaRef}
           onHandleNextMedia={handleNextMedia}
@@ -107,16 +104,16 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
           className={`media`}
         >
           <>
-            {state.media[currentMediaIndex].match(/\.(mp4|webm|ogg)$/i) ? (
+            {media[currentMediaIndex].match(/\.(mp4|webm|ogg)$/i) ? (
               <video
-                src={state.media[currentMediaIndex]}
+                src={media[currentMediaIndex]}
                 autoPlay
                 // onEnded={handleNextMedia}
                 ref={currentMediaRef}
               />
             ) : (
               <img
-                src={state.media[currentMediaIndex]}
+                src={media[currentMediaIndex]}
                 ref={currentMediaRef}
                 // onLoadedMetadata={handleMediaLoadedMetadata}
               />
@@ -135,21 +132,21 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
             size={16}
           />
           <div className='section'>
-            <h2>{state.fullName}, {formatAge(state.date)}</h2>
-            <p>{state.city}</p>
+            <h2>{musicianData.fullName}, {formatAge(musicianData.date)}</h2>
+            <p>{musicianData.city}</p>
           </div>
           {infoActive && <div className='additional'>
             <div className='section'>
               <h3>Bio</h3>
-              <p>{state.bio}</p>
+              <p>{musicianData.bio}</p>
             </div>
             <div className='section'>
               <h3>Favorite Genre</h3>
-              <p>{state.favoriteGenre}</p>
+              <p>{musicianData.favoriteGenre}</p>
             </div>
             <div className='section'>
               <h3>Favorite Instruemnt</h3>
-              <p>{state.favoriteInstrument}</p>
+              <p>{musicianData.favoriteInstrument}</p>
             </div>
           </div>}
         </div>

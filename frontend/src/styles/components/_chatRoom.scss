@@ -1,0 +1,126 @@
+@use '../abstracts' as *;
+
+.chatRoom {
+    height: 100%;
+    width: 80%;
+    background-color: white;
+    border-left: 1px solid $border-grey;
+    @include flexbox(column, space-between);
+    
+    & > .upperContainer {
+        width: 100%;
+        padding: 0 16px;
+        border-bottom: 1px solid $border-grey;
+        height: 80px;
+        min-height: 80px;
+        @include flexbox(row, space-between, center);
+
+        & > div {
+            @include flexbox(row, flex-start, center, 12px);
+            & > p:nth-child(2) {
+                color: $darker-grey;
+            }
+        }
+    }
+    & > .chatContainer {
+        width: 100%;
+        background-color: $bg-color;
+        height: 100%;
+        @include flexbox(row, center, flex-end, 6px);
+        overflow: hidden;
+
+        & > .chatBox {
+            padding: 16px 128px;
+            width: 100%;
+            overflow-y: auto;
+            max-height: 100%;
+            /* Hide scrollbar in WebKit browsers (Chrome, Safari) */
+            scrollbar-width: none;        /* Firefox */
+            -ms-overflow-style: none;     /* IE and Edge */
+            &::-webkit-scrollbar {
+                display: none;                /* Chrome, Safari */
+            }
+
+            & > .item {
+                @include flexbox(row, flex-start, flex-start, 6px);
+                width: 100%;
+                margin-top: 12px;
+
+                & > .messageAndTime {
+                    max-width: 60%;
+                }
+
+                p {
+                    padding: 12px;
+                    border-radius: 8px;
+                }
+
+                .time {
+                    font-size: 12px;
+                    color: $darker-grey;
+                    width: 100%;
+                    display: inline-block;
+                }
+                
+                &.send {
+                    justify-content: flex-end;
+                    text-align: right;
+                    p {
+                        background-color: $primary-green;
+                        border-top-right-radius: 0;
+                        color: white;
+                    }
+                }
+                &.receive {
+                    justify-content: flex-start;
+                    p {
+                        background-color: white;
+                        border-top-left-radius: 0;
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+    & > .bottomContainer {
+        width: 100%;
+        padding: 0 16px;
+        border-top: 1px solid $border-grey;
+        height: 80px;
+        @include flexbox(row, flex-start, center, 8px);
+
+        & > input {
+            width: 100%;
+            padding: 12px 6px;
+            background: $bg-color;
+            border: 1px solid $border-grey;
+            border-radius: 4px;
+        }
+        & .iconButton {
+            padding: 15px;
+            border-radius: 4px;
+
+            &.green {
+                background-color: $primary-green;
+            }
+        }
+
+        & > .emojiContainer {
+            position: relative;
+
+            & > .emojiPicker {
+                position: absolute;
+                bottom: 56px;
+                right: 0;
+                opacity: 0;
+                visibility: hidden;
+                transition: none!important;
+                
+                &.visible {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
