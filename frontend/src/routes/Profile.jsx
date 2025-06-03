@@ -110,7 +110,7 @@ function Profile() {
       // const mediaError = validateMedias(formData.media);
       // if (mediaError) errors.media = mediaError;
     // }
-    debugger
+    
     if(formData.password?.length > 0) {
       const passwordError = validatePassword(formData.password);
       const confirmPasswordError = validateConfirmPassword(formData.password, formData.confirmPassword);

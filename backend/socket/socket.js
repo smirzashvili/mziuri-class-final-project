@@ -1,30 +1,25 @@
-// src/sockets/chatSocket.js
 import Messages from '../models/messages.js';
-import ChatRoom from '../models/chatRooms.js'; // Import your new ChatRoom model
+import ChatRoom from '../models/chatRooms.js'; 
 
 const initializeSocket = (io) => {
   io.on('connection', (socket) => {
     console.log('socket connected:', socket.id);
 
-    // Get all chat rooms and messages for current user
     socket.on('get_all_chatrooms', async (userId) => {
       try {
-        // Get all chat rooms the user is in
         const chatRooms = await ChatRoom.find({ participants: userId })
-          .populate('participants', 'fullName _id') // select specific fields
-          .lean(); // convert to plain JS objects
+          .populate('participants', 'fullName _id')
+          .lean();
 
-        // For each chat room, get its messages
         const chatRoomsWithMessages = await Promise.all(chatRooms.map(async (room) => {
-          const messages = await Messages.find({ chatRoom: room._id }).sort({ createdAt: 1 });
-
+          const messages = await Messages.find({ chatRoom: room._id })
+            .sort({ createdAt: 1 })
+            .lean(); // Ensure messages are also lean objects
           return {
             ...room,
             messages,
           };
         }));
-
-        // Send back to client
         socket.emit('all_chatrooms_data', chatRoomsWithMessages);
       } catch (err) {
         console.error('Failed to get all chatrooms:', err);
@@ -32,10 +27,19 @@ const initializeSocket = (io) => {
       }
     });
 
+    // Handler for client joining multiple rooms
+    socket.on('join_rooms', (roomIds) => {
+      if (Array.isArray(roomIds)) {
+        roomIds.forEach(roomId => {
+          socket.join(roomId);
+          console.log(`Socket ${socket.id} joined room ${roomId}`);
+        });
+      } else {
+        console.error('join_rooms expected an array of room IDs, received:', roomIds);
+      }
+    });
 
-    // Handle incoming message in a chatRoom
     socket.on('send_message', async (data) => {
-      // data = { chatRoomId, sender, message }
       try {
         const newMessage = new Messages({
           chatRoom: data.chatRoomId,
@@ -45,8 +49,10 @@ const initializeSocket = (io) => {
         });
         await newMessage.save();
 
+        const savedMessageObject = newMessage.toObject(); // Convert to plain object
+
         // Broadcast to all clients in this chatRoom
-        io.in(data.chatRoomId).emit('receive_message', newMessage);
+        io.in(data.chatRoomId).emit('receive_message', savedMessageObject); // Emit the plain object
       } catch (error) {
         console.error('Error saving/broadcasting message:', error);
         socket.emit('error', 'Failed to send message.');
@@ -55,6 +61,7 @@ const initializeSocket = (io) => {
 
     socket.on('disconnect', () => {
       console.log('socket disconnected:', socket.id);
+      // Socket.IO automatically handles leaving rooms the socket was in upon disconnect.
     });
   });
 };

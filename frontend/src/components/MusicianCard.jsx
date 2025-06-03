@@ -132,14 +132,21 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
             size={16}
           />
           <div className='section'>
-            <h2>{musicianData.fullName}, {formatAge(musicianData.date)}</h2>
-            <p>{musicianData.city}</p>
+            <h2>{musicianData.fullName}</h2>
+            <p>Lives in {musicianData.city}</p>
           </div>
           {infoActive && <div className='additional'>
             <div className='section'>
-              <h3>Bio</h3>
-              <p>{musicianData.bio}</p>
+              <h3>Age</h3>
+              <p> {formatAge(musicianData.date)} years old</p>
             </div>
+            {
+              musicianData.bio &&
+              <div className='section'>
+                <h3>Bio</h3>
+                <p>{musicianData.bio}</p>
+              </div>
+            }
             <div className='section'>
               <h3>Favorite Genre</h3>
               <p>{musicianData.favoriteGenre}</p>
