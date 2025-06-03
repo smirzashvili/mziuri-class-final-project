@@ -47,9 +47,23 @@ function Chat() {
     };
     socket.on('receive_message', receiveMessageHandler);
 
+    // Handler for delete chat
+    const chatDeletedHandler = (deletedChatRoomId) => {
+      setChatRooms(prev =>
+        prev.map(cr => {
+          if (cr._id === deletedChatRoomId) {
+            return { ...cr, messages: [] };
+          }
+          return cr;
+        })
+      );    
+    };
+    socket.on("chat_deleted", chatDeletedHandler);
+
     return () => {
       socket.off('all_chatrooms_data', allChatRoomsHandler);
       socket.off('receive_message', receiveMessageHandler);
+      socket.off("chat_deleted", chatDeletedHandler);
     };
   }, [socket, userData]);
 
@@ -65,6 +79,15 @@ function Chat() {
     };
     socket.emit("send_message", data);
   };
+
+  const deleteMessages = () => {
+     if (!activeChatRoom?._id) return;
+
+    socket.emit("delete_chat", {
+      chatRoomId: activeChatRoom._id,
+      userId: userData._id
+    });
+  }
 
   const filteredChatRooms = chatRooms.filter(chatRoom => {
     const matchUser = chatRoom.participants.find(item => item._id !== userData._id);
@@ -121,6 +144,7 @@ function Chat() {
       <ChatRoom
         chatRoom={activeChatRoom}
         onSendMessage={sendMessage}
+        onDeleteMessages={deleteMessages}
       />
     </div>
   );

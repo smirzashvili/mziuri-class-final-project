@@ -59,9 +59,19 @@ const initializeSocket = (io) => {
       }
     });
 
+    socket.on("delete_chat", async ({ chatRoomId, userId }) => {
+      try {
+        await Messages.deleteMany({ chatRoom: chatRoomId });
+        
+        socket.emit("chat_deleted", chatRoomId);
+      } catch (err) {
+        console.error("Failed to delete chat:", err);
+        socket.emit("error", { message: "Failed to delete chat." });
+      }
+    });
+
     socket.on('disconnect', () => {
       console.log('socket disconnected:', socket.id);
-      // Socket.IO automatically handles leaving rooms the socket was in upon disconnect.
     });
   });
 };

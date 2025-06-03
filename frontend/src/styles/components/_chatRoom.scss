@@ -6,6 +6,7 @@
     background-color: white;
     border-left: 1px solid $border-grey;
     @include flexbox(column, space-between);
+    position: relative;
     
     & > .upperContainer {
         width: 100%;
@@ -121,6 +122,28 @@
                     visibility: visible;
                 }
             }
+        }
+    }
+
+    & > .threeDotMenu {
+        width: 150px;
+        position: absolute;
+        top: 64px;
+        right: 16px;
+        box-shadow: $shadow-md;
+        padding: 4px;
+        width: 150px;
+        min-width: 128px;
+        border: 1px solid $border-grey;
+        border-radius: 4px;
+        background-color: white;
+
+        & > .button {
+            width: 100%;
+            border: none;
+            text-align: start;
+            padding: 8px;
+            border-radius: 4px;
         }
     }
 }
