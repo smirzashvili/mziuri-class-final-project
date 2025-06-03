@@ -10,6 +10,7 @@ function Chat() {
   const [chatRooms, setChatRooms] = useState([]);
   const [activeChatRoomIndex, setActiveChatRoomIndex] = useState(0);
   const activeChatRoom = chatRooms[activeChatRoomIndex];
+  const [searchTerm, setSearchTerm] = useState('');
 
   const { userData } = useUserData();
   const { socket } = useSocket();
@@ -65,14 +66,23 @@ function Chat() {
     socket.emit("send_message", data);
   };
 
+  const filteredChatRooms = chatRooms.filter(chatRoom => {
+    const matchUser = chatRoom.participants.find(item => item._id !== userData._id);
+    return matchUser?.fullName?.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   return (
     <div className='chat'>
       <div className='leftBar'>
         <div className='upperContainer'>
-          <input placeholder='Search conversations...' />
+          <input
+            placeholder='Search matches...'
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
         <div className='matchesList'>
-          {chatRooms?.map((item, index) => {
+          {filteredChatRooms?.map((item, index) => {
             const lastMessage = item.messages[item.messages.length - 1]
             const matchName = item.participants.find(item => item._id !== userData._id).fullName
             
