@@ -17,12 +17,28 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
   const [infoActive, setInfoActive] = useState(false);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const currentMediaRef = useRef()
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const [rotation, setRotation] = useState(0);
   const positionX = useRef(0);
   const startPositionX = useRef(0);
   const [watermarkState, setWatermarkState] = useState('');
   const [watermarkOpacity, setWatermarkOpacity] = useState(0);
+
+  // let newArr = [...media]; // clone the array to avoid modifying original
+  // for (let i = newArr.length - 1; i > 0; i--) {
+  //   const j = Math.floor(Math.random() * (i + 1));
+  //   [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+  // }
+  // media = newArr
+  useEffect(() => {
+    setCurrentMediaIndex(0);
+    setInfoActive(false);   
+    setRotation(0);              
+    positionX.current = 0;     
+    setWatermarkState('');       
+    setWatermarkOpacity(0);      
+  }, [musicianData]);
 
   useEffect(() => {
     if (positionX.current > 150) {
@@ -73,6 +89,15 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
 
   const handleRefresh = () => {
     setCurrentMediaIndex(0)
+    setRefreshKey(p => p + 1)
+    if (currentMediaRef.current instanceof HTMLVideoElement && currentMediaRef.current) {
+      currentMediaRef.current.pause();
+      currentMediaRef.current.currentTime = 0;
+      currentMediaRef.current.load(); // Optional: forces reload if needed
+      currentMediaRef.current.play(); // Optional: restart playback
+    } else {
+      // currentMediaRef.current.pause();
+    }
   }
 
   const handleLike = () => {
@@ -87,6 +112,8 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
     onDislike()
   }
 
+  console.log('rendered')
+
   return (
     <div className="musicianCard">
       <div 
@@ -95,10 +122,12 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
         style={{transform: `translateX(${positionX.current}px) rotate(${rotation}deg)`}}
       >
         <MediaIndicator 
+          key={refreshKey}
           medias={media} 
           currentMediaIndex={currentMediaIndex} 
           currentMediaRef={currentMediaRef}
           onHandleNextMedia={handleNextMedia}
+          musicianData={musicianData}
         />
         <div
           className={`media`}
@@ -108,6 +137,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
               <video
                 src={media[currentMediaIndex]}
                 autoPlay
+                // muted={true}
                 // onEnded={handleNextMedia}
                 ref={currentMediaRef}
               />
