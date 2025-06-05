@@ -1,6 +1,32 @@
 @use '../abstracts' as *;
 
 .explore {
-    @include flexbox(column, center, center);
-    margin: 102px 0;
+    @include flexbox(column, center, center, 32px);
+    margin: 52px 0;
+
+    .docs {
+        display: flex;
+        align-items: center;
+
+        .iconButton {
+            margin: 0 8px;
+            cursor: unset;
+            background-color: white;
+            padding: 4px;
+            border-radius: 100%;
+            outline: 1px solid rgba($darker-grey, .3);
+            box-shadow: $shadow-sm;
+
+            &:nth-child(1) {
+                outline: none;
+                background-color: $secondary-green;
+                box-shadow: $shadow-md;
+                margin-left: 0;
+            }
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
 }

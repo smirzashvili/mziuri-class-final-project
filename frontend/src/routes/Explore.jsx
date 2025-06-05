@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, IconButton, MusicianCard } from '../components';
 import * as api from '../api/api';
 import { useUserData } from '../context/UserContext';
+import Heart from '../assets/icons/heart.svg';
+import Close from '../assets/icons/close.svg';
+import Refresh from '../assets/icons/refresh.svg';
 
 function Explore() {
   const [musicianData, setMusicianData] = useState();
@@ -42,6 +45,23 @@ function Explore() {
 
   return (
     <div className="explore">
+      <div className='docs'>
+          <IconButton
+            icon={Heart}
+            size={12}
+          />
+          or swipe right to Like,
+          <IconButton
+            icon={Close}
+            size={12}
+          />
+          or swipe left to Dislike,
+          <IconButton
+            icon={Refresh}
+            size={12}
+          />
+          to Refresh Content
+      </div>
       {musicianData && (
         <MusicianCard 
           musicianData={musicianData} 
