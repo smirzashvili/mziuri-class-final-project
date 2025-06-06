@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Logo, NavigationScreen, IconButton } from '../components';
+import { Button, Logo, NavigationScreen, IconButton, Toggle } from '../components';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navigation from '../assets/icons/navigation.svg';
 import * as api from '../api/api.js';
@@ -7,9 +7,15 @@ import { useUserData } from '../context/UserContext.jsx';
 import Discover from '../assets/icons/discover.svg';
 import Messages from '../assets/icons/messages.svg';
 import Profile from '../assets/icons/profile.svg';
+import Sun from '../assets/icons/sun.svg';
+import Moon from '../assets/icons/moon.svg';
+import Volume from '../assets/icons/volume.svg';
+import VolumeMute from '../assets/icons/volumeMute.svg';
 
 function Sidebar() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
+  const [darkModeOn, setDarkModeOn] = useState(false);
 
   const { loggedIn, logout } = useUserData();
   
@@ -72,6 +78,34 @@ function Sidebar() {
               <p>Profile</p>
             </Link>
           </nav>
+          <div className='darkmodeAndVolumeContainer'>
+            <div className='item'>
+              <div>
+                <IconButton
+                  icon={soundOn ? Volume : VolumeMute}
+                  size={16}
+                />
+                <p>Sound</p>
+              </div>
+              <Toggle 
+                onToggle={(isOn) => setSoundOn(isOn)} 
+                defaultOn={soundOn}
+              />
+            </div>
+            <div className='item'>
+              <div>
+                <IconButton
+                  icon={darkModeOn ? Moon : Sun}
+                  size={16}
+                />
+                <p>Dark Mode</p>
+              </div>
+              <Toggle 
+                onToggle={(isOn) => setDarkModeOn(isOn)} 
+                defaultOn={darkModeOn}
+              />
+            </div>
+          </div>
         </div>
 
         <IconButton
