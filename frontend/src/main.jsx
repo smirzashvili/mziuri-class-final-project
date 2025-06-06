@@ -6,6 +6,7 @@ import { LoaderProvider } from './context/LoaderContext.jsx';
 import { UserProvider } from './context/UserContext.jsx';
 import { NotificationProvider } from './context/NotificationContext.jsx';
 import { SocketProvider } from './context/SocketContext.jsx';
+import { SoundProvider } from './context/SoundContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -14,7 +15,9 @@ createRoot(document.getElementById('root')).render(
         <LoaderProvider>
           <NotificationProvider>
             <SocketProvider>
-              <App />
+              <SoundProvider>
+                <App />
+              </SoundProvider>
             </SocketProvider>
           </NotificationProvider>
         </LoaderProvider>

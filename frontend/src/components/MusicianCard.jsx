@@ -7,6 +7,7 @@ import Heart from '../assets/icons/heart.svg';
 import Refresh from '../assets/icons/refresh.svg';
 import { formatAge } from '../utils/textFormat';
 import MediaIndicator from './MediaIndicator';
+import { useSound } from '../context/SoundContext'; // 👈
 
 function MusicianCard({ musicianData, onLike, onDislike }) {
   const media = [
@@ -25,6 +26,8 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
   const startPositionX = useRef(0);
   const [watermarkState, setWatermarkState] = useState('');
   const [watermarkOpacity, setWatermarkOpacity] = useState(0);
+
+  const { soundOn } = useSound(); // 👈
 
   useEffect(() => {
     setMediaLoaded(false);
@@ -136,7 +139,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
                 src={media[currentMediaIndex]}
                 autoPlay
                 preload="metadata" // or "auto" or "none"
-                // muted={true}
+                muted={!soundOn}
                 // onEnded={handleNextMedia}
                 ref={currentMediaRef}
                 onLoad={() => setMediaLoaded(true)}

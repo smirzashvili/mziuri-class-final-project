@@ -11,16 +11,15 @@ import Sun from '../assets/icons/sun.svg';
 import Moon from '../assets/icons/moon.svg';
 import Volume from '../assets/icons/volume.svg';
 import VolumeMute from '../assets/icons/volumeMute.svg';
+import { useSound } from '../context/SoundContext';
 
 function Sidebar() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
-  const [soundOn, setSoundOn] = useState(() => {
-    return localStorage.getItem('sound') === 'true';
-  });
   const [darkModeOn, setDarkModeOn] = useState(() => {
     return localStorage.getItem('darkMode') === 'true';
   });
 
+  const { soundOn, setSoundOn } = useSound();
   const { loggedIn, logout } = useUserData();
   
   const navigate = useNavigate();
