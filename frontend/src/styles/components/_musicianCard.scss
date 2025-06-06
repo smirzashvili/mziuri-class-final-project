@@ -7,7 +7,7 @@
         position: relative;
         @include flexbox(row, center, flex-end);
         border-radius: 8px;
-        box-shadow: $shadow-lg;
+        box-shadow: var(--shadow-lg);
         width: 27vw;
         min-width: 370px;
         aspect-ratio: 3/4;
@@ -120,8 +120,8 @@
     
             &.nope {
                 visibility: visible;
-                color: $primary-red;
-                border-color: $primary-red;
+                color: var(--primary-red);
+                border-color: var(--primary-red);
             }
         }
     }
@@ -133,8 +133,8 @@
             background-color: white;
             padding: 20px;
             border-radius: 100%;
-            outline: 1px solid rgba($darker-grey, .3);
-            box-shadow: $shadow-sm;
+            outline: 1px solid rgba(var(--darker-grey, .3));
+            box-shadow: var(--shadow-sm);
 
             &:hover {
                 opacity: 1;
@@ -144,12 +144,12 @@
             &:nth-child(2) {
                 outline: none;
                 padding: 24px;
-                background-color: $secondary-green;
-                box-shadow: $shadow-md;
+                background-color: var(--secondary-green);
+                box-shadow: var(--shadow-md);
 
                 &:hover {
                     opacity: .8;
-                    background-color: $darker-green;
+                    background-color: var(--darker-green);
                 }
             }
         }

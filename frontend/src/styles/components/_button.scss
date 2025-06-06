@@ -5,17 +5,17 @@
     padding: 10px 24px;
     transition: 200ms;
     cursor: pointer;
-    background: $primary-green;
+    background: var(--primary-green);
     color: white;
 
     &:hover {
-        background-color: $darker-green;
+        background-color: var(--darker-green);
     }
 
     &.secondary {
         background-color: transparent;
         color: black;
-        border: 1px solid $border-grey;
+        border: 1px solid var(--border-grey);
 
         &:hover {
             background-color: #e7edf3;

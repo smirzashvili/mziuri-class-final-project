@@ -15,13 +15,13 @@
             padding: 0 16px;
             height: 80px;
             @include flexbox(row, flex-start, center);
-            border-bottom: 1px solid $border-grey;
+            border-bottom: 1px solid var(--border-grey);
 
             & > input {
                 width: 100%;
                 padding: 12px 6px;
-                background: $bg-color;
-                border: 1px solid $border-grey;
+                background: var(--bg-color);
+                border: 1px solid var(--border-grey);
                 border-radius: 4px;
             }
         }
@@ -30,7 +30,7 @@
             @include flexbox(column, flex-start, flex-start);
 
             & > .item {
-                border-bottom: 1px solid $border-grey;
+                border-bottom: 1px solid var(--border-grey);
                 width: 100%;
                 padding: 16px;
                 @include flexbox(row, space-between, flex-start);
@@ -39,11 +39,11 @@
                 transition-duration: 150ms;
 
                 &:hover {
-                    background-color: $bg-color;
+                    background-color: var(--bg-color);
                 }
 
                 &.active {
-                    background-color: $bg-color;
+                    background-color: var(--bg-color);
                     cursor: unset;
                     pointer-events: none;
                 }
@@ -56,7 +56,7 @@
                         
                         & > p:nth-child(2) {
                             font-size: 14px;
-                            color: $darker-grey;
+                            color: var(--darker-grey);
                             @include flexbox(row, flex-start, center, 6px);
 
                             & > .icon {
@@ -77,7 +77,7 @@
 
                 & > .messageTime {
                     font-size: 12px;
-                    color: $darker-grey;
+                    color: var(--darker-grey);
                 }
             }
         }
@@ -88,6 +88,6 @@
         height: 40px;
         aspect-ratio: 1/1;
         border-radius: 100%;
-        background-color: $border-grey;
+        background-color: var(--border-grey);
     }
 }

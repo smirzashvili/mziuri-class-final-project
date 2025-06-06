@@ -14,13 +14,13 @@
             background-color: white;
             padding: 4px;
             border-radius: 100%;
-            outline: 1px solid rgba($darker-grey, .3);
-            box-shadow: $shadow-sm;
+            outline: 1px solid rgba(var(--darker-grey, .3));
+            box-shadow: var(--shadow-sm);
 
             &:nth-child(1) {
                 outline: none;
-                background-color: $secondary-green;
-                box-shadow: $shadow-md;
+                background-color: var(--secondary-green);
+                box-shadow: var(--shadow-md);
                 margin-left: 0;
             }
 

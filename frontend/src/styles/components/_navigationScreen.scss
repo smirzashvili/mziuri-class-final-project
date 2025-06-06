@@ -52,7 +52,7 @@
             & > li {
                 font-size: 85px;
                 margin: 3vh 0;
-                color: $text-color;
+                color: var(--text-color);
                 transform: translateX(-100px);
                 opacity: 0;
                 visibility: hidden;
@@ -66,11 +66,11 @@
 
                 &:hover {
                     & > a {
-                        text-shadow: $secondary-green 0px 6px 16px;
+                        text-shadow: var(--secondary-green) 0px 6px 16px;
                     }
 
                     &:before {
-                        color: $primary-green;
+                        color: var(--primary-green);
                         opacity: 0;
                     }  
                 }
@@ -81,7 +81,7 @@
                     font-size: 14px;
                     vertical-align: top;
                     line-height: 40px;
-                    color: $darker-grey;
+                    color: var(--darker-grey);
                     font-weight: bold;
                     transition: 300ms;
                     margin-right: 5px;

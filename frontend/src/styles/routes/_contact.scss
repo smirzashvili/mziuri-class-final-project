@@ -6,8 +6,8 @@
     background: white;
     padding: 40px;
     margin: 102px 0;
-    border: 1px solid $border-grey;
-    box-shadow: $shadow-lg;
+    border: 1px solid var(--border-grey);
+    box-shadow: var(--shadow-lg);
     border-radius: 12px;
     
     & > .title {
@@ -34,12 +34,12 @@
 
                 & > img {
                     padding: 8px;
-                    background-color: rgba($secondary-green, 0.15);
+                    background-color: rgba(var(--secondary-green, 0.15));
                     border-radius: 100%;
                 }
 
                 & > p {
-                    color: $darker-grey;
+                    color: var(--darker-grey);
                     line-height: 24px;
                 }
             }

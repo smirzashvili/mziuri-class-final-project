@@ -24,8 +24,8 @@
         margin: 0;
 
         &:checked + .checkmark {
-            background-color: $primary-green;
-            outline-color: $primary-green;
+            background-color: var(--primary-green);
+            outline-color: var(--primary-green);
         
             &::after {
               content: '';
@@ -47,13 +47,13 @@
         left: 0;
         height: 14px;
         width: 14px;
-        outline: 1px solid $primary-green;
+        outline: 1px solid var(--primary-green);
         background-color: transparent;
         transition: 200ms;
         z-index: 1;
 
         &.error {
-            outline: 1px solid $primary-red;
+            outline: 1px solid var(--primary-red);
         }
     }
 }

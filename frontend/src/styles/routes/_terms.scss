@@ -6,8 +6,8 @@
     background: white;
     padding: 40px;
     margin: 102px 0;
-    border: 1px solid $border-grey;
-    box-shadow: $shadow-lg;
+    border: 1px solid var(--border-grey);
+    box-shadow: var(--shadow-lg);
     border-radius: 12px;
 
     & > .title {
@@ -23,13 +23,13 @@
         }
 
         p {
-            color: $darker-grey;
+            color: var(--darker-grey);
             margin-bottom: 15px;
             line-height: 24px;
         }
 
         ul {
-            color: $darker-grey;
+            color: var(--darker-grey);
             margin: -15px 0 5px 20px;
             list-style: unset;
 
@@ -37,7 +37,7 @@
                 margin-bottom: 10px;
 
                 &::marker {
-                    color: $border-grey;
+                    color: var(--border-grey);
                 }
             }
         }

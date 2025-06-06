@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 .logo {
-    fill: $primary-green;
+    fill: var(--primary-green);
 
     &.animated {
         animation-name: reminder;

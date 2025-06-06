@@ -18,10 +18,10 @@
             width: 100%;
             padding: 12px 6px;
             background: transparent;
-            border: 1px solid $border-grey;
+            border: 1px solid var(--border-grey);
 
             &.error {
-                border-color: $primary-red;
+                border-color: var(--primary-red);
             }
         }
 
@@ -36,7 +36,7 @@
             background-position-y: 50%;
 
             &.placeholder-selected {
-                color: $darker-grey;
+                color: var(--darker-grey);
             }
 
             & > option {

@@ -3,8 +3,8 @@
 .footer {
     @include dimension(calc(100% - 5vw), auto);
     margin-left: 5vw;
-    background-color: white;
+    background-color: var(--sidebar-color);
     padding: 25px 0;
     @include flexbox(row, center, center, 120px);
-    border-top: 1px solid $border-grey;
+    border-top: 1px solid var(--border-grey);
 }

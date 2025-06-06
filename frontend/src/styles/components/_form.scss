@@ -12,7 +12,7 @@
         }
         
         & > .subtitle {
-            color: $darker-grey;
+            color: var(--darker-grey);
             font-weight: 500;
             font-size: 18px;
         }
@@ -28,12 +28,12 @@
         @include flexbox(column, flex-start, flex-start, 8px);
 
         a {
-            color: $primary-green;
+            color: var(--primary-green);
         }
 
         & > .error {
             font-size: 14px;
-            color: $primary-red;
+            color: var(--primary-red);
             opacity: 0;
             visibility: hidden;
 

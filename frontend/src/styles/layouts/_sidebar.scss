@@ -3,14 +3,14 @@
 .sidebar {
     @include dimension(5vw, 100vh);
     min-width: 83px;
-    background-color: white;
+    background-color: var(--sidebar-color);
     position: fixed;
     top: 0px;
     left: 0px;
     padding: 24px 0.5vw;
     @include flexbox(column, space-between, center, 0);
     transition: 200ms;
-    border-right: 1px solid $border-grey;
+    border-right: 1px solid var(--border-grey);
     .upperContainer {
         width: 100%;
         display: flex;
@@ -40,7 +40,7 @@
                 @include flexbox(row, flex-start, center, 6px);
 
                 &.active {
-                    background-color: $primary-green;
+                    background-color: var(--primary-green);
                     cursor: unset;
                     opacity: 1;
                     color: white;
@@ -68,7 +68,7 @@
                 width: calc(100% + 1vw);
                 transform: translateX(-0.5vw);
                 height: 1px;
-                background-color: $border-grey;
+                background-color: var(--border-grey);
 
                 &:nth-child(2) {
                     top: unset;
@@ -81,7 +81,7 @@
             opacity: 0;
             visibility: hidden;
             transition: 200ms;
-            
+
             & > .item {
                 padding: 12px 8px;
                 border-radius: 4px;

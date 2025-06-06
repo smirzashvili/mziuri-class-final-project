@@ -7,7 +7,7 @@
         position: relative;
         @include flexbox(column, center, flex-end, 24px);
         border-radius: 12px;
-        box-shadow: $shadow-lg;
+        box-shadow: var(--shadow-lg);
         width: 50%;
         min-width: 370px;
         aspect-ratio: 3/4;
@@ -25,7 +25,7 @@
         & > .infoContainer {
             @include flexbox(column, center, flex-start, 16px);
             p {
-                color: $darker-grey;
+                color: var(--darker-grey);
             }
 
             & > .newConnections {
@@ -37,7 +37,7 @@
                     @include flexbox();
 
                     & > .item {
-                        background-color: $border-grey;
+                        background-color: var(--border-grey);
                         width: 32px;
                         height: 32px;
                         border-radius: 100%;
@@ -58,7 +58,7 @@
                     }
                 }
                 span {
-                    color: $primary-green;
+                    color: var(--primary-green);
                 }
             }
         }

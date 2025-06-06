@@ -6,8 +6,8 @@
     background: white;
     padding: 40px;
     margin: 102px 0;
-    border: 1px solid $border-grey;
-    box-shadow: $shadow-lg;
+    border: 1px solid var(--border-grey);
+    box-shadow: var(--shadow-lg);
     border-radius: 12px;
 
     & > .title {
@@ -71,7 +71,7 @@
 
                 & > label {
                     cursor: pointer;
-                    border: 1px solid $border-grey;
+                    border: 1px solid var(--border-grey);
                     position: relative;
                     aspect-ratio: 4 / 5;
 
@@ -82,7 +82,7 @@
                     &:not(.uploaded)::after {
                         content: '+';
                         font-size: 32px;
-                        color: $darker-grey;
+                        color: var(--darker-grey);
                         position: absolute;
                         top: 50%;
                         left: 50%;

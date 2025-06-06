@@ -5,9 +5,9 @@
     top: 20px;
     left: 50%;
     transform: translateX(-50%) translateY(-10px);
-    background-color: $primary-green;
+    background-color: var(--primary-green);
     color: white;
-    border: 1px solid $border-grey;
+    border: 1px solid var(--border-grey);
     padding: 10px 20px;
     border-radius: 4px;
     z-index: 9999;

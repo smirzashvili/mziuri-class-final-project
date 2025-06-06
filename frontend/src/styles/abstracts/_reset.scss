@@ -17,8 +17,8 @@ html {
 }
 
 body {
-    background-color: $bg-color;
-    color: $text-color;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-family: "Dosis", sans-serif;
     font-weight: 500;
 }
@@ -69,7 +69,7 @@ ul {
 }
 
 ::selection {
-    background-color: $secondary-green;
+    background-color: var(--secondary-green);
     color: white;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Logo, NavigationScreen, IconButton, Toggle } from '../components';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navigation from '../assets/icons/navigation.svg';
@@ -14,8 +14,12 @@ import VolumeMute from '../assets/icons/volumeMute.svg';
 
 function Sidebar() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
-  const [soundOn, setSoundOn] = useState(true);
-  const [darkModeOn, setDarkModeOn] = useState(false);
+  const [soundOn, setSoundOn] = useState(() => {
+    return localStorage.getItem('sound') === 'true';
+  });
+  const [darkModeOn, setDarkModeOn] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
 
   const { loggedIn, logout } = useUserData();
   
@@ -33,6 +37,24 @@ function Sidebar() {
 
     }
   };
+
+  useEffect(() => {
+    if (darkModeOn) {
+      document.body.classList.add('dark');
+      localStorage.setItem('darkMode', true)
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.setItem('darkMode', false)
+    }
+  }, [darkModeOn]);
+
+  useEffect(() => {
+    if (soundOn) {
+      localStorage.setItem('sound', true)
+    } else {
+      localStorage.setItem('sound', false)
+    }
+  }, [soundOn]);
 
   return (
     <>
