@@ -17,6 +17,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
   const [infoActive, setInfoActive] = useState(false);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const currentMediaRef = useRef()
+  const [mediaLoaded, setMediaLoaded] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0);
 
   const [rotation, setRotation] = useState(0);
@@ -25,12 +26,10 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
   const [watermarkState, setWatermarkState] = useState('');
   const [watermarkOpacity, setWatermarkOpacity] = useState(0);
 
-  // let newArr = [...media]; // clone the array to avoid modifying original
-  // for (let i = newArr.length - 1; i > 0; i--) {
-  //   const j = Math.floor(Math.random() * (i + 1));
-  //   [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
-  // }
-  // media = newArr
+  useEffect(() => {
+    setMediaLoaded(false);
+  }, [currentMediaIndex]);
+
   useEffect(() => {
     setCurrentMediaIndex(0);
     setInfoActive(false);   
@@ -112,8 +111,6 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
     onDislike()
   }
 
-  console.log('rendered')
-
   return (
     <div className="musicianCard">
       <div 
@@ -128,6 +125,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
           currentMediaRef={currentMediaRef}
           onHandleNextMedia={handleNextMedia}
           musicianData={musicianData}
+          mediaLoaded={mediaLoaded}
         />
         <div
           className={`media`}
@@ -141,11 +139,13 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
                 // muted={true}
                 // onEnded={handleNextMedia}
                 ref={currentMediaRef}
+                onLoad={() => setMediaLoaded(true)}
               />
             ) : (
               <img
                 src={media[currentMediaIndex]}
                 ref={currentMediaRef}
+                onLoad={() => setMediaLoaded(true)}
                 // onLoadedMetadata={handleMediaLoadedMetadata}
               />
             )}

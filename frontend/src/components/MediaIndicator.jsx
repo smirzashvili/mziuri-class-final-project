@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 
-function MediaIndicator({ currentMediaIndex, currentMediaRef, medias, onHandleNextMedia, musicianData }) {
+function MediaIndicator({ currentMediaIndex, currentMediaRef, medias, onHandleNextMedia, musicianData, mediaLoaded }) {
 
     const [indicatorProgress, setIndicatorProgress] = useState(0)
     const indicatorAnimationIdRef = useRef();
@@ -13,16 +13,18 @@ function MediaIndicator({ currentMediaIndex, currentMediaRef, medias, onHandleNe
             cancelAnimationFrame(indicatorAnimationIdRef.current);
         }
 
-        setIndicatorProgress(0);
-        indicatorAnimationIdRef.current = requestAnimationFrame(updateIndicatorProgress);
+        if(mediaLoaded || currentMediaRef.current instanceof HTMLVideoElement) {
+            setIndicatorProgress(0);
+            indicatorAnimationIdRef.current = requestAnimationFrame(updateIndicatorProgress);
+        }
         
         // Clean up on unmount or ref change
         return () => {
             if (indicatorAnimationIdRef.current) {
-            cancelAnimationFrame(indicatorAnimationIdRef.current);
+                cancelAnimationFrame(indicatorAnimationIdRef.current);
             }
         };
-    }, [currentMediaIndex, currentMediaRef, musicianData]); 
+    }, [currentMediaIndex, currentMediaRef, musicianData, mediaLoaded]); 
 
 
     const updateIndicatorProgress = () => {
