@@ -12,7 +12,7 @@
     // align-items: center;
     // flex-direction: column;
     z-index: 9;
-    background-color: rgba(white, 0.8);
+    background-color: var(--navigation-bg-color);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     transition: none;

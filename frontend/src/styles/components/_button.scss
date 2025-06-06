@@ -13,12 +13,12 @@
     }
 
     &.secondary {
+        color: unset;
         background-color: transparent;
-        color: black;
         border: 1px solid var(--border-grey);
 
         &:hover {
-            background-color: #e7edf3;
+            background-color: var(--hover-grey);
         }
     }
 

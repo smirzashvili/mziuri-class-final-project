@@ -3,7 +3,7 @@
 .terms {
     width: 60%;
     @include flexbox(column, center, center, 42px);
-    background: white;
+    background: var(--white);
     padding: 40px;
     margin: 102px 0;
     border: 1px solid var(--border-grey);

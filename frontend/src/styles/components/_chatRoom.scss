@@ -3,7 +3,7 @@
 .chatRoom {
     height: 100%;
     width: 80%;
-    background-color: white;
+    background-color: var(--white);
     border-left: 1px solid var(--border-grey);
     @include flexbox(column, space-between);
     position: relative;
@@ -69,13 +69,12 @@
                     p {
                         background-color: var(--primary-green);
                         border-top-right-radius: 0;
-                        color: white;
                     }
                 }
                 &.receive {
                     justify-content: flex-start;
                     p {
-                        background-color: white;
+                        background-color: var(--white);;
                         border-top-left-radius: 0;
                         color: black;
                     }
@@ -136,7 +135,7 @@
         min-width: 128px;
         border: 1px solid var(--border-grey);
         border-radius: 4px;
-        background-color: white;
+        background-color: var(--white);;
 
         & > .button {
             width: 100%;

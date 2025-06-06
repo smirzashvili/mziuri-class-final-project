@@ -11,10 +11,10 @@
         .iconButton {
             margin: 0 8px;
             cursor: unset;
-            background-color: white;
+            background-color: var(--white);
             padding: 4px;
             border-radius: 100%;
-            outline: 1px solid rgba(var(--darker-grey, .3));
+            outline: 1px solid rgba(118, 118, 118, 0.3);
             box-shadow: var(--shadow-sm);
 
             &:nth-child(1) {

@@ -3,7 +3,7 @@
 .about {
     width: 60%;
     @include flexbox(column, center, center, 42px);
-    background: white;
+    background: var(--white);
     padding: 40px;
     margin: 102px 0;
     border: 1px solid var(--border-grey);
@@ -38,7 +38,7 @@
 
                 & > img {
                     padding: 8px;
-                    background-color: rgba(var(--secondary-green, 0.15));
+                    background-color: #1998903f;
                     border-radius: 100%;
                 }
 

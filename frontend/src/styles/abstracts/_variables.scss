@@ -1,7 +1,8 @@
 :root {
     --bg-color: rgb(250, 250, 250);
+    --navigation-bg-color: rgb(255, 255, 255, 0.8);
 
-    --sidebar-color: white;
+    --white: #ffffff;
     
     --primary-green: #199890;
     --secondary-green: #199890bb;
@@ -9,7 +10,8 @@
     
     --border-grey: #e5e7eb;
     --darker-grey: rgb(118, 118, 118);
-    
+    --hover-grey: #e7edf3;
+
     --text-color: black;
     
     --primary-red: #e20000;	
@@ -25,34 +27,7 @@ body.dark {
   --text-color: #f5f5f5;
   --sidebar-color: rgb(31, 41, 55);
   --border-grey: rgb(55, 65, 81);
+  --white: rgb(31, 41, 55);
+  --hover-grey: hsl(218, 33%, 23%);
+  --navigation-bg-color: rgb(31, 41, 55, 0.8);
 }
-
-
-    // --color2: #37AF91;
-    // --color3: #60C48B;
-    // --color4: #8ED882;
-    // --color5: #C1EA77;
-    // --color6: #F9F871;
-
-    // --black-color: #000000;
-    // --darkgrey-color: #141414;
-    // --grey-color: #282828;
-    // --darkpurple-color: #230046;
-    // --purple-color: #320064;
-
-    // --bg-color: #141414;
-    // --bg-color-2: #161819;
-    // --bg-color-3: #222;
-
-    // --main-color: #FF0000;
-    // --main-color-2: #ED1D24;
-
-    // --text-color: rgba(255, 255, 255, 0.924);
-    // --text-muted: #6c757d;
-
-
-    // --fb-color: #3b5998;
-    // --google-color: #a61c00;
-    // --twitter-color: #1da1f2;
-
-    // --text-shadow: 1px 1px 2px rgba($color: #000000, $alpha: 0.8);

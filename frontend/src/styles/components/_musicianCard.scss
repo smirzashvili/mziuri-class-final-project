@@ -101,9 +101,8 @@
             top: 32px;
             left: 24px;
             rotate: -16deg;
-            color: white;
             font-weight: bold;
-            border: 2px solid white;
+            border: 2px solid var(--white);
             border-radius: 4px;
             padding: 8px 14px;
             z-index: 9;
@@ -130,15 +129,15 @@
         @include flexbox(row, center, flex-start, 16px);
 
         & > .iconButton {
-            background-color: white;
+            background-color: var(--white);
             padding: 20px;
             border-radius: 100%;
-            outline: 1px solid rgba(var(--darker-grey, .3));
+            outline: 1px solid rgba(118, 118, 118, 0.3);
             box-shadow: var(--shadow-sm);
 
             &:hover {
                 opacity: 1;
-                background-color: #e7edf3;
+                background-color: var(--hover-grey);
             }
 
             &:nth-child(2) {

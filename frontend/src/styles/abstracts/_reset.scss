@@ -70,7 +70,7 @@ ul {
 
 ::selection {
     background-color: var(--secondary-green);
-    color: white;
+    color: var(--white);
 }
 
 .app {
@@ -126,4 +126,11 @@ ul {
             }
         }
     }
+}
+
+//dark mode visual changes
+body.dark {
+  .iconButton img {
+    filter: brightness(0) invert(1); // makes the image appear white
+  }
 }
