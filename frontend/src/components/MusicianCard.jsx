@@ -163,7 +163,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
           <IconButton
             icon={Info}
             onClick={() => setInfoActive(!infoActive)}
-            size={16}
+            size={"calc(16px * var(--app-scale))"}
           />
           <div className='section'>
             <h2>{musicianData.fullName}</h2>
@@ -204,17 +204,17 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
         <IconButton
           icon={Refresh}
           onClick={handleRefresh}
-          size={14}
+          size={"calc(14px * var(--app-scale))"}
         />
         <IconButton
           icon={Heart}
           onClick={handleLike}
-          size={16}
+          size={"calc(16px * var(--app-scale))"}
         />
         <IconButton
           icon={Close}
           onClick={handleDislike}
-          size={14}
+          size={"calc(14px * var(--app-scale))"}
         />
       </div>
     </div>

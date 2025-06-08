@@ -7,20 +7,20 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    padding: 24px 0.5vw;
+    padding: calc(24px * var(--app-scale)) 0.5vw;
     @include flexbox(column, space-between, center, 0);
     transition: 200ms;
-    border-right: 1px solid var(--border-grey);
+    border-right: calc(1px * var(--app-scale)) solid var(--border-grey);
     .upperContainer {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 48px;
+        gap: calc(48px * var(--app-scale));
 
         .logoContainer {
             .logo {
                 width: auto;
-                height: 55px;
+                height: calc(55px * var(--app-scale));
             }
         }
 
@@ -32,13 +32,13 @@
             position: relative;
 
             & > .item {
-                padding: 12px 8px;
-                border-radius: 4px;
+                padding: calc(12px * var(--app-scale)) calc(8px * var(--app-scale));
+                border-radius: calc(4px * var(--app-scale));
                 transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
                 transition-duration: 150ms;
                 transition-property: background-color;
                 cursor: pointer;
-                @include flexbox(row, flex-start, center, 6px);
+                @include flexbox(row, flex-start, center, calc(6px * var(--app-scale)));
 
                 &.active {
                     background-color: var(--primary-green);
@@ -61,22 +61,22 @@
                     opacity: 1;
                 }
                 p {
-                    line-height: 21px;
+                    line-height: calc(21px * var(--app-scale));
                 }
             }  
             
             & > .line {
                 position: absolute;
-                top: -24px;
+                top: calc(-24px * var(--app-scale));
                 left: 0;
                 width: calc(100% + 1vw);
                 transform: translateX(-0.5vw);
-                height: 1px;
+                height: calc(1px * var(--app-scale));
                 background-color: var(--border-grey);
 
                 &:nth-child(2) {
                     top: unset;
-                    bottom: -24px;
+                    bottom: calc(-24px * var(--app-scale));
                 }
             }
         }
@@ -87,12 +87,12 @@
             transition: 200ms;
 
             & > .item {
-                padding: 12px 8px;
-                border-radius: 4px;
+                padding: calc(12px * var(--app-scale)) calc(8px * var(--app-scale));
+                border-radius: calc(4px * var(--app-scale));
                 @include flexbox(row, space-between, center, 0);
 
                 & > div {
-                    @include flexbox(row, flex-start, center, 6px);
+                    @include flexbox(row, flex-start, center, calc(6px * var(--app-scale)));
                 }
 
             }  
@@ -103,7 +103,7 @@
             }
 
             p {
-                line-height: 21px;
+                line-height: calc(21px * var(--app-scale));
             }
         }
         // .line {
@@ -125,7 +125,7 @@
         @include flexbox(row, space-around);
         // width: 100%;
         .button {
-            transform: rotate(-90deg) translateX(24px);
+            transform: rotate(-90deg) translateX(calc(24px * var(--app-scale)));
             transform-origin: center;
             white-space: nowrap;
             min-width: 80px;

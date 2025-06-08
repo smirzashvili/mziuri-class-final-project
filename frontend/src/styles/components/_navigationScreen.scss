@@ -50,7 +50,7 @@
             counter-reset: section; /* Increment the value of section counter by 1 */
 
             & > li {
-                font-size: 85px;
+                font-size: calc(85px * var(--app-scale));
                 margin: 3vh 0;
                 color: var(--text-color);
                 transform: translateX(-100px);
@@ -66,7 +66,7 @@
 
                 &:hover {
                     & > a {
-                        text-shadow: var(--secondary-green) 0px 6px 16px;
+                        text-shadow: var(--secondary-green) 0px calc(6px * var(--app-scale)) calc(16px * var(--app-scale));
                     }
 
                     &:before {
@@ -78,13 +78,13 @@
                 &:before {
                     counter-increment: section; /* Increment the value of section counter by 1 */
                     content: "0" counter(section);
-                    font-size: 14px;
+                    font-size: calc(14px * var(--app-scale));
                     vertical-align: top;
-                    line-height: 40px;
+                    line-height: calc(40px * var(--app-scale));
                     color: var(--darker-grey);
                     font-weight: bold;
                     transition: 300ms;
-                    margin-right: 5px;
+                    margin-right: calc(5px * var(--app-scale));
                 }
 
                 & > a {

@@ -2,18 +2,18 @@
 
 .mediaIndicator {
     position: absolute;
-    top: 8px;
+    top: calc(8px * var(--app-scale));
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;
-    height: 5px;
+    height: calc(5px * var(--app-scale));
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 3;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
-    padding: 0 5px;
+    gap: calc(5px * var(--app-scale));
+    padding: 0 calc(5px * var(--app-scale));
 
     & > .indicator {
         height: 100%;

@@ -91,7 +91,7 @@ function ResetPassword() {
                 <IconButton
                     icon={isPasswordVisible ? Eye : EyeClosed}
                     onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                    size={20}
+                    size={"calc(20px * var(--app-scale))"}
                     additionalClassnames={'end'}
                     type="button"
                 />
@@ -115,7 +115,7 @@ function ResetPassword() {
                 <IconButton
                     icon={isConfirmPasswordVisible ? Eye : EyeClosed}
                     onClick={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}
-                    size={20}
+                    size={"calc(20px * var(--app-scale))"}
                     additionalClassnames={'end'}
                     type="button"
                 />

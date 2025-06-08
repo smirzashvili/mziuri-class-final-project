@@ -1,20 +1,20 @@
 @use '../abstracts' as *;
 
 .explore {
-    @include flexbox(column, center, center, 32px);
-    margin: 52px 0;
+    @include flexbox(column, center, center, calc(32px * var(--app-scale)));
+    margin: calc(52px * var(--app-scale)) 0;
 
     .docs {
         display: flex;
         align-items: center;
 
         .iconButton {
-            margin: 0 8px;
+            margin: 0 calc(8px * var(--app-scale));
             cursor: unset;
             background-color: var(--white);
-            padding: 4px;
+            padding: calc(4px * var(--app-scale));
             border-radius: 100%;
-            outline: 1px solid rgba(118, 118, 118, 0.3);
+            outline: calc(1px * var(--app-scale)) solid rgba(118, 118, 118, 0.3);
             box-shadow: var(--shadow-sm);
 
             &:nth-child(1) {

@@ -2,27 +2,27 @@
 
 .profile {
     width: 60%;
-    @include flexbox(column, center, center, 42px);
+    @include flexbox(column, center, center, calc(42px * var(--app-scale)));
     background: var(--white);
-    padding: 40px;
-    margin: 102px 0;
-    border: 1px solid var(--border-grey);
+    padding: calc(40px * var(--app-scale));
+    margin: calc(102px * var(--app-scale)) 0;
+    border: calc(1px * var(--app-scale)) solid var(--border-grey);
     box-shadow: var(--shadow-lg);
-    border-radius: 12px;
+    border-radius: calc(12px * var(--app-scale));
 
     & > .title {
-        font-size: 40px;
-        line-height: 32px;
+        font-size: calc(40px * var(--app-scale));
+        line-height: calc(32px * var(--app-scale));
     }
 
     .formContainer {
         @include dimension(100%, 100%);
-        @include flexbox(column, center, center, 25px);
+        @include flexbox(column, center, center, calc(25px * var(--app-scale)));
 
         .title {
             text-align: center;
-            margin: 16px 0;
-            font-size: 24px;
+            margin: calc(16px * var(--app-scale)) 0;
+            font-size: calc(24px * var(--app-scale));
             // font-weight: 500;
 
             &:first-child {
@@ -36,7 +36,7 @@
 
             & .button {
                 width: 100%;
-                margin-top: 24px;
+                margin-top: calc(24px * var(--app-scale));
             };
 
             & > .titlesContainer {
@@ -44,8 +44,8 @@
                 .title {
                     @include flexbox(row, space-between, flex-end);
                     .stepIndicator {
-                        font-size: 18px;
-                        line-height: 31px;
+                        font-size: calc(18px * var(--app-scale));
+                        line-height: calc(31px * var(--app-scale));
                     }
                 }
             }
@@ -62,7 +62,7 @@
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 grid-template-rows: repeat(3, 1fr);
-                gap: 10px;
+                gap: calc(10px * var(--app-scale));
                 // margin-bottom: 20px;
 
                 .input {
@@ -71,7 +71,7 @@
 
                 & > label {
                     cursor: pointer;
-                    border: 1px solid var(--border-grey);
+                    border: calc(1px * var(--app-scale)) solid var(--border-grey);
                     position: relative;
                     aspect-ratio: 4 / 5;
 
@@ -81,7 +81,7 @@
                                   
                     &:not(.uploaded)::after {
                         content: '+';
-                        font-size: 32px;
+                        font-size: calc(32px * var(--app-scale));
                         color: var(--darker-grey);
                         position: absolute;
                         top: 50%;
@@ -102,8 +102,8 @@
                             position: absolute;
                             bottom: 0;
                             right: 0;
-                            width: 20px;
-                            height: 20px;
+                            width: calc(20px * var(--app-scale));
+                            height: calc(20px * var(--app-scale));
                             background-color: var(--white);
                             display: flex;
                             justify-content: center;

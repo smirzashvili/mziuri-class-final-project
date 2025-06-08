@@ -10,7 +10,7 @@ const NavigationScreen = ({ visible, setVisible }) => {
       <IconButton
         icon={Close}
         onClick={() => setVisible(false)}
-        size={24}
+        size={"calc(24px * var(--app-scale))"}
       />
       <div className="links">
         <ul>

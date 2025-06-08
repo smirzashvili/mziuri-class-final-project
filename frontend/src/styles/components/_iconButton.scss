@@ -4,7 +4,7 @@
     // background-color: red;
     border: none;
     background: none;
-    padding: 4px;
+    padding: calc(4px * var(--app-scale));
     cursor: pointer;
     display: flex;
     align-items: center;

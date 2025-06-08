@@ -48,17 +48,17 @@ function Explore() {
       <div className='docs'>
           <IconButton
             icon={Heart}
-            size={12}
+            size={"calc(12px * var(--app-scale))"}
           />
           or swipe right to Like,
           <IconButton
             icon={Close}
-            size={12}
+            size={"calc(12px * var(--app-scale))"}
           />
           or swipe left to Dislike,
           <IconButton
             icon={Refresh}
-            size={12}
+            size={"calc(12px * var(--app-scale))"}
           />
           to Refresh Content
       </div>

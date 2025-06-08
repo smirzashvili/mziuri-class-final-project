@@ -2,39 +2,39 @@
 
 .terms {
     width: 60%;
-    @include flexbox(column, center, center, 42px);
+    @include flexbox(column, center, center, calc(42px * var(--app-scale)));
     background: var(--white);
-    padding: 40px;
-    margin: 102px 0;
-    border: 1px solid var(--border-grey);
+    padding: calc(40px * var(--app-scale));
+    margin: calc(102px * var(--app-scale)) 0;
+    border: calc(1px * var(--app-scale)) solid var(--border-grey);
     box-shadow: var(--shadow-lg);
-    border-radius: 12px;
+    border-radius: calc(12px * var(--app-scale));
 
     & > .title {
-        font-size: 40px;
-        line-height: 32px;
+        font-size: calc(40px * var(--app-scale));
+        line-height: calc(32px * var(--app-scale));
     }
 
     & > .content {
         @include flexbox(column, center, flex-start, 16px);
 
         h3 {
-            font-size: 24px;
+            font-size: calc(24px * var(--app-scale));
         }
 
         p {
             color: var(--darker-grey);
-            margin-bottom: 15px;
-            line-height: 24px;
+            margin-bottom: calc(15px * var(--app-scale));
+            line-height: calc(24px * var(--app-scale));
         }
 
         ul {
             color: var(--darker-grey);
-            margin: -15px 0 5px 20px;
+            margin: calc(-15px * var(--app-scale)) 0 calc(5px * var(--app-scale)) calc(20px * var(--app-scale));
             list-style: unset;
 
             li {
-                margin-bottom: 10px;
+                margin-bottom: calc(10px * var(--app-scale));
 
                 &::marker {
                     color: var(--border-grey);

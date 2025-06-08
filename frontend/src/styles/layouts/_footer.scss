@@ -4,7 +4,7 @@
     @include dimension(calc(100% - 5vw), auto);
     margin-left: 5vw;
     background-color: var(--sidebar-color);
-    padding: 25px 0;
-    @include flexbox(row, center, center, 120px);
-    border-top: 1px solid var(--border-grey);
+    padding: calc(25px * var(--app-scale)) 0;
+    @include flexbox(row, center, center, calc(120px * var(--app-scale)));
+    border-top: calc(1px * var(--app-scale)) solid var(--border-grey);
 }

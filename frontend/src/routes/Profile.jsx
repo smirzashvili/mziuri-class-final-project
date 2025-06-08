@@ -207,7 +207,7 @@ function Profile() {
                     <IconButton
                       icon={isPasswordVisible ? Eye : EyeClosed}
                       onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                      size={20}
+                      size={"calc(20px * var(--app-scale))"}
                       additionalClassnames={'end'}
                       type="button"
                     />
@@ -231,7 +231,7 @@ function Profile() {
                     <IconButton
                       icon={isConfirmPasswordVisible ? Eye : EyeClosed}
                       onClick={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}
-                      size={20}
+                      size={"calc(20px * var(--app-scale))"}
                       additionalClassnames={'end'}
                       type="button"
                     />
@@ -423,7 +423,7 @@ function Profile() {
                           <IconButton
                             icon={Close}
                             onClick={(e) => handleFileDelete(e, index)}
-                            size={14}
+                            size={"calc(14px * var(--app-scale))"}
                             type="button"
                           />
                         </>

@@ -11,7 +11,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 24px;
+    gap: calc(24px * var(--app-scale));
     z-index: 9;
     background-color: var(--white);;
 
@@ -30,16 +30,16 @@
     }
 
     .progress {
-        width: 200px;
-        height: 4px;
+        width: calc(200px * var(--app-scale));
+        height: calc(4px * var(--app-scale));
         background-color: var(--bg-color);
-        border-radius: 2px;
+        border-radius: calc(2px * var(--app-scale));
 
         & > div {
             background-color: var(--primary-green);
             width: 0%;
             height: 100%;
-            border-radius: 2px;
+            border-radius: calc(2px * var(--app-scale));
             transition-duration: 280ms;
         }
     }

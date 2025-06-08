@@ -61,7 +61,7 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages}) {
             </div>
             <IconButton
                 icon={ThreeDot}
-                size={16}
+                size={"calc(16px * var(--app-scale))"}
                 onClick={() => setMenuVisible(prev => !prev)}
             />
         </div>
@@ -98,7 +98,7 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages}) {
                 <IconButton
                     ref={threeDotButtonRef}
                     icon={Emoji}
-                    size={16}
+                    size={"calc(16px * var(--app-scale))"}
                     onClick={() => setEmojiPickerVisible(!emojiPickerVisible)}
                 />
                 {/* <EmojiPicker 
@@ -117,7 +117,7 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages}) {
             </div>
             <IconButton
                 icon={SendMessage}
-                size={16}
+                size={"calc(16px * var(--app-scale))"}
                 additionalClassnames={'green'}
                 onClick={() => onSendMessage(message)}
             />

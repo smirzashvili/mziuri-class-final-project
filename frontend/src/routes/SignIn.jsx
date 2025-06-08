@@ -107,7 +107,7 @@ function SignIn() {
               <IconButton
                 icon={isPasswordVisible ? Eye : EyeClosed}
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                size={20}
+                size={"calc(20px * var(--app-scale))"}
                 additionalClassnames={'end'}
                 type="button"
               />

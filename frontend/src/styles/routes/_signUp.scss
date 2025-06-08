@@ -6,7 +6,7 @@
 
     .formContainer {
         @include dimension(100%, 100%);
-        @include flexbox(column, center, center, 25px);
+        @include flexbox(column, center, center, calc(25px * var(--app-scale)));
 
         & > .form {
             width: 50%;
@@ -21,8 +21,8 @@
                 .title {
                     @include flexbox(row, space-between, flex-end);
                     .stepIndicator {
-                        font-size: 18px;
-                        line-height: 31px;
+                        font-size: calc(18px * var(--app-scale));
+                        line-height: calc(31px * var(--app-scale));
                     }
                 }
             }
@@ -39,7 +39,7 @@
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 grid-template-rows: repeat(3, 1fr);
-                gap: 10px;
+                gap: calc(10px * var(--app-scale));
                 // margin-bottom: 20px;
 
                 .input {
@@ -48,7 +48,7 @@
 
                 & > label {
                     cursor: pointer;
-                    border: 1px solid var(--border-grey);
+                    border: calc(1px * var(--app-scale)) solid var(--border-grey);
                     position: relative;
                     aspect-ratio: 4 / 5;
                     // width: 30%;
@@ -57,7 +57,7 @@
                                   
                     &:not(.uploaded)::after {
                         content: '+';
-                        font-size: 32px;
+                        font-size: calc(32px * var(--app-scale));
                         color: var(--darker-grey);
                         position: absolute;
                         top: 50%;
@@ -78,8 +78,8 @@
                             position: absolute;
                             bottom: 0;
                             right: 0;
-                            width: 20px;
-                            height: 20px;
+                            width: calc(20px * var(--app-scale));
+                            height: calc(20px * var(--app-scale));
                             background-color: var(--white);
                             display: flex;
                             justify-content: center;

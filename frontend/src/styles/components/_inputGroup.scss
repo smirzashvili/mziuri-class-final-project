@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 .inputGroup {
-    @include flexbox(column, flex-start, flex-start, 8px);
+    @include flexbox(column, flex-start, flex-start, calc(8px * var(--app-scale)));
     width: 100%;
 
     & > .label {
@@ -16,9 +16,9 @@
         & > .select,
         & > .textarea {
             width: 100%;
-            padding: 12px 6px;
+            padding: calc(12px * var(--app-scale)) calc(6px * var(--app-scale));
             background: transparent;
-            border: 1px solid var(--border-grey);
+            border: calc(1px * var(--app-scale)) solid var(--border-grey);
 
             &.error {
                 border-color: var(--primary-red);
@@ -32,7 +32,7 @@
             appearance: none;
             background-image: url("../../../src/assets/icons/arrow-down.svg");
             background-repeat: no-repeat;
-            background-position-x: calc(100% - 4px);
+            background-position-x: calc(100% - calc(8px * var(--app-scale)));
             background-position-y: 50%;
 
             &.placeholder-selected {
@@ -45,7 +45,7 @@
         }
 
         & > .textarea {
-            height: 180px;
+            height: calc(180px * var(--app-scale));
         }
 
         & > .iconButton {
@@ -54,10 +54,10 @@
             transform: translateY(-50%);
             
             &.end {
-                right: 8px;
+                right: calc(8px * var(--app-scale));
             }
             &.start {
-                left: 8px;
+                left: calc(8px * var(--app-scale));
             }
         }
 

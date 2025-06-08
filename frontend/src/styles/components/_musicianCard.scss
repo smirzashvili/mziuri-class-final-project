@@ -1,12 +1,12 @@
 @use '../abstracts' as *;
 
 .musicianCard {
-    @include flexbox(column, center, center, 32px);
+    @include flexbox(column, center, center, calc(32px * var(--app-scale)));
 
     & > .card {
         position: relative;
         @include flexbox(row, center, flex-end);
-        border-radius: 8px;
+        border-radius: calc(8px * var(--app-scale));
         box-shadow: var(--shadow-lg);
         width: 27vw;
         min-width: 370px;
@@ -20,13 +20,13 @@
             top: 0;
             left: 0;
             z-index: -1;
-            border-radius: 8px;
+            border-radius: calc(8px * var(--app-scale));
             
             & > img, & > video {
                 object-fit: cover;
                 width: 100%;
                 height: 100%;
-                border-radius: 8px;
+                border-radius: calc(8px * var(--app-scale));
             }
     
             & > .half {
@@ -45,43 +45,43 @@
         & > .infoContainer {
             background-image: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent);
             width: 100%;
-            padding: 24px;
+            padding: calc(24px * var(--app-scale));
             color: white;
             position: relative;
-            border-radius: 8px;
+            border-radius: calc(8px * var(--app-scale));
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 150ms;
-            @include flexbox(column, flex-start, flex-start, 16px);
+            @include flexbox(column, flex-start, flex-start, calc(16px * var(--app-scale)));
             cursor: default;
             // height: 20%;\
     
             & > .section, & > .additional > .section {
                 & > h2 {
-                    font-size: 32px;
-                    line-height: 32px;
+                    font-size: calc(32px * var(--app-scale));
+                    line-height: calc(32px * var(--app-scale));
                 }
                 & > h3 {
-                    font-size: 24px;
-                    line-height: 24px;
+                    font-size: calc(24px * var(--app-scale));
+                    line-height: calc(24px * var(--app-scale));
                 }
                 & > p {
-                    font-size: 16px;
-                    margin-top: 12px;
+                    font-size: calc(16px * var(--app-scale));
+                    margin-top: calc(12px * var(--app-scale));
                     opacity: .8;
                 }
             }
     
             & > .additional {
-                @include flexbox(column, flex-start, flex-start, 16px);
+                @include flexbox(column, flex-start, flex-start, calc(16px * var(--app-scale)));
             }
     
             & > .iconButton {
-                padding: 8px;
+                padding: calc(8px * var(--app-scale));
                 border-radius: 100%;
                 background-color: rgb(0 0 0 / 0.3);
                 position: absolute;
-                top: 24px;
-                right: 24px;
+                top: calc(24px * var(--app-scale));
+                right: calc(24px * var(--app-scale));
     
                 &:hover {
                     opacity: 1;
@@ -92,21 +92,21 @@
             &.active {
                 height: 100%;
                 transition-duration: 300ms;
-                padding-top: 80px;
+                padding-top: calc(80px * var(--app-scale));
             }
         }
     
         & > .watermark {
             position: absolute;
-            top: 32px;
-            left: 24px;
+            top: calc(32px * var(--app-scale));
+            left: calc(24px * var(--app-scale));
             rotate: -16deg;
             font-weight: bold;
-            border: 2px solid var(--white);
-            border-radius: 4px;
-            padding: 8px 14px;
+            border: calc(2px * var(--app-scale)) solid var(--white);
+            border-radius: calc(4px * var(--app-scale));
+            padding: calc(8px * var(--app-scale)) calc(14px * var(--app-scale));
             z-index: 9;
-            font-size: 20px;
+            font-size: calc(20px * var(--app-scale));
             text-transform: uppercase;
             opacity: 0;
             visibility: hidden;
@@ -126,13 +126,13 @@
     }
 
     & > .controlPanel {
-        @include flexbox(row, center, flex-start, 16px);
+        @include flexbox(row, center, flex-start, calc(16px * var(--app-scale)));
 
         & > .iconButton {
             background-color: var(--white);
-            padding: 20px;
+            padding: calc(20px * var(--app-scale));
             border-radius: 100%;
-            outline: 1px solid rgba(118, 118, 118, 0.3);
+            outline: calc(1px * var(--app-scale)) solid rgba(118, 118, 118, 0.3);
             box-shadow: var(--shadow-sm);
 
             &:hover {
@@ -142,7 +142,7 @@
 
             &:nth-child(2) {
                 outline: none;
-                padding: 24px;
+                padding: calc(24px * var(--app-scale));
                 background-color: var(--secondary-green);
                 box-shadow: var(--shadow-md);
 

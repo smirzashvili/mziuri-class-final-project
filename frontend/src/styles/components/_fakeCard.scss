@@ -5,55 +5,56 @@
     background: linear-gradient(135deg, rgba(55, 175, 145, 0.05) 0%, rgba(255, 204, 203, 0.2) 80%);
     & > div {
         position: relative;
-        @include flexbox(column, center, flex-end, 24px);
-        border-radius: 12px;
+        @include flexbox(column, center, flex-start, calc(24px * var(--app-scale)));
+        border-radius: calc(12px * var(--app-scale));
         box-shadow: var(--shadow-lg);
         width: 50%;
         min-width: 370px;
         aspect-ratio: 3/4;
         transition: transform 0.3s;
-        padding: 24px;
+        padding: calc(24px * var(--app-scale));
         background-color: var(--white);;
 
         & > .image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: calc(12px * var(--app-scale));
         }
 
         & > .infoContainer {
-            @include flexbox(column, center, flex-start, 16px);
+            @include flexbox(column, center, flex-start, calc(16px * var(--app-scale)));
+
             p {
                 color: var(--darker-grey);
             }
 
             & > .newConnections {
-                font-size: 15px;
-                margin-top: 12px;
-                @include flexbox(row, flex-start, center, 12px);
+                font-size: calc(15px * var(--app-scale));
+                margin-top: calc(12px * var(--app-scale));
+                @include flexbox(row, flex-start, center, calc(12px * var(--app-scale)));
 
                 & > .userImages {
                     @include flexbox();
 
                     & > .item {
                         background-color: var(--border-grey);
-                        width: 32px;
-                        height: 32px;
+                        width: calc(32px * var(--app-scale));
+                        height: calc(32px * var(--app-scale));
                         border-radius: 100%;
-                        border: 2px solid var(--white);;
+                        border: calc(2px * var(--app-scale)) solid var(--white);;
 
                         &:nth-child(2) {
                             margin-right: 0;
-                            margin-left: -8px;
+                            margin-left: calc(-8px * var(--app-scale));
                         }
                         &:nth-child(3) {
                             margin-right: 0;
-                            margin-left: -8px;
+                            margin-left: calc(-8px * var(--app-scale));
                         }
                         &:nth-child(4) {
                             margin-right: 0;
-                            margin-left: -8px;
+                            margin-left: calc(-8px * var(--app-scale));
                         }
                     }
                 }
@@ -65,21 +66,21 @@
 
         & > .cornerBlur {
             position: absolute;
-            width: 256px;
-            height: 256px;
+            width: calc(256px * var(--app-scale));
+            height: calc(256px * var(--app-scale));
             border-radius: 100%;
             z-index: -1;
             filter: blur(64px);
 
             &:nth-child(1) {
-                top: -24px;
-                left: -24px;
+                top: calc(-24px * var(--app-scale));
+                left: calc(-24px * var(--app-scale));
                 background-color: rgb(255 192 203 / 0.3);
             }
 
             &:nth-child(2) {
-                bottom: -32px;
-                right: -32px;
+                bottom: calc(-32px * var(--app-scale));
+                right: calc(-32px * var(--app-scale));
                 background-color: rgb(55 175 145 / 0.2);
             }
         }

@@ -2,7 +2,7 @@
 
 .intro {
     @include dimension(100%, 100%);
-    @include flexbox(column, center, center, 30px);
+    @include flexbox(column, center, center, calc(30px * var(--app-scale)));
     position: fixed;
     top: 0;
     left: 0;

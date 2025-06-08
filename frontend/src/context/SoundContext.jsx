@@ -4,7 +4,7 @@ const SoundContext = createContext();
 
 export function SoundProvider({ children }) {
   const [soundOn, setSoundOn] = useState(() => {
-    return localStorage.getItem('sound') === 'true';
+    return localStorage.getItem('sound') ? localStorage.getItem('sound') === 'true' : true;
   });
 
   useEffect(() => {

@@ -74,7 +74,7 @@ function Sidebar() {
             >
               <IconButton
                 icon={Discover}
-                size={16}
+                size={"calc(16px * var(--app-scale))"}
               />
               <p>Discover</p>
             </Link>
@@ -84,7 +84,7 @@ function Sidebar() {
             >
               <IconButton
                 icon={Messages}
-                size={16}
+                size={"calc(16px * var(--app-scale))"}
               />
               <p>Messages</p>
             </Link>
@@ -94,7 +94,7 @@ function Sidebar() {
             >
               <IconButton
                 icon={Profile}
-                size={16}
+                size={"calc(16px * var(--app-scale))"}
               />
               <p>Profile</p>
             </Link>
@@ -104,7 +104,7 @@ function Sidebar() {
               <div>
                 <IconButton
                   icon={soundOn ? Volume : VolumeMute}
-                  size={16}
+                  size={"calc(16px * var(--app-scale))"}
                 />
                 <p>Sound</p>
               </div>
@@ -117,7 +117,7 @@ function Sidebar() {
               <div>
                 <IconButton
                   icon={darkModeOn ? Moon : Sun}
-                  size={16}
+                  size={"calc(16px * var(--app-scale))"}
                 />
                 <p>Dark Mode</p>
               </div>
@@ -132,7 +132,7 @@ function Sidebar() {
         <IconButton
           icon={Navigation}
           onClick={() => setIsNavbarVisible(true)}
-          size={20}
+          size={"calc(20px * var(--app-scale))"}
         />
 
         <div className="buttonsContainer">

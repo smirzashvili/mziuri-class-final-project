@@ -2,7 +2,7 @@
 
 .button {
     border: none;
-    padding: 10px 24px;
+    padding: calc(10px * var(--app-scale)) calc(24px * var(--app-scale));
     transition: 200ms;
     cursor: pointer;
     background: var(--primary-green);
@@ -15,7 +15,7 @@
     &.secondary {
         color: unset;
         background-color: transparent;
-        border: 1px solid var(--border-grey);
+        border: calc(1px * var(--app-scale)) solid var(--border-grey);
 
         &:hover {
             background-color: var(--hover-grey);

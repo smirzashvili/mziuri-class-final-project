@@ -8,10 +8,12 @@ import useDocumentTitle from './hooks/useDocumentTitle';
 import useScrollTop from './hooks/useScrollTop';
 import * as api from './api/api.js';
 import { useUserData } from './context/UserContext.jsx';
+import useAppScale from './hooks/useAppScale'
 
 function App() {
   useDocumentTitle();
   useScrollTop();
+  useAppScale()
 
   const { loggedIn, login } = useUserData();
 

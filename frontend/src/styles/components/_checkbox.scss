@@ -1,12 +1,12 @@
 @use '../abstracts' as *;
 
 .checkbox {
-    margin-right: 8px;
-    width: 14px;
-    height: 14px;
+    margin-right: calc(8px * var(--app-scale));
+    width: calc(14px * var(--app-scale));
+    height: calc(14px * var(--app-scale));
     cursor: pointer;
     background-color: transparent;
-    outline: 1px solid transparent;
+    outline: calc(1px * var(--app-scale)) solid transparent;
     transition: 200ms;
     position: relative;
     display: inline-block;
@@ -32,10 +32,10 @@
               position: absolute;
               top: 50%;
               left: 50%;
-              width: 4px;
-              height: 9px;
+              width: calc(4px * var(--app-scale));
+              height: calc(9px * var(--app-scale));
               border: solid var(--white);;
-              border-width: 0 2px 2px 0;
+              border-width: 0 calc(2px * var(--app-scale)) calc(2px * var(--app-scale)) 0;
               transform: translate(-50%,-50%) rotate(45deg);
             }
         }
@@ -45,15 +45,15 @@
         position: absolute;
         top: 0;
         left: 0;
-        height: 14px;
-        width: 14px;
-        outline: 1px solid var(--primary-green);
+        height: calc(14px * var(--app-scale));
+        width: calc(14px * var(--app-scale));
+        outline: calc(1px * var(--app-scale)) solid var(--primary-green);
         background-color: transparent;
         transition: 200ms;
         z-index: 1;
 
         &.error {
-            outline: 1px solid var(--primary-red);
+            outline: calc(1px * var(--app-scale)) solid var(--primary-red);
         }
     }
 }

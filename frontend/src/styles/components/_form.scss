@@ -1,38 +1,38 @@
 @use '../abstracts' as *;
 
 .form {
-    @include flexbox(column, flex-start, flex-start, 12px);
+    @include flexbox(column, flex-start, flex-start, calc(12px * var(--app-scale)));
 
     & > .titlesContainer {
-        margin-bottom: 16px;
+        margin-bottom: calc(16px * var(--app-scale));
 
         & > .title {
-            font-size: 36px;
-            margin-bottom: 6px;
+            font-size: calc(36px * var(--app-scale));
+            margin-bottom: calc(6px * var(--app-scale));
         }
         
         & > .subtitle {
             color: var(--darker-grey);
             font-weight: 500;
-            font-size: 18px;
+            font-size: calc(18px * var(--app-scale));
         }
     }
 
     & > .widthDivider {
         width: 100%;
         display: flex;
-        gap: 8px;        
+        gap: calc(8px * var(--app-scale));        
     }
 
     & > .additionalContainer {
-        @include flexbox(column, flex-start, flex-start, 8px);
+        @include flexbox(column, flex-start, flex-start, calc(8px * var(--app-scale)));
 
         a {
             color: var(--primary-green);
         }
 
         & > .error {
-            font-size: 14px;
+            font-size: calc(14px * var(--app-scale));
             color: var(--primary-red);
             opacity: 0;
             visibility: hidden;

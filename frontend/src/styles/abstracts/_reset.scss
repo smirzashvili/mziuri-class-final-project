@@ -11,7 +11,7 @@
 }
 
 html {
-    font-size: 16px;
+    font-size: calc(16px * var(--app-scale));
     scrollbar-width: none;
     -webkit-scrollbar-width: none;
 }
@@ -83,9 +83,9 @@ ul {
             min-width: 325px;
             align-items: start;
 
-            .logo {
-                height: 65px;
-            }
+            // .logo {
+            //     height: 65px;
+            // }
 
             .linksContainer, .darkmodeAndVolumeContainer {
                 opacity: 1;
@@ -93,7 +93,7 @@ ul {
             }
 
             & > .iconButton {
-                top: calc(24px + 55px/2);
+                top: calc(calc(24px * var(--app-scale)) + calc(55px * var(--app-scale))/2);
                 left: calc(max(18vw, 325px) - 0.5vw);
                 transform: translate(-100%, -50%);
             }
@@ -120,7 +120,7 @@ ul {
                 margin-left: max(18vw, 325px);
             }
             .iconButton {
-                top: calc(24px + 55px/2);
+                top: calc(calc(24px * var(--app-scale)) + calc(55px * var(--app-scale))/2);
                 left: calc(max(18vw, 325px) - 0.5vw);
                 transform: translate(-92%, -50%);
             }
