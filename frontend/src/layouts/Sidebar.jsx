@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Logo, NavigationScreen, IconButton, Toggle } from '../components';
+import { Button, Logo, IconButton, Toggle } from '../components';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navigation from '../assets/icons/navigation.svg';
 import * as api from '../api/api.js';
@@ -13,8 +13,7 @@ import Volume from '../assets/icons/volume.svg';
 import VolumeMute from '../assets/icons/volumeMute.svg';
 import { useSound } from '../context/SoundContext';
 
-function Sidebar() {
-  const [isNavbarVisible, setIsNavbarVisible] = useState(false);
+function Sidebar({setIsNavbarVisible}) {
   const [darkModeOn, setDarkModeOn] = useState(() => {
     return localStorage.getItem('darkMode') === 'true';
   });
@@ -149,10 +148,6 @@ function Sidebar() {
           )}
         </div>
       </aside>
-      <NavigationScreen
-        visible={isNavbarVisible}
-        setVisible={setIsNavbarVisible}
-      />
     </>
   );
 }

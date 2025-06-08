@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './styles/main.scss';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-import { Sidebar, Main, Footer } from './layouts';
+import { Sidebar, Main, Footer, TopBar, BottomBar } from './layouts';
 import { About, Chat, Contact, Explore, Intro, Profile, SignIn, SignUp, Terms, ForgotPassword, ResetPassword } from './routes';
-import { LoadingScreen, Notification } from './components';
+import { LoadingScreen, Notification, NavigationScreen } from './components';
 import useDocumentTitle from './hooks/useDocumentTitle';
 import useScrollTop from './hooks/useScrollTop';
 import * as api from './api/api.js';
@@ -11,6 +11,9 @@ import { useUserData } from './context/UserContext.jsx';
 import useAppScale from './hooks/useAppScale'
 
 function App() {
+
+  const [isNavbarVisible, setIsNavbarVisible] = useState(false);
+  
   useDocumentTitle();
   useScrollTop();
   useAppScale()
@@ -27,7 +30,7 @@ function App() {
         const res = await api.getUser(data);
         if (res.data) {
           login(res.data)
-          navigate('/explore');
+          // navigate('/explore');
         }
       } catch(error) {
         console.error(error)
@@ -38,8 +41,9 @@ function App() {
 
   return (
     <div className={`app ${loggedIn ? 'loggedIn' : ''}`}>
-      <Sidebar />
+      <Sidebar setIsNavbarVisible={setIsNavbarVisible} />
       <Main>
+        <TopBar setIsNavbarVisible={setIsNavbarVisible} />
         <Routes>
           <Route
             path="/"
@@ -95,8 +99,13 @@ function App() {
             }
           />
         </Routes>
+        <BottomBar />
       </Main>
       <Footer />
+      <NavigationScreen
+        visible={isNavbarVisible}
+        setVisible={setIsNavbarVisible}
+      />
       <LoadingScreen />
       <Notification />
     </div>

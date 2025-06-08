@@ -1,0 +1,25 @@
+@use '../abstracts' as *;
+
+.topBar {
+    background-color: white;
+    padding: 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 70px;
+    border-bottom: 1px solid var(--border-grey);
+    z-index: 1;
+    @include flexbox(row, space-between, center);
+
+    .logoContainer {
+        .logo {
+            width: auto;
+            height: calc(45px * var(--app-scale));
+        }
+    }
+
+    @media screen and (min-width: 1000px) {
+        display: none;
+    }
+}

@@ -102,4 +102,18 @@
     }
 
     
+    @media screen and (max-width: 1000px) {
+        & > button {
+            position: absolute;
+            top: 36px!important;
+            right: 0;
+            left: unset!important;
+            transform: translate(-50%, -50%)!important;
+            
+            & > img {
+                width: 20px!important;
+                height: 20px!important;
+            }
+        }
+    }
 }

@@ -3,5 +3,11 @@
 .main {
     margin-left: max(5vw, 83px);
     min-height: 100vh;
-    @include flexbox(row, center, center)
+    @include flexbox(row, center, center);
+
+    @media screen and (max-width: 1000px) {
+        margin-left: 0!important;
+        width: 100%!important;
+        margin-top: 70px;
+    }
 }

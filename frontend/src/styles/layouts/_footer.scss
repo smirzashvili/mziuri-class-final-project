@@ -7,4 +7,11 @@
     padding: calc(25px * var(--app-scale)) 0;
     @include flexbox(row, center, center, calc(120px * var(--app-scale)));
     border-top: calc(1px * var(--app-scale)) solid var(--border-grey);
+
+    @media screen and (max-width: 1000px) {
+        margin-left: 0!important;
+        width: 100%!important;
+        padding-bottom: calc(25px + 60px);
+        gap: 8vw;
+    }
 }

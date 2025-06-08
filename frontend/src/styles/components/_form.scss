@@ -2,6 +2,7 @@
 
 .form {
     @include flexbox(column, flex-start, flex-start, calc(12px * var(--app-scale)));
+    min-width: 300px;
 
     & > .titlesContainer {
         margin-bottom: calc(16px * var(--app-scale));
