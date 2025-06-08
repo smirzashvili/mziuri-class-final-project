@@ -36,7 +36,7 @@
         margin-top: calc(80px * var(--app-scale));
 
         & > .chatBox {
-            padding: calc(16px * var(--app-scale)) calc(128px * var(--app-scale));
+            padding: calc(16px * var(--app-scale)) 6.5vw;
             width: 100%;
             overflow-y: auto;
             max-height: 100%;
