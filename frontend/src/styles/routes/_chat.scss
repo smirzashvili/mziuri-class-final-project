@@ -91,4 +91,41 @@
         border-radius: 100%;
         background-color: var(--border-grey);
     }
+
+
+    @media screen and (max-width: 1000px) {
+        height: 83vh;
+
+        & > .leftBar {
+            width: 100%;
+
+            display: none;    
+            &.mob-visible {
+                display: block;
+            }  
+            &.mob-hidden {
+                display: none;
+            }
+
+        }
+        & > .chatRoom {
+            width: 100%;
+
+            display: none;    
+            &.mob-visible {
+                display: block;
+            }  
+            &.mob-hidden {
+                display: none;
+            }
+
+            .backToMatchListButton {
+                display: unset!important;
+            }
+
+            & > .chatContainer {
+                height: calc(100% - 160px);
+            }
+        }
+    }
 }

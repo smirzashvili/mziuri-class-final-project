@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import ThreeDot from '../assets/icons/threeDot.svg';
 import SendMessage from '../assets/icons/sendMessage.svg';
 import Emoji from '../assets/icons/emoji.svg';
+import ArrowLeft from '../assets/icons/arrowLeft.svg';
 import { IconButton, Button } from '../components'
 import { formatTime, formatDate } from '../utils/textFormat';
 import { useUserData } from '../context/UserContext';
 const LazyEmojiPicker = lazy(() => import('emoji-picker-react'));
 
-function ChatRoom({chatRoom, onSendMessage, onDeleteMessages}) {
+function ChatRoom({chatRoom, onSendMessage, onDeleteMessages, isChatRoomVisible, setIsChatRoomVisible}) {
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
   const [menuVisible, setMenuVisible] = useState(false);
   const [message, setMessage] = useState('');
@@ -51,13 +52,19 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages}) {
   }, []);
   
   return (
-    <div className='chatRoom'>
+    <div className={`chatRoom ${isChatRoomVisible ? 'mob-visible' : 'mob-hidden'}`}>
         <div className='upperContainer'>
             <div>
-            <div className='userImage'>
-
-            </div>
-            <p>You matched with {matchName} on {matchTime}</p>
+                <IconButton
+                    icon={ArrowLeft}
+                    size={16}
+                    additionalClassnames={'backToMatchListButton'}
+                    onClick={() => setIsChatRoomVisible(false)}
+                />
+                <div className='userImage'>
+                    
+                </div>
+                <p>You matched with {matchName} on {matchTime}</p>
             </div>
             <IconButton
                 icon={ThreeDot}

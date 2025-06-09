@@ -11,6 +11,7 @@ function Chat() {
   const [activeChatRoomIndex, setActiveChatRoomIndex] = useState(0);
   const activeChatRoom = chatRooms[activeChatRoomIndex];
   const [searchTerm, setSearchTerm] = useState('');
+  const [isChatRoomVisible, setIsChatRoomVisible] = useState(true);
 
   const { userData } = useUserData();
   const { socket } = useSocket();
@@ -94,9 +95,13 @@ function Chat() {
     return matchUser?.fullName?.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
+  useEffect(() => {
+    setIsChatRoomVisible(true)
+  }, [activeChatRoomIndex])
+
   return (
     <div className='chat'>
-      <div className='leftBar'>
+      <div className={`leftBar ${isChatRoomVisible ? 'mob-hidden' : 'mob-visible'}`}>
         <div className='upperContainer'>
           <input
             placeholder='Search matches...'
@@ -145,6 +150,8 @@ function Chat() {
         chatRoom={activeChatRoom}
         onSendMessage={sendMessage}
         onDeleteMessages={deleteMessages}
+        isChatRoomVisible={isChatRoomVisible}
+        setIsChatRoomVisible={setIsChatRoomVisible}
       />
     </div>
   );

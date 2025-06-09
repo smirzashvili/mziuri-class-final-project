@@ -25,6 +25,10 @@
             & > p:nth-child(2) {
                 color: var(--darker-grey);
             }
+
+            .backToMatchListButton {
+                display: none;
+            }
         }
     }
     & > .chatContainer {
