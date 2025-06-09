@@ -115,5 +115,18 @@
                 height: 20px!important;
             }
         }
+
+        & > .links {
+            align-items: center;
+            margin-left: 0!important;
+
+            li {
+                font-size: 10vw!important;
+                &:before {
+                    font-size: 3vw!important;
+                    line-height: unset!important;
+                }
+            }
+        }
     }
 }

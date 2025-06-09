@@ -13,7 +13,7 @@ import Volume from '../assets/icons/volume.svg';
 import VolumeMute from '../assets/icons/volumeMute.svg';
 import { useSound } from '../context/SoundContext';
 
-function Sidebar({setIsNavbarVisible}) {
+function Sidebar({setIsNavigationScreenVisible, isSidebarVisible, setIsSidebarVisible}) {
   const [darkModeOn, setDarkModeOn] = useState(() => {
     return localStorage.getItem('darkMode') === 'true';
   });
@@ -56,16 +56,15 @@ function Sidebar({setIsNavbarVisible}) {
 
   return (
     <>
-      <aside className="sidebar">
+      <aside className={`sidebar ${isSidebarVisible ? 'mob-visible' : 'mob-hidden'}`}>
         <div className="upperContainer">
           <Link
-            to="/explore"
+            to="/"
             className="logoContainer"
           >
             <Logo hasAnimation={false} />
           </Link>
           <nav className="linksContainer">
-            <div className='line'></div>
             <div className='line'></div>
             <Link
               to="/explore"
@@ -99,6 +98,7 @@ function Sidebar({setIsNavbarVisible}) {
             </Link>
           </nav>
           <div className='darkmodeAndVolumeContainer'>
+            <div className='line'></div>
             <div className='item'>
               <div>
                 <IconButton
@@ -130,7 +130,7 @@ function Sidebar({setIsNavbarVisible}) {
 
         <IconButton
           icon={Navigation}
-          onClick={() => setIsNavbarVisible(true)}
+          onClick={() => setIsNavigationScreenVisible(true)}
           size={"calc(20px * var(--app-scale))"}
         />
 
@@ -148,6 +148,15 @@ function Sidebar({setIsNavbarVisible}) {
           )}
         </div>
       </aside>
+      {
+        isSidebarVisible &&
+        <div 
+          className='cover'
+          onClick={() => setIsSidebarVisible(false)}
+        >
+
+        </div>
+      }
     </>
   );
 }

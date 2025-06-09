@@ -13,6 +13,7 @@
     & > .title {
         font-size: calc(40px * var(--app-scale));
         line-height: calc(32px * var(--app-scale));
+        text-align: center
     }
 
     & > .content {
@@ -41,5 +42,12 @@
                 }
             }
         }
+    }
+
+    
+    @media screen and (max-width: 1000px) {
+        width: 100%;
+        margin: 16px;
+        padding: 24px 8px;
     }
 }

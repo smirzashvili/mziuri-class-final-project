@@ -12,8 +12,9 @@ import useAppScale from './hooks/useAppScale'
 
 function App() {
 
-  const [isNavbarVisible, setIsNavbarVisible] = useState(false);
-  
+  const [isNavigationScreenVisible, setIsNavigationScreenVisible] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
   useDocumentTitle();
   useScrollTop();
   useAppScale()
@@ -41,9 +42,16 @@ function App() {
 
   return (
     <div className={`app ${loggedIn ? 'loggedIn' : ''}`}>
-      <Sidebar setIsNavbarVisible={setIsNavbarVisible} />
+      <Sidebar 
+        setIsNavigationScreenVisible={setIsNavigationScreenVisible} 
+        isSidebarVisible={isSidebarVisible}
+        setIsSidebarVisible={setIsSidebarVisible}
+      />
       <Main>
-        <TopBar setIsNavbarVisible={setIsNavbarVisible} />
+        <TopBar 
+          setIsNavigationScreenVisible={setIsNavigationScreenVisible}
+          setIsSidebarVisible={setIsSidebarVisible} 
+        />
         <Routes>
           <Route
             path="/"
@@ -103,8 +111,8 @@ function App() {
       </Main>
       <Footer />
       <NavigationScreen
-        visible={isNavbarVisible}
-        setVisible={setIsNavbarVisible}
+        visible={isNavigationScreenVisible}
+        setVisible={setIsNavigationScreenVisible}
       />
       <LoadingScreen />
       <Notification />

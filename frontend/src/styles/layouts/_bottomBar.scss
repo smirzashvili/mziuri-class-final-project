@@ -1,8 +1,8 @@
 @use '../abstracts' as *;
 
 .bottomBar {
-    background-color: white;
-    padding: 16px;
+    background-color: var(--white);
+    padding: 8px;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -10,6 +10,32 @@
     height: 60px;
     border-top: 1px solid var(--border-grey);
     z-index: 1;
+
+    & > .linksContainer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        & > .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+
+            &.active {
+                color: var(--primary-green);
+                cursor: unset;
+                opacity: 1;
+        
+                img {
+                    filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
+                }
+            }
+        }
+    }
 
     @media screen and (min-width: 1000px) {
         display: none;

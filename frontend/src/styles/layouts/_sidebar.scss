@@ -3,7 +3,7 @@
 .sidebar {
     @include dimension(5vw, 100vh);
     min-width: 83px;
-    background-color: var(--sidebar-color);
+    background-color: var(--white);
     position: fixed;
     top: 0px;
     left: 0px;
@@ -11,6 +11,7 @@
     @include flexbox(column, space-between, center, 0);
     transition: 200ms;
     border-right: calc(1px * var(--app-scale)) solid var(--border-grey);
+    z-index: 3;
     .upperContainer {
         width: 100%;
         display: flex;
@@ -65,26 +66,13 @@
                 }
             }  
             
-            & > .line {
-                position: absolute;
-                top: calc(-24px * var(--app-scale));
-                left: 0;
-                width: calc(100% + 1vw);
-                transform: translateX(-0.5vw);
-                height: calc(1px * var(--app-scale));
-                background-color: var(--border-grey);
-
-                &:nth-child(2) {
-                    top: unset;
-                    bottom: calc(-24px * var(--app-scale));
-                }
-            }
         }
 
         .darkmodeAndVolumeContainer {
             opacity: 0;
             visibility: hidden;
             transition: 200ms;
+            position: relative;
 
             & > .item {
                 padding: calc(12px * var(--app-scale)) calc(8px * var(--app-scale));
@@ -131,8 +119,67 @@
             min-width: 80px;
         }
     }
+
+    .line {
+        position: absolute;
+        top: calc(-24px * var(--app-scale));
+        left: 0;
+        width: calc(100% + 1vw);
+        transform: translateX(-0.5vw);
+        height: calc(1px * var(--app-scale));
+        background-color: var(--border-grey);
+    }
     
     @media screen and (max-width: 1000px) {
-        display: none;
+        & {
+            display: none;    
+            &.mob-visible {
+                display: flex;
+            }  
+            &.mob-hidden {
+                display: none;
+            }
+            
+            width: 260px!important;    
+            min-width: unset!important;
+            padding: 16px 0vw;
+             
+            & > .iconButton {
+                display: none;
+            }
+
+            & > .upperContainer {
+                .logoContainer {
+                    margin-left: 10px;
+                    .logo {
+                        height: 45px!important;
+                    }
+                }
+                .linksContainer {
+                    display: none;
+                }
+                .darkmodeAndVolumeContainer {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+            }
+            & > .buttonsContainer {
+                .button {
+                    transform: unset;
+                }
+            }
+        }
     }
+}
+
+.cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: black;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    opacity: .5;
 }

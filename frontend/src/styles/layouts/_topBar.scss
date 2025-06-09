@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 .topBar {
-    background-color: white;
+    background-color: var(--white);
     padding: 16px;
     position: fixed;
     top: 0;
