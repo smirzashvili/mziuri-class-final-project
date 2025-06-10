@@ -1,0 +1,37 @@
+@use '../abstracts' as *;
+
+.newMatchModal {
+    width: 100%;
+    // @include flexbox(column, center, center, 24px);
+
+
+    & > .upperContainer {
+        @include flexbox(column, center, center, 8px);
+        color: white;
+        background-color: var(--primary-green);
+        width: 100%;
+        padding: 16px;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0.152), rgb(55, 175, 145));
+    }
+
+    & > .bottomContainer {
+        @include flexbox(column, center, center, 8px);
+        padding: 16px;
+
+        & > p {
+            text-align: center;
+            opacity: .8;
+            width: 90%;
+        }
+
+        & > .buttonsContainer {
+            margin-top: 16px;
+            width: 70%;
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+        }
+    }
+}

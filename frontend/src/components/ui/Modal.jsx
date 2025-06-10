@@ -1,22 +1,29 @@
-import React from 'react';
-import Button from './Button';
-import reactDom from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom';
+import Close from '../../assets/icons/close.svg';
+import IconButton from './IconButton';
 
-function Modal({ children, isModalOpen, setIsModalOpen }) {
-  if (!isModalOpen) {
+function Modal({children, isModalOpen, setIsModalOpen, onClose}) {
+
+  if(!isModalOpen) {
     return null;
   }
 
-  return reactDom.createPortal(
-    <div className="modal">
-      <div className="modal__content">
+  return ReactDOM.createPortal(
+    <div className='modal' onClick={() => {setIsModalOpen(false); onClose()}}>
+      <div className='box' onClick={(e) => e.stopPropagation()}>
         {children}
-
-        <Button onClick={() => setIsModalOpen(false)}>X</Button>
+        
+        <IconButton
+          icon={Close}
+          onClick={() => {setIsModalOpen(false); onClose()}}
+          size={"calc(16px * var(--app-scale))"}
+          additionalClassnames={'closeButton'}
+        />
       </div>
     </div>,
     document.getElementById('modal-root')
-  );
+  )
 }
 
-export default Modal;
+export default Modal
