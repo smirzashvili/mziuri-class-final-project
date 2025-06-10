@@ -6,6 +6,7 @@ import ArrowLeft from '../assets/icons/arrowLeft.svg';
 import { IconButton, Button } from '../components'
 import { formatTime, formatDate } from '../utils/textFormat';
 import { useUserData } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 const LazyEmojiPicker = lazy(() => import('emoji-picker-react'));
 
 function ChatRoom({chatRoom, onSendMessage, onDeleteMessages, isChatRoomVisible, setIsChatRoomVisible}) {
@@ -13,6 +14,7 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages, isChatRoomVisible,
   const [menuVisible, setMenuVisible] = useState(false);
   const [message, setMessage] = useState('');
   const { userData } = useUserData()
+  const navigate = useNavigate()
   const chatBoxRef = useRef(null);
 
   const menuRef = useRef(null);
@@ -50,6 +52,16 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages, isChatRoomVisible,
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handleReportUserClick = () => {
+    navigate('/contact', {
+      state: {
+        name: userData.fullName,
+        email: userData.email,
+        subject: `Reporting User: ${matchName}`,
+      },
+    });
+  };
   
   return (
     <div className={`chatRoom ${isChatRoomVisible ? 'mob-visible' : 'mob-hidden'}`}>
@@ -134,6 +146,7 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages, isChatRoomVisible,
             <div className='threeDotMenu' ref={menuRef}>
                 <Button                 
                     additionalClassnames="secondary"
+                    onClick={handleReportUserClick}
                 >
                     Report User
                 </Button>

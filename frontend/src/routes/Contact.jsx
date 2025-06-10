@@ -12,6 +12,7 @@ import {
 } from '../utils/validations';
 import * as api from '../api/api.js';
 import { useNotification } from '../context/NotificationContext';
+import { useLocation } from 'react-router-dom';
 
 function Contact() {
   const [state, setState] = useState({});
@@ -20,6 +21,7 @@ function Contact() {
   const errorToDisplay = Object.values(errorMessages)[0]
 
   const {showNotification} = useNotification();
+  const location = useLocation();
 
   const { useFakeLoader } = useLoader();
   useEffect(() => useFakeLoader(), []);
@@ -74,6 +76,16 @@ function Contact() {
 
     return errors;
   };
+
+  useEffect(() => {
+    // Prefill the form fields from navigation state
+    if (location.state) {
+      setState((prevState) => ({
+        ...prevState,
+        ...location.state,
+      }));
+    }
+  }, [location.state]);
 
   return (
     <div className="contact">
