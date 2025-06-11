@@ -3,6 +3,7 @@ import Modal from '../components/ui/Modal'
 import { Button } from '../components'
 import { useNavigate } from 'react-router-dom'
 import { formatAge } from '../utils/textFormat'
+import { HeartParticlesCanvas } from '../components/CanvasEffects' // Import your desired effect
 
 function NewMatchModal({isModalOpen, setIsModalOpen, userData, musicianData, onClose}) {
 
@@ -15,6 +16,7 @@ function NewMatchModal({isModalOpen, setIsModalOpen, userData, musicianData, onC
 
   return (
     <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} onClose={onClose}>
+        {isModalOpen && <HeartParticlesCanvas />} 
         <div className='newMatchModal'>
             <div className='upperContainer'>
                 <h1 className='title'>It's a Match!</h1>
