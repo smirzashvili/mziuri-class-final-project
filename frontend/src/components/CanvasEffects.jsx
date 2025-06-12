@@ -2,37 +2,19 @@
 
 import { useEffect, useRef, useState } from "react"
 
-interface CanvasEffectsProps {
-  width?: number
-  height?: number
-  particleCount?: number
-  colors?: string[]
-  className?: string
-}
-
 export function CanvasEffects({
   width = 800,
   height = 600,
   particleCount = 50,
   colors = ["#37AF91", "#FFC0CB", "#FFD700", "#FF69B4", "#87CEEB"],
   className = "",
-}: CanvasEffectsProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>()
-  const [particles, setParticles] = useState<Particle[]>([])
+}) {
+  const canvasRef = useRef(null)
+  const animationRef = useRef()
+  const [particles, setParticles] = useState([])
 
   class Particle {
-    x: number
-    y: number
-    vx: number
-    vy: number
-    radius: number
-    color: string
-    alpha: number
-    life: number
-    maxLife: number
-
-    constructor(x: number, y: number) {
+    constructor(x, y) {
       this.x = x
       this.y = y
       this.vx = (Math.random() - 0.5) * 4
@@ -48,30 +30,20 @@ export function CanvasEffects({
       this.x += this.vx
       this.y += this.vy
       this.life++
-
-      // Fade out over time
       this.alpha = 1 - this.life / this.maxLife
-
-      // Add some gravity
       this.vy += 0.02
-
-      // Add some wind resistance
       this.vx *= 0.99
       this.vy *= 0.99
-
-      // Shrink over time
       this.radius *= 0.995
     }
 
-    draw(ctx: CanvasRenderingContext2D) {
+    draw(ctx) {
       ctx.save()
       ctx.globalAlpha = this.alpha
       ctx.fillStyle = this.color
       ctx.beginPath()
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
       ctx.fill()
-
-      // Add glow effect
       ctx.shadowColor = this.color
       ctx.shadowBlur = 10
       ctx.fill()
@@ -86,39 +58,34 @@ export function CanvasEffects({
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Set canvas size
     canvas.width = width
     canvas.height = height
 
-    // Initialize particles
-    const initialParticles: Particle[] = []
+    const initialParticles = []
     for (let i = 0; i < particleCount; i++) {
       initialParticles.push(new Particle(Math.random() * width, Math.random() * height))
     }
     setParticles(initialParticles)
 
     const animate = () => {
-      // Clear canvas with fade effect
       ctx.fillStyle = "rgba(255, 255, 255, 0.1)"
       ctx.fillRect(0, 0, width, height)
 
-      setParticles((prevParticles) => {
-        const updatedParticles = prevParticles.filter((particle) => {
-          particle.update()
-          particle.draw(ctx)
-          return !particle.isDead()
+      setParticles((prev) => {
+        const updated = prev.filter((p) => {
+          p.update()
+          p.draw(ctx)
+          return !p.isDead()
         })
 
-        // Add new particles occasionally
-        if (Math.random() < 0.1 && updatedParticles.length < particleCount) {
-          updatedParticles.push(new Particle(Math.random() * width, Math.random() * height))
+        if (Math.random() < 0.1 && updated.length < particleCount) {
+          updated.push(new Particle(Math.random() * width, Math.random() * height))
         }
 
-        return updatedParticles
+        return updated
       })
 
       animationRef.current = requestAnimationFrame(animate)
@@ -127,24 +94,20 @@ export function CanvasEffects({
     animate()
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current)
     }
   }, [width, height, particleCount, colors])
 
   return <canvas ref={canvasRef} className={`absolute inset-0 pointer-events-none ${className}`} />
 }
 
-// Heart particles canvas effect
-export function HeartParticlesCanvas({ className = "" }: { className?: string }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>()
+export function HeartParticlesCanvas({ className = "" }) {
+  const canvasRef = useRef(null)
+  const animationRef = useRef()
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
@@ -156,19 +119,9 @@ export function HeartParticlesCanvas({ className = "" }: { className?: string })
     resizeCanvas()
     window.addEventListener("resize", resizeCanvas)
 
-    const hearts: HeartParticle[] = []
+    const hearts = []
 
     class HeartParticle {
-      x: number
-      y: number
-      vx: number
-      vy: number
-      size: number
-      alpha: number
-      color: string
-      rotation: number
-      rotationSpeed: number
-
       constructor() {
         this.x = Math.random() * canvas.width
         this.y = canvas.height + 50
@@ -186,12 +139,8 @@ export function HeartParticlesCanvas({ className = "" }: { className?: string })
         this.y += this.vy
         this.rotation += this.rotationSpeed
         this.alpha -= 0.005
-
-        // Add some floating motion
         this.vx += (Math.random() - 0.5) * 0.1
         this.vy += (Math.random() - 0.5) * 0.1
-
-        // Limit velocity
         this.vx = Math.max(-2, Math.min(2, this.vx))
         this.vy = Math.max(-4, Math.min(1, this.vy))
       }
@@ -203,7 +152,6 @@ export function HeartParticlesCanvas({ className = "" }: { className?: string })
         ctx.rotate(this.rotation)
         ctx.scale(this.size / 20, this.size / 20)
 
-        // Draw heart shape
         ctx.fillStyle = this.color
         ctx.beginPath()
         ctx.moveTo(0, 3)
@@ -212,12 +160,9 @@ export function HeartParticlesCanvas({ className = "" }: { className?: string })
         ctx.bezierCurveTo(0, 25, 15, 15, 15, 8)
         ctx.bezierCurveTo(15, -2, 5, -2, 0, 3)
         ctx.fill()
-
-        // Add glow
         ctx.shadowColor = this.color
         ctx.shadowBlur = 10
         ctx.fill()
-
         ctx.restore()
       }
 
@@ -229,17 +174,14 @@ export function HeartParticlesCanvas({ className = "" }: { className?: string })
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Add new hearts
       if (Math.random() < 0.1) {
         hearts.push(new HeartParticle())
       }
 
-      // Update and draw hearts
       for (let i = hearts.length - 1; i >= 0; i--) {
         const heart = hearts[i]
         heart.update()
         heart.draw()
-
         if (heart.isDead()) {
           hearts.splice(i, 1)
         }
@@ -252,40 +194,29 @@ export function HeartParticlesCanvas({ className = "" }: { className?: string })
 
     return () => {
       window.removeEventListener("resize", resizeCanvas)
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current)
     }
   }, [])
 
   return <canvas ref={canvasRef} className={`fixed inset-0 pointer-events-none z-0 ${className}`} />
 }
 
-// Sparkle effect canvas
-export function SparkleCanvas({ className = "" }: { className?: string }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+export function SparkleCanvas({ className = "" }) {
+  const canvasRef = useRef(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
     canvas.width = canvas.offsetWidth
     canvas.height = canvas.offsetHeight
 
-    const sparkles: Sparkle[] = []
+    const sparkles = []
 
     class Sparkle {
-      x: number
-      y: number
-      size: number
-      alpha: number
-      decay: number
-      color: string
-
-      constructor(x: number, y: number) {
+      constructor(x, y) {
         this.x = x
         this.y = y
         this.size = Math.random() * 4 + 1
@@ -306,7 +237,6 @@ export function SparkleCanvas({ className = "" }: { className?: string }) {
         ctx.shadowColor = this.color
         ctx.shadowBlur = 5
 
-        // Draw sparkle as a star
         const spikes = 4
         const outerRadius = this.size
         const innerRadius = this.size / 2
@@ -330,7 +260,7 @@ export function SparkleCanvas({ className = "" }: { className?: string }) {
       }
     }
 
-    const addSparkle = (x: number, y: number) => {
+    const addSparkle = (x, y) => {
       for (let i = 0; i < 3; i++) {
         sparkles.push(new Sparkle(x + (Math.random() - 0.5) * 20, y + (Math.random() - 0.5) * 20))
       }
@@ -339,17 +269,14 @@ export function SparkleCanvas({ className = "" }: { className?: string }) {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Random sparkles
       if (Math.random() < 0.1) {
         addSparkle(Math.random() * canvas.width, Math.random() * canvas.height)
       }
 
-      // Update and draw sparkles
       for (let i = sparkles.length - 1; i >= 0; i--) {
         const sparkle = sparkles[i]
         sparkle.update()
         sparkle.draw()
-
         if (sparkle.isDead()) {
           sparkles.splice(i, 1)
         }
@@ -360,8 +287,7 @@ export function SparkleCanvas({ className = "" }: { className?: string }) {
 
     animate()
 
-    // Add sparkles on mouse move
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect()
       const x = e.clientX - rect.left
       const y = e.clientY - rect.top
