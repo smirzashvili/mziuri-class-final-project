@@ -2,7 +2,7 @@
 
 .musicianCard {
     @include flexbox(column, center, center, calc(32px * var(--app-scale)));
-
+    
     & > .card {
         position: relative;
         @include flexbox(row, center, flex-end);
@@ -12,7 +12,7 @@
         min-width: 370px;
         aspect-ratio: 3/4;
         transition: transform 0.3s;
-    
+   
         & > .media {
             width: 100%;
             height: 100%;
@@ -156,8 +156,9 @@
 
     @media screen and (max-width: 1000px) {
         & { 
-            width: 100%;
             padding: 0 16px;
+            width: min(100%, 48vh);
+            
             & > .card {
                 width: 100%;
                 min-width: unset!important;
