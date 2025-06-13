@@ -22,7 +22,7 @@
 
         & > div {
             @include flexbox(row, flex-start, center, calc(12px * var(--app-scale)));
-            & > p:nth-child(2) {
+            & > p {
                 color: var(--darker-grey);
             }
 
