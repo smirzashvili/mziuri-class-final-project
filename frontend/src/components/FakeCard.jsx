@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
-import UserImage from '../assets/placeholder.svg';
+import UserImage from '../assets/icons/user/placeholder.svg';
 import IconButton from './ui/IconButton';
-import Info from '../assets/placeholder.svg';
 
 function FakeCard() {
 
