@@ -38,3 +38,6 @@
 @use './components/mediaIndicator';
 @use './components/chatRoom';
 @use './components/toggle';
+@use './components/modal';
+
+@use './modals/newMatchModal';

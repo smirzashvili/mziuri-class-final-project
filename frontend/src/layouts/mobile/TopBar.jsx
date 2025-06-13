@@ -4,26 +4,27 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navigation from '../../assets/icons/navigation.svg';
 import Sidebar from '../../assets/icons/sidebar.svg';
 
-function TopBar({setIsNavbarVisible}) {
+function TopBar({setIsNavigationScreenVisible, setIsSidebarVisible}) {
   return (
     <div className='topBar'>
 
         <IconButton
           icon={Sidebar}
-        //   onClick={() => setIsNavbarVisible(true)}
+        //   onClick={() => setIsNavigationScreenVisible(true)}
           size={24}
+          onClick={() => setIsSidebarVisible(p => !p)}
         />
 
         <Link
-            to="/explore"
-            className="logoContainer"
+          to="/"
+          className="logoContainer"
         >
-            <Logo hasAnimation={false} />
+          <Logo hasAnimation={false} />
         </Link>
 
         <IconButton
           icon={Navigation}
-          onClick={() => setIsNavbarVisible(true)}
+          onClick={() => setIsNavigationScreenVisible(true)}
           size={16}
         />
 

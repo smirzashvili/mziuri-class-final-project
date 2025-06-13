@@ -29,4 +29,15 @@
             }
         }
     }
+
+    @media screen and (max-width: 1000px) {
+        width: 100%;
+        width: 100%;
+        margin: 16px 0;
+        gap: 8px;
+        
+        .docs {
+            font-size: 2.5vw;
+        }
+    }
 }

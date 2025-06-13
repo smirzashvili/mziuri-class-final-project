@@ -3,7 +3,7 @@
 .footer {
     @include dimension(calc(100% - 5vw), auto);
     margin-left: max(5vw, 83px);
-    background-color: var(--sidebar-color);
+    background-color: var(--white);
     padding: calc(25px * var(--app-scale)) 0;
     @include flexbox(row, center, center, calc(120px * var(--app-scale)));
     border-top: calc(1px * var(--app-scale)) solid var(--border-grey);

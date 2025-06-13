@@ -5,10 +5,12 @@ import { useUserData } from '../context/UserContext';
 import Heart from '../assets/icons/heart.svg';
 import Close from '../assets/icons/close.svg';
 import Refresh from '../assets/icons/refresh.svg';
+import NewMatchModal from '../modals/NewMatchModal';
 
 function Explore() {
   const [musicianData, setMusicianData] = useState();
   const { userData } = useUserData();
+  const [newMatchModalOpen, setNewMatchModalOpen] = useState(false)
 
   const getUserToShow = async () => {
     try {
@@ -27,8 +29,12 @@ function Explore() {
 
   const handleLike = async () => {
     try {
-      await api.like(userData._id, musicianData._id);
-      getUserToShow(); // fetch next
+      const { data } = await api.like(userData._id, musicianData._id);
+      if(true) { //data.match
+        setNewMatchModalOpen(true)
+      } else {
+        getUserToShow(); // fetch next
+      }
     } catch (error) {
       console.error('Error liking:', error);
     }
@@ -69,6 +75,15 @@ function Explore() {
           onDislike={handleDislike}
         />
       )}
+
+      {/* MODAL */}
+      <NewMatchModal 
+        isModalOpen={newMatchModalOpen} 
+        setIsModalOpen={setNewMatchModalOpen}
+        userData={userData} 
+        musicianData={musicianData}
+        onClose={getUserToShow}
+      />
     </div>
   );
 }
