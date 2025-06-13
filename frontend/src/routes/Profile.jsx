@@ -17,6 +17,8 @@ import * as api from '../api/api.js';
 import { musicalGenres, musicalInstruments } from '../data/data.js';
 import { useUserData } from '../context/UserContext.jsx';
 import { useNotification } from '../context/NotificationContext';
+import Male1 from '../assets/icons/user/male1.svg';
+import { formatDate } from '../utils/textFormat.js';
 
 function Profile() {
   const [state, setState] = useState({});
@@ -152,6 +154,15 @@ function Profile() {
   return (
     <div className="profile">
       <h1 className="title">Profile</h1>
+      <div className='avatarContainer'>
+        <div className='item'>
+          <img
+            className="image"
+            src={Male1}
+          />
+        </div>
+        <p>Joined MelodyMatch on {formatDate(userData?.createdAt)}</p>
+      </div>
       <div className="formContainer">
         <Form onSubmit={(e) => handleSubmit(e)}>
             <h2 className="title">

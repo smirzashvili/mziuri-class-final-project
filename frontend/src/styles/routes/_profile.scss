@@ -7,8 +7,40 @@
     padding: calc(40px * var(--app-scale));
     margin: calc(102px * var(--app-scale)) 0;
     border: calc(1px * var(--app-scale)) solid var(--border-grey);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-sm);
     border-radius: calc(12px * var(--app-scale));
+
+    .avatarContainer {
+        display: flex;
+        align-items: center;
+        width: 80%;
+        gap: 32px;
+        color: var(--darker-grey);
+
+        .item {
+            position: relative;
+            width: 100px;
+            border-radius: 100%;
+            background-color: rgb(234, 234, 234);
+            margin-right: -12px;
+            &:nth-child(2) {margin-left: -12px;}
+            box-shadow: var(--shadow-md);
+    
+            & > .image {
+                width: 100%;
+                border-radius: 100%;
+                border: 8px solid white;
+            }
+    
+            & > .icon {
+                position: absolute;
+                bottom: 0px;
+                right: 12px;
+                display: none;
+    
+            }
+        }
+    }
 
     & > .title {
         font-size: calc(40px * var(--app-scale));

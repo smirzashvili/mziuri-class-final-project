@@ -14,15 +14,48 @@
         border-top-left-radius: 16px;
         border-top-right-radius: 16px;
         background-image: linear-gradient(to right, rgba(0, 0, 0, 0.152), rgb(55, 175, 145));
+        padding-bottom: 32px;
     }
 
     & > .bottomContainer {
         @include flexbox(column, center, center, 8px);
         padding: 16px;
 
+         & > .photosContainer {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: -48px;
+            padding: 8px;
+
+            & > .item {
+                position: relative;
+                width: 100px;
+                border-radius: 100%;
+                background-color: rgb(234, 234, 234);
+                margin-right: -12px;
+                &:nth-child(2) {margin-left: -12px;}
+                box-shadow: var(--shadow-lg);
+
+                & > .image {
+                    width: 100%;
+                    border-radius: 100%;
+                    border: 8px solid white;
+                }
+
+                & > .icon {
+                    position: absolute;
+                    bottom: 0px;
+                    right: 12px;
+                    display: none;
+
+                }
+            }
+        }
+
         & > p {
             text-align: center;
-            opacity: .8;
+            color: var(--darker-grey);
             width: 90%;
         }
 
