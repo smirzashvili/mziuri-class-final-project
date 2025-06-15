@@ -28,28 +28,9 @@
             margin-top: -48px;
             padding: 8px;
 
-            & > .item {
-                position: relative;
-                width: 100px;
-                border-radius: 100%;
-                background-color: rgb(234, 234, 234);
-                margin-right: -12px;
-                &:nth-child(2) {margin-left: -12px;}
-                box-shadow: var(--shadow-lg);
-
-                & > .image {
-                    width: 100%;
-                    border-radius: 100%;
-                    border: 8px solid white;
-                }
-
-                & > .icon {
-                    position: absolute;
-                    bottom: 0px;
-                    right: 12px;
-                    display: none;
-
-                }
+            & > .userAvatar {
+                margin-right: -8px;
+                &:nth-child(2) {margin-left: -8px;}
             }
         }
 

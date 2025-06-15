@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Modal from '../components/ui/Modal'
-import { Button } from '../components'
+import { Button, UserAvatar } from '../components'
 import { useNavigate } from 'react-router-dom'
 import { formatAge } from '../utils/textFormat'
 import Male1 from '../assets/icons/user/male1.svg';
@@ -25,30 +25,12 @@ function NewMatchModal({isModalOpen, setIsModalOpen, userData, musicianData, onC
             </div>
             <div className='bottomContainer'>
                  <div className='photosContainer'>
-                    <div className='item'>
-                        <img
-                            className="image"
-                            src={Male1}
-                        />
-                        <img
-                            className='icon'
-                            src={Heart}
-                            // onClick={handleLike}
-                            // size={"calc(16px * var(--app-scale))"}
-                        /> 
-                    </div>
-                    <div className='item'>
-                        <img
-                            className="image"
-                            src={Female1}
-                        />
-                        <img
-                            className='icon'
-                            src={Heart}
-                            // onClick={handleLike}
-                            // size={"calc(16px * var(--app-scale))"}
-                        /> 
-                    </div>
+                    <UserAvatar 
+                        path={Male1}
+                    />
+                    <UserAvatar 
+                        path={Female1}
+                    />
                 </div>
                 <h3>{musicianData?.fullName},  {formatAge(musicianData?.date)} years old</h3>
                 <p>{userData?.favoriteGenre} admirer and {musicianData?.favoriteGenre} lover with a passion for {userData?.favoriteInstrument} and {musicianData?.favoriteInstrument} has been matched!</p>

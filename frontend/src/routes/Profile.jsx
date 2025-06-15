@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, InputGroup, Form, IconButton, Checkbox, FakeCard } from '../components';
+import { Button, InputGroup, Form, IconButton, Checkbox, FakeCard, UserAvatar } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   validateDate,
@@ -155,12 +155,9 @@ function Profile() {
     <div className="profile">
       <h1 className="title">Profile</h1>
       <div className='avatarContainer'>
-        <div className='item'>
-          <img
-            className="image"
-            src={Male1}
-          />
-        </div>
+        <UserAvatar 
+          path={Male1}
+        />
         <p>Joined MelodyMatch on {formatDate(userData?.createdAt)}</p>
       </div>
       <div className="formContainer">

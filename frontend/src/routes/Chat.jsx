@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ChatRoom } from '../components';
+import { ChatRoom, UserAvatar } from '../components';
 import MessageSend from '../assets/icons/messageSend.svg';
 import MessageReceive from '../assets/icons/messageReceive.svg';
 import { useUserData } from '../context/UserContext';
 import { useSocket } from '../context/SocketContext';
 import { formatTimeAgo } from '../utils/textFormat';
+import Male1 from '../assets/icons/user/male1.svg';
 
 function Chat() {
   const [chatRooms, setChatRooms] = useState([]);
@@ -121,9 +122,9 @@ function Chat() {
                 onClick={() => activeChatRoomIndex !== index && setActiveChatRoomIndex(index)}
               >
                 <div>
-                  <div className='userImage'>
-                    {/* Placeholder for user image */}
-                  </div>
+                  <UserAvatar 
+                    path={Male1}
+                  />
                   <div className='nameAndMessageContainer'>
                     <p>{matchName}</p>
                     <p>

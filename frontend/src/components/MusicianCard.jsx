@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import UserImage from '../assets/icons/eye-closed.svg';
 import IconButton from './ui/IconButton';
 import Info from '../assets/icons/info.svg';
 import Close from '../assets/icons/close.svg';

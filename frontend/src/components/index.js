@@ -13,3 +13,4 @@ export { default as MediaIndicator } from './MediaIndicator';
 export { default as ChatRoom } from './ChatRoom';
 export { default as Toggle } from './ui/Toggle';
 export { default as Modal } from './ui/Modal';
+export { default as UserAvatar } from './UserAvatar';
