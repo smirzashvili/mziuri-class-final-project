@@ -156,7 +156,8 @@ function Profile() {
       <h1 className="title">Profile</h1>
       <div className='avatarContainer'>
         <UserAvatar 
-          path={Male1}
+          avatarIndex={userData?.avatarIndex}
+          gender={userData?.gender}
         />
         <p>Joined MelodyMatch on {formatDate(userData?.createdAt)}</p>
       </div>

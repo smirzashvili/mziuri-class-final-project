@@ -26,10 +26,12 @@ function NewMatchModal({isModalOpen, setIsModalOpen, userData, musicianData, onC
             <div className='bottomContainer'>
                  <div className='photosContainer'>
                     <UserAvatar 
-                        path={Male1}
+                        avatarIndex={userData?.avatarIndex}
+                        gender={userData?.gender}
                     />
                     <UserAvatar 
-                        path={Female1}
+                        avatarIndex={musicianData?.avatarIndex}
+                        gender={musicianData?.gender}
                     />
                 </div>
                 <h3>{musicianData?.fullName},  {formatAge(musicianData?.date)} years old</h3>

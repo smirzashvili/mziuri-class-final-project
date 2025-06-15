@@ -75,7 +75,8 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages, isChatRoomVisible,
                     onClick={() => setIsChatRoomVisible(false)}
                 />
                 <UserAvatar 
-                    path={Male1}
+                    avatarIndex={chatRoom?.participants.find(item => item._id !== userData._id)?.avatarIndex}
+                    gender={chatRoom?.participants.find(item => item._id !== userData._id)?.gender}
                 />
                 <p>You matched with {matchName} on {matchTime}</p>
             </div>

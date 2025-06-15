@@ -123,7 +123,8 @@ function Chat() {
               >
                 <div>
                   <UserAvatar 
-                    path={Male1}
+                    avatarIndex={item.participants.find(item => item._id !== userData._id)?.avatarIndex}
+                    gender={item.participants.find(item => item._id !== userData._id)?.gender}
                   />
                   <div className='nameAndMessageContainer'>
                     <p>{matchName}</p>
