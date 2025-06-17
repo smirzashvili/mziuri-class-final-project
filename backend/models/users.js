@@ -36,6 +36,9 @@ const UsersSchema = new mongoose.Schema({
   bio: {
     type: String,
   },
+  avatarIndex: {
+    type: Number
+  },
   likedUsers: [{ 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Users' 

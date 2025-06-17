@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Modal from '../components/ui/Modal'
-import { Button } from '../components'
+import { Button, UserAvatar } from '../components'
 import { useNavigate } from 'react-router-dom'
 import { formatAge } from '../utils/textFormat'
+import Male1 from '../assets/icons/user/male1.svg';
+import Female1 from '../assets/icons/user/female2.svg';
+import Heart from '../assets/icons/heart.svg';
 
 function NewMatchModal({isModalOpen, setIsModalOpen, userData, musicianData, onClose}) {
 
@@ -21,6 +24,16 @@ function NewMatchModal({isModalOpen, setIsModalOpen, userData, musicianData, onC
                 <p>You and {musicianData?.fullName} liked each other</p>
             </div>
             <div className='bottomContainer'>
+                 <div className='photosContainer'>
+                    <UserAvatar 
+                        avatarIndex={userData?.avatarIndex}
+                        gender={userData?.gender}
+                    />
+                    <UserAvatar 
+                        avatarIndex={musicianData?.avatarIndex}
+                        gender={musicianData?.gender}
+                    />
+                </div>
                 <h3>{musicianData?.fullName},  {formatAge(musicianData?.date)} years old</h3>
                 <p>{userData?.favoriteGenre} admirer and {musicianData?.favoriteGenre} lover with a passion for {userData?.favoriteInstrument} and {musicianData?.favoriteInstrument} has been matched!</p>
                 <div className='buttonsContainer'>

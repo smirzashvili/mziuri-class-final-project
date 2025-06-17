@@ -3,10 +3,11 @@ import ThreeDot from '../assets/icons/threeDot.svg';
 import SendMessage from '../assets/icons/sendMessage.svg';
 import Emoji from '../assets/icons/emoji.svg';
 import ArrowLeft from '../assets/icons/arrowLeft.svg';
-import { IconButton, Button } from '../components'
+import { IconButton, Button, UserAvatar } from '../components'
 import { formatTime, formatDate } from '../utils/textFormat';
 import { useUserData } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import Male1 from '../assets/icons/user/male1.svg';
 const LazyEmojiPicker = lazy(() => import('emoji-picker-react'));
 
 function ChatRoom({chatRoom, onSendMessage, onDeleteMessages, isChatRoomVisible, setIsChatRoomVisible}) {
@@ -73,9 +74,10 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages, isChatRoomVisible,
                     additionalClassnames={'backToMatchListButton'}
                     onClick={() => setIsChatRoomVisible(false)}
                 />
-                <div className='userImage'>
-                    
-                </div>
+                <UserAvatar 
+                    avatarIndex={chatRoom?.participants.find(item => item._id !== userData._id)?.avatarIndex}
+                    gender={chatRoom?.participants.find(item => item._id !== userData._id)?.gender}
+                />
                 <p>You matched with {matchName} on {matchTime}</p>
             </div>
             <IconButton

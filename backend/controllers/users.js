@@ -19,6 +19,7 @@ export const registerUser = async (req, res) => {
             favoriteGenre: favoriteGenre,
             favoriteInstrument: favoriteInstrument,
             date: date,
+            avatarIndex: Math.floor(Math.random() * 4) + 1,
             // media: media,
         });
         

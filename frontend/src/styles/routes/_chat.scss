@@ -84,12 +84,8 @@
         }
     }
 
-    .userImage {
+    .userAvatar {
         width: calc(40px * var(--app-scale));
-        height: calc(40px * var(--app-scale));
-        aspect-ratio: 1/1;
-        border-radius: 100%;
-        background-color: var(--border-grey);
     }
 
 
