@@ -35,7 +35,20 @@ function Chat() {
         const bTime = new Date(b.lastMessage?.createdAt || b.createdAt || 0).getTime();
         return bTime - aTime;
       });
-      setChatRooms(sortedRooms);
+      
+      setChatRooms(prevRooms => {
+        const updatedRooms = sortedRooms.map(incomingRoom => {
+          const existingRoom = prevRooms.find(r => r._id === incomingRoom._id);
+
+          return {
+            ...incomingRoom,
+            messages: existingRoom?.messages || [], // Preserve previously loaded messages
+          };
+        });
+
+        return updatedRooms;
+      })
+
       if (sortedRooms.length > 0) {
         const roomIds = sortedRooms.map(room => room._id);
         socket.emit('join_rooms', roomIds);
