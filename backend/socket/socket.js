@@ -104,6 +104,28 @@ const initializeSocket = (io) => {
       }
     });
 
+    socket.on('get_unread_counts', async (userId) => {
+      try {
+        const chatRooms = await ChatRoom.find({ participants: userId }).lean();
+
+        const counts = await Promise.all(chatRooms.map(async (room) => {
+          const unreadCount = await Messages.countDocuments({
+            chatRoom: room._id,
+            sender: { $ne: userId },
+            readBy: { $ne: userId }
+          });
+
+          return unreadCount;
+        }));
+
+        const totalUnread = counts.reduce((acc, count) => acc + count, 0);
+        socket.emit('unread_counts_data', totalUnread);
+      } catch (err) {
+        console.error('Failed to get unread counts:', err);
+        socket.emit('error', 'Failed to load unread counts.');
+      }
+    });
+
     socket.on('disconnect', () => {
       console.log('socket disconnected:', socket.id);
     });

@@ -9,39 +9,35 @@ export const ChatNotificationsProvider = ({ children }) => {
   const { userData } = useUserData();
   const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
 
-  const refreshChatRooms = () => {
+  const refreshUnreadCount = () => {
     if (socket && userData?._id) {
-      socket.emit('get_all_chatrooms', userData._id);
+      socket.emit('get_unread_counts', userData._id);
     }
   };
 
   useEffect(() => {
     if (!socket || !userData?._id) return;
 
-    refreshChatRooms();
+    refreshUnreadCount();
 
-    const allChatRoomsHandler = (chatRooms) => {
-      const totalUnread = chatRooms.reduce((acc, room) => acc + (room.unreadCount || 0), 0);
+    const unreadHandler = (totalUnread) => {
       setUnreadMessagesCount(totalUnread);
     };
 
-    socket.on('all_chatrooms_data', allChatRoomsHandler);
+    socket.on('unread_counts_data', unreadHandler);
 
-    // 👇 Real-time: update unread count when new message arrives
-    const onMessage = () => {
-      refreshChatRooms();
-    };
-
+    // 🔄 When message received, trigger refresh
+    const onMessage = () => refreshUnreadCount();
     socket.on('receive_message', onMessage);
 
     return () => {
-      socket.off('all_chatrooms_data', allChatRoomsHandler);
+      socket.off('unread_counts_data', unreadHandler);
       socket.off('receive_message', onMessage);
     };
   }, [socket, userData]);
 
   return (
-    <ChatNotificationsContext.Provider value={{ unreadMessagesCount, refreshChatRooms }}>
+    <ChatNotificationsContext.Provider value={{ unreadMessagesCount, refreshUnreadCount }}>
       {children}
     </ChatNotificationsContext.Provider>
   );

@@ -7,6 +7,7 @@ import { useSocket } from '../context/SocketContext';
 import { formatTimeAgo } from '../utils/textFormat';
 import Male1 from '../assets/icons/user/male1.svg';
 import { useLocation } from 'react-router-dom';
+import { useChatData } from '../context/ChatNotificationsContext';
 
 function Chat() {
   const [chatRooms, setChatRooms] = useState([]);
@@ -19,6 +20,7 @@ function Chat() {
 
   const { userData } = useUserData();
   const { socket } = useSocket();
+  const { refreshUnreadCount } = useChatData();
   const location = useLocation();
   const openWithUserId = location.state?.openWithUserId;
 
@@ -36,18 +38,7 @@ function Chat() {
         return bTime - aTime;
       });
       
-      setChatRooms(prevRooms => {
-        const updatedRooms = sortedRooms.map(incomingRoom => {
-          const existingRoom = prevRooms.find(r => r._id === incomingRoom._id);
-
-          return {
-            ...incomingRoom,
-            messages: existingRoom?.messages || [], // Preserve previously loaded messages
-          };
-        });
-
-        return updatedRooms;
-      })
+      setChatRooms(sortedRooms)
 
       if (sortedRooms.length > 0) {
         const roomIds = sortedRooms.map(room => room._id);
@@ -159,6 +150,7 @@ function Chat() {
         chatRoomId: activeChatRoomId, 
         userId: userData._id 
       });
+      refreshUnreadCount()
     }
   }, [activeChatRoomId, socket, userData]);
 
