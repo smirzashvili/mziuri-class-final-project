@@ -14,7 +14,8 @@ const MessageSchema = new mongoose.Schema({
   message: {
     type: String,
     required: true
-  }
+  },
+  readBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }]
 }, { timestamps: true });
 
 export default mongoose.model('Messages', MessageSchema);

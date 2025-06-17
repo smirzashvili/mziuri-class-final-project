@@ -46,12 +46,11 @@ function Chat() {
     // Handler for delete chat
     const chatDeletedHandler = (deletedRoomId) => {
       setChatRooms(prev =>
-        prev.map(room => {
-          if (room._id === deletedRoomId) {
-            return { ...room, messages: [], lastMessage: null };
-          }
-          return room;
-        })
+        prev.map(room =>
+          room._id === deletedRoomId
+            ? { ...room, messages: [], lastMessage: null, unreadCount: 0 }
+            : room
+        )
       );
     };
     socket.on("chat_deleted", chatDeletedHandler);
@@ -69,10 +68,15 @@ function Chat() {
       setChatRooms(prev => {
         const updatedRooms = prev.map(room => {
           if (room._id === newMessage.chatRoom) {
+            const isActive = room._id === activeChatRoomId;
             const updatedRoom = { ...room };
-            if (room._id === activeChatRoomId) {
+
+            if (isActive) {
               updatedRoom.messages = [...(room.messages || []), newMessage];
+            } else {
+              updatedRoom.unreadCount = (room.unreadCount || 0) + 1;
             }
+
             updatedRoom.lastMessage = newMessage;
             return updatedRoom;
           }
@@ -134,6 +138,16 @@ function Chat() {
       socket.off('chat_messages_data', handler);
     };
   }, [activeChatRoomId, socket]);
+
+  // When a user opens a chat room, tell the server to mark it as read.
+  useEffect(() => {
+    if (activeChatRoomId && socket && userData?._id) {
+      socket.emit('mark_room_as_read', { 
+        chatRoomId: activeChatRoomId, 
+        userId: userData._id 
+      });
+    }
+  }, [activeChatRoomId, socket, userData]);
 
   const sendMessage = (messageContent) => {
     if (!activeChatRoom?._id || !userData?._id) {

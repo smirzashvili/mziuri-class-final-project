@@ -16,9 +16,16 @@ const initializeSocket = (io) => {
             .sort({ createdAt: -1 }) // Most recent first
             .lean();
 
+          const unreadCount = await Messages.countDocuments({
+            chatRoom: room._id,
+            sender: { $ne: userId }, // Not sent by the current user
+            readBy: { $ne: userId }, // Not yet read by this user
+          });
+
           return {
             ...room,
-            lastMessage: lastMessage || null, // Optional fallback
+            lastMessage: lastMessage || null, 
+            unreadCount
           };
         }));
 
@@ -52,6 +59,17 @@ const initializeSocket = (io) => {
         });
       } else {
         console.error('join_rooms expected an array of room IDs, received:', roomIds);
+      }
+    });
+
+    socket.on('mark_room_as_read', async ({ chatRoomId, userId }) => {
+      try {
+        await Messages.updateMany(
+          { chatRoom: chatRoomId, readBy: { $ne: userId } },
+          { $addToSet: { readBy: userId } }
+        );
+      } catch (err) {
+        console.error("Failed to mark messages as read:", err);
       }
     });
 

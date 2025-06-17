@@ -12,6 +12,7 @@ import Moon from '../assets/icons/moon.svg';
 import Volume from '../assets/icons/volume.svg';
 import VolumeMute from '../assets/icons/volumeMute.svg';
 import { useSound } from '../context/SoundContext';
+import { useChatData } from '../context/ChatNotificationsContext.jsx';
 
 function Sidebar({setIsNavigationScreenVisible, isSidebarVisible, setIsSidebarVisible}) {
   const [darkModeOn, setDarkModeOn] = useState(() => {
@@ -20,7 +21,8 @@ function Sidebar({setIsNavigationScreenVisible, isSidebarVisible, setIsSidebarVi
 
   const { soundOn, setSoundOn } = useSound();
   const { loggedIn, logout } = useUserData();
-  
+  const { unreadMessagesCount } = useChatData();
+
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -85,6 +87,10 @@ function Sidebar({setIsNavigationScreenVisible, isSidebarVisible, setIsSidebarVi
                 size={"calc(16px * var(--app-scale))"}
               />
               <p>Messages</p>
+              {
+                unreadMessagesCount > 0 &&
+                <p className={`unreadMessagesCount`}>{unreadMessagesCount}</p>
+              }
             </Link>
             <Link
               to="/profile"

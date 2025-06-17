@@ -7,7 +7,7 @@ import { UserProvider } from './context/UserContext.jsx';
 import { NotificationProvider } from './context/NotificationContext.jsx';
 import { SocketProvider } from './context/SocketContext.jsx';
 import { SoundProvider } from './context/SoundContext.jsx';
-// import { ChatProvider } from './context/ChatContext';
+import { ChatNotificationsProvider } from './context/ChatNotificationsContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,9 +17,9 @@ createRoot(document.getElementById('root')).render(
           <NotificationProvider>
             <SocketProvider>
               <SoundProvider>
-                {/* <ChatProvider> */}
+                <ChatNotificationsProvider>
                   <App />
-                {/* </ChatProvider> */}
+                </ChatNotificationsProvider>
               </SoundProvider>
             </SocketProvider>
           </NotificationProvider>
