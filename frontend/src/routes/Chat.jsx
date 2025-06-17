@@ -8,10 +8,12 @@ import { formatTimeAgo } from '../utils/textFormat';
 
 function Chat() {
   const [chatRooms, setChatRooms] = useState([]);
-  const [activeChatRoomIndex, setActiveChatRoomIndex] = useState(0);
-  const activeChatRoom = chatRooms[activeChatRoomIndex];
+  const [activeChatRoomId, setActiveChatRoomId] = useState(null);
+  const activeChatRoom = chatRooms.find(room => room._id === activeChatRoomId);
+
   const [searchTerm, setSearchTerm] = useState('');
   const [isChatRoomVisible, setIsChatRoomVisible] = useState(true);
+
 
   const { userData } = useUserData();
   const { socket } = useSocket();
@@ -23,50 +25,97 @@ function Chat() {
     socket.emit('get_all_chatrooms', userData._id);
 
     // Handler for receiving all chatroom data
-    const allChatRoomsHandler = (chatRoomsWithMessages) => {
-      setChatRooms(chatRoomsWithMessages);
-      if (chatRoomsWithMessages.length > 0) {
-        const roomIds = chatRoomsWithMessages.map(cr => cr._id);
+    const allChatRoomsHandler = (roomsWithLastMessages) => {
+      const sortedRooms = [...roomsWithLastMessages].sort((a, b) => {
+        const aTime = a.lastMessage?.createdAt ? new Date(a.lastMessage.createdAt).getTime() : 0;
+        const bTime = b.lastMessage?.createdAt ? new Date(b.lastMessage.createdAt).getTime() : 0;
+        return bTime - aTime;
+      });
+      setChatRooms(sortedRooms);
+      if (sortedRooms.length > 0) {
+        const roomIds = sortedRooms.map(room => room._id);
         socket.emit('join_rooms', roomIds);
       }
     };
     socket.on('all_chatrooms_data', allChatRoomsHandler);
 
-    // Handler for receiving new messages
-    const receiveMessageHandler = (newMessage) => {
-      setChatRooms(prevChatRooms =>
-        prevChatRooms.map(chatRoom => {
-          if (chatRoom._id === newMessage.chatRoom) {
-            return {
-              ...chatRoom,
-              messages: [...chatRoom.messages, newMessage]
-            };
+    // Handler for delete chat
+    const chatDeletedHandler = (deletedRoomId) => {
+      setChatRooms(prev =>
+        prev.map(room => {
+          if (room._id === deletedRoomId) {
+            return { ...room, messages: [], lastMessage: null };
           }
-          return chatRoom;
+          return room;
         })
       );
-    };
-    socket.on('receive_message', receiveMessageHandler);
-
-    // Handler for delete chat
-    const chatDeletedHandler = (deletedChatRoomId) => {
-      setChatRooms(prev =>
-        prev.map(cr => {
-          if (cr._id === deletedChatRoomId) {
-            return { ...cr, messages: [] };
-          }
-          return cr;
-        })
-      );    
     };
     socket.on("chat_deleted", chatDeletedHandler);
 
     return () => {
       socket.off('all_chatrooms_data', allChatRoomsHandler);
-      socket.off('receive_message', receiveMessageHandler);
       socket.off("chat_deleted", chatDeletedHandler);
     };
   }, [socket, userData]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const receiveMessageHandler = (newMessage) => {
+      setChatRooms(prev => {
+        const updatedRooms = prev.map(room => {
+          if (room._id === newMessage.chatRoom) {
+            const updatedRoom = { ...room };
+            if (room._id === activeChatRoomId) {
+              updatedRoom.messages = [...(room.messages || []), newMessage];
+            }
+            updatedRoom.lastMessage = newMessage;
+            return updatedRoom;
+          }
+          return room;
+        });
+
+        return updatedRooms.sort((a, b) => {
+          const aTime = new Date(a.lastMessage?.createdAt || 0).getTime();
+          const bTime = new Date(b.lastMessage?.createdAt || 0).getTime();
+          return bTime - aTime;
+        });
+      });
+    };
+
+    socket.on('receive_message', receiveMessageHandler);
+
+    return () => {
+      socket.off('receive_message', receiveMessageHandler);
+    };
+  }, [socket, activeChatRoomId]);
+
+  useEffect(() => {
+    if (chatRooms.length > 0 && !activeChatRoomId) {
+      setActiveChatRoomId(chatRooms[0]._id);
+    }
+  }, [chatRooms, activeChatRoomId]);
+
+  // Fetch messages when user selects a chat
+  useEffect(() => {
+    if (!activeChatRoomId) return;
+
+    socket.emit('get_chat_messages', activeChatRoomId);
+
+    const handler = ({ chatRoomId, messages }) => {
+      setChatRooms(prev =>
+        prev.map(room =>
+          room._id === chatRoomId ? { ...room, messages } : room
+        )
+      );
+    };
+
+    socket.on('chat_messages_data', handler);
+
+    return () => {
+      socket.off('chat_messages_data', handler);
+    };
+  }, [activeChatRoomId, socket]);
 
   const sendMessage = (messageContent) => {
     if (!activeChatRoom?._id || !userData?._id) {
@@ -97,7 +146,7 @@ function Chat() {
 
   useEffect(() => {
     setIsChatRoomVisible(true)
-  }, [activeChatRoomIndex])
+  }, [activeChatRoomId])
 
   return (
     <div className='chat'>
@@ -111,14 +160,13 @@ function Chat() {
         </div>
         <div className='matchesList'>
           {filteredChatRooms?.map((item, index) => {
-            const lastMessage = item.messages[item.messages.length - 1]
             const matchName = item.participants.find(item => item._id !== userData._id).fullName
             
             return (
               <div
                 key={item._id || index}
-                className={`item ${activeChatRoomIndex === index ? 'active' : ''}`}
-                onClick={() => activeChatRoomIndex !== index && setActiveChatRoomIndex(index)}
+                className={`item ${activeChatRoomId  === item._id ? 'active' : ''}`}
+                onClick={() => activeChatRoomId  !== item._id && setActiveChatRoomId(item._id)}
               >
                 <div>
                   <div className='userImage'>
@@ -127,25 +175,26 @@ function Chat() {
                   <div className='nameAndMessageContainer'>
                     <p>{matchName}</p>
                     <p>
-                      {lastMessage && (
+                      {item.lastMessage && (
                         <img
                           className='icon'
-                          src={lastMessage.sender === userData?._id ? MessageSend : MessageReceive}
+                          src={item.lastMessage.sender === userData?._id ? MessageSend : MessageReceive}
                           alt="icon"
                         />
                       )}
-                      {lastMessage?.message || 'no messages yet'}
+                      {item.lastMessage?.message || 'no messages yet'}
                     </p>
                   </div>
                 </div>
-                {lastMessage && (
-                  <span className='messageTime'>{formatTimeAgo(lastMessage.createdAt)}</span>
+                {item.lastMessage && (
+                  <span className='messageTime'>{formatTimeAgo(item.lastMessage.createdAt)}</span>
                 )}
               </div>
             );
           })}
         </div>
       </div>
+      {console.log(activeChatRoom)}
       <ChatRoom
         chatRoom={activeChatRoom}
         onSendMessage={sendMessage}

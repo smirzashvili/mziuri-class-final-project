@@ -86,7 +86,7 @@ function ChatRoom({chatRoom, onSendMessage, onDeleteMessages, isChatRoomVisible,
         </div>
         <div className='chatContainer'>
             <div className='chatBox' ref={chatBoxRef}>
-            {chatRoom?.messages.map((item, index) => {
+            {chatRoom?.messages?.map((item, index) => {
                 let isYou = item.sender === userData?._id
                 return (
                 <div key={index} className={`item ${isYou ? 'send' : 'receive'}`}>

@@ -11,19 +11,35 @@ const initializeSocket = (io) => {
           .populate('participants', 'fullName _id')
           .lean();
 
-        const chatRoomsWithMessages = await Promise.all(chatRooms.map(async (room) => {
-          const messages = await Messages.find({ chatRoom: room._id })
-            .sort({ createdAt: 1 })
-            .lean(); // Ensure messages are also lean objects
+        const chatRoomsWithLastMessage = await Promise.all(chatRooms.map(async (room) => {
+          const lastMessage = await Messages.findOne({ chatRoom: room._id })
+            .sort({ createdAt: -1 }) // Most recent first
+            .lean();
+
           return {
             ...room,
-            messages,
+            lastMessage: lastMessage || null, // Optional fallback
           };
         }));
-        socket.emit('all_chatrooms_data', chatRoomsWithMessages);
+
+        socket.emit('all_chatrooms_data', chatRoomsWithLastMessage);
       } catch (err) {
-        console.error('Failed to get all chatrooms:', err);
+        console.error('Failed to get chatrooms:', err);
         socket.emit('error', 'Failed to load chatrooms.');
+      }
+    });
+
+    // Fetch full messages for a specific chat room
+    socket.on('get_chat_messages', async (chatRoomId) => {
+      try {
+        const messages = await Messages.find({ chatRoom: chatRoomId })
+          .sort({ createdAt: 1 })
+          .lean();
+
+        socket.emit('chat_messages_data', { chatRoomId, messages });
+      } catch (err) {
+        console.error("Failed to get chat messages:", err);
+        socket.emit("error", "Failed to load messages.");
       }
     });
 
