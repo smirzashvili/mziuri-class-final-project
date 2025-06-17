@@ -6,6 +6,7 @@ import { useUserData } from '../context/UserContext';
 import { useSocket } from '../context/SocketContext';
 import { formatTimeAgo } from '../utils/textFormat';
 import Male1 from '../assets/icons/user/male1.svg';
+import { useLocation } from 'react-router-dom';
 
 function Chat() {
   const [chatRooms, setChatRooms] = useState([]);
@@ -18,6 +19,8 @@ function Chat() {
 
   const { userData } = useUserData();
   const { socket } = useSocket();
+  const location = useLocation();
+  const openWithUserId = location.state?.openWithUserId;
 
   useEffect(() => {
     if (!socket || !userData?._id) return;
@@ -28,8 +31,8 @@ function Chat() {
     // Handler for receiving all chatroom data
     const allChatRoomsHandler = (roomsWithLastMessages) => {
       const sortedRooms = [...roomsWithLastMessages].sort((a, b) => {
-        const aTime = a.lastMessage?.createdAt ? new Date(a.lastMessage.createdAt).getTime() : 0;
-        const bTime = b.lastMessage?.createdAt ? new Date(b.lastMessage.createdAt).getTime() : 0;
+        const aTime = new Date(a.lastMessage?.createdAt || a.createdAt || 0).getTime();
+        const bTime = new Date(b.lastMessage?.createdAt || b.createdAt || 0).getTime();
         return bTime - aTime;
       });
       setChatRooms(sortedRooms);
@@ -77,8 +80,8 @@ function Chat() {
         });
 
         return updatedRooms.sort((a, b) => {
-          const aTime = new Date(a.lastMessage?.createdAt || 0).getTime();
-          const bTime = new Date(b.lastMessage?.createdAt || 0).getTime();
+          const aTime = new Date(a.lastMessage?.createdAt || a.createdAt || 0).getTime();
+          const bTime = new Date(b.lastMessage?.createdAt || b.createdAt || 0).getTime();
           return bTime - aTime;
         });
       });
@@ -92,10 +95,24 @@ function Chat() {
   }, [socket, activeChatRoomId]);
 
   useEffect(() => {
-    if (chatRooms.length > 0 && !activeChatRoomId) {
+    if (!chatRooms.length) return;
+
+    // If navigating from "Send Message" button
+    if (openWithUserId) {
+      const roomWithThatUser = chatRooms.find(room =>
+        room.participants.some(p => p._id === openWithUserId)
+      );
+
+      if (roomWithThatUser) {
+        setActiveChatRoomId(roomWithThatUser._id);
+      } else {
+        // fallback to first room
+        setActiveChatRoomId(chatRooms[0]._id);
+      }
+    } else if (!activeChatRoomId) {
       setActiveChatRoomId(chatRooms[0]._id);
     }
-  }, [chatRooms, activeChatRoomId]);
+  }, [chatRooms, activeChatRoomId, openWithUserId]);
 
   // Fetch messages when user selects a chat
   useEffect(() => {

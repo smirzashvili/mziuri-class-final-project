@@ -10,8 +10,8 @@ import { useSound } from '../context/SoundContext'; // 👈
 
 function MusicianCard({ musicianData, onLike, onDislike }) {
   const media = [
-    'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
     'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
     'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
   ];
   const [infoActive, setInfoActive] = useState(false);

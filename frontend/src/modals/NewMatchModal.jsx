@@ -13,7 +13,7 @@ function NewMatchModal({isModalOpen, setIsModalOpen, userData, musicianData, onC
 
   const handleSendMessageClick = () => {
     setIsModalOpen(false)
-    navigate('/chat')
+    navigate('/chat', { state: { openWithUserId: musicianData._id } });
   }
 
   return (
