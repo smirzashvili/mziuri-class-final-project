@@ -6,31 +6,31 @@
 
 
     & > .upperContainer {
-        @include flexbox(column, center, center, 8px);
+        @include flexbox(column, center, center, calc(8px * var(--app-scale)));
         color: white;
         background-color: var(--primary-green);
         width: 100%;
-        padding: 16px;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
+        padding: calc(16px * var(--app-scale));
+        border-top-left-radius: calc(16px * var(--app-scale));
+        border-top-right-radius: calc(16px * var(--app-scale));
         background-image: linear-gradient(to right, rgba(0, 0, 0, 0.152), rgb(55, 175, 145));
-        padding-bottom: 32px;
+        padding-bottom: calc(32px * var(--app-scale));
     }
 
     & > .bottomContainer {
-        @include flexbox(column, center, center, 8px);
-        padding: 16px;
+        @include flexbox(column, center, center, calc(8px * var(--app-scale)));
+        padding: calc(16px * var(--app-scale));
 
          & > .photosContainer {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-top: -48px;
-            padding: 8px;
+            margin-top: calc(-48px * var(--app-scale));
+            padding: calc(8px * var(--app-scale));
 
             & > .userAvatar {
-                margin-right: -8px;
-                &:nth-child(2) {margin-left: -8px;}
+                margin-right: calc(-8px * var(--app-scale));
+                &:nth-child(2) {margin-left: calc(-8px * var(--app-scale))}
             }
         }
 
@@ -41,11 +41,11 @@
         }
 
         & > .buttonsContainer {
-            margin-top: 16px;
+            margin-top: calc(16px * var(--app-scale));
             width: 70%;
             display: flex;
             justify-content: space-around;
-            gap: 8px;
+            gap: calc(8px * var(--app-scale));
         }
     }
 }

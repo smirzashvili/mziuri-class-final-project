@@ -2,7 +2,7 @@
 
 .userAvatar {
     position: relative;
-    width: 100px;
+    width: calc(100px * var(--app-scale));
     border-radius: 100%;
     background-color: rgb(234, 234, 234);
     box-shadow: var(--shadow-md);
@@ -10,6 +10,6 @@
     & > .image {
         width: 100%;
         border-radius: 100%;
-        border: 2px solid white;
+        border: calc(2px * var(--app-scale)) solid white;
     }
 }
