@@ -59,6 +59,10 @@
                             font-size: calc(14px * var(--app-scale));
                             color: var(--darker-grey);
                             @include flexbox(row, flex-start, center, calc(6px * var(--app-scale)));
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            // width: 120px;
 
                             & > .icon {
                                 width: calc(10px * var(--app-scale));

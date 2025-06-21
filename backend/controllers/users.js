@@ -1,5 +1,6 @@
 import Users from '../models/users.js';
 import ChatRooms from '../models/chatRooms.js';
+import Messages from '../models/messages.js';
 import {hashPassword, comparePassword} from '../utils/bcrypt.js'
 import {sendResetPasswordMail, sendContactMail} from '../utils/mailSender.js'
 import jwt from 'jsonwebtoken'
@@ -30,6 +31,8 @@ export const registerUser = async (req, res) => {
         
         const userObj = newUser.toObject();
         delete userObj.password;
+
+        await checkAndCreateChatroomWithBot(newUser._id)
         
         return res.status(201).json({ data: userObj });
     } catch (err) {
@@ -57,6 +60,8 @@ export const loginUser = async (req, res) => {
 
         const userObj = user.toObject();
         delete userObj.password;
+
+        await checkAndCreateChatroomWithBot(user._id)
 
         return res.status(200).json({ data: userObj });
     } catch (err) {
@@ -101,6 +106,7 @@ export const getUser = async (req, res) => {
             .select('-password')
 
         // console.log(userData)
+        await checkAndCreateChatroomWithBot(userId)
 
         return res.status(200).json({ data: userData });
     } catch (err) {
@@ -156,6 +162,8 @@ export const getGuestUser = async (req, res) => {
 
         const userObj = newGuest.toObject();
         delete userObj.password;
+
+        await checkAndCreateChatroomWithBot(newGuest._id)
 
         return res.status(201).json({ data: userObj });
     } catch (err) {
@@ -320,5 +328,29 @@ export const dislike = async (req, res) => {
         return res.status(200).json({ data: 'Disliked' })
     } catch (err) {
         return res.status(500).json({ err: "Something went wrong" });
+    }
+}
+
+const checkAndCreateChatroomWithBot = async (userId) => {
+    // create chat with bot if it doesn't exist
+    const bot = await Users.findOne({ isBot: true });
+
+    let botRoom = await ChatRooms.findOne({
+        participants: { $all: [userId, bot._id] }
+    });
+
+    console.log(botRoom)
+    if (!botRoom) {
+        botRoom = new ChatRooms({ participants: [userId, bot._id] });
+        await botRoom.save();
+
+        // send initial message from the bot
+        const welcomeMessage = new Messages({
+            sender: bot._id,
+            chatRoom: botRoom._id,
+            message: "Hi there! I'm MelodyMatch Bot 🤖 — your AI music buddy."
+        });
+
+        await welcomeMessage.save();
     }
 }

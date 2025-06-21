@@ -87,6 +87,27 @@ const initializeSocket = (io) => {
 
         // Broadcast to all clients in this chatRoom
         io.in(data.chatRoomId).emit('receive_message', savedMessageObject); // Emit the plain object
+
+        // Check if the other participant is a bot
+        const chatRoom = await ChatRoom.findById(data.chatRoomId).populate('participants');
+        const botUser = chatRoom.participants.find(p => p.isBot);
+
+        if (botUser && botUser._id.toString() !== data.sender) {
+          // Delay response to feel like a real bot
+          setTimeout(async () => {
+            const botReply = new Messages({
+              chatRoom: data.chatRoomId,
+              sender: botUser._id,
+              message: generateBotReply(data.message),
+              createdAt: new Date()
+            });
+            await botReply.save();
+
+            const botReplyObject = botReply.toObject();
+            io.in(data.chatRoomId).emit('receive_message', botReplyObject);
+          }, 1000); // 1 second delay
+        }
+
       } catch (error) {
         console.error('Error saving/broadcasting message:', error);
         socket.emit('error', 'Failed to send message.');
@@ -131,5 +152,52 @@ const initializeSocket = (io) => {
     });
   });
 };
+
+const generateBotReply = (userMessage) => {
+  const msg = userMessage.toLowerCase();
+
+  if (/^(hi|hello|hey|yo|sup)\b/.test(msg)) {
+    return "Hey there! 👋 Ready to chat about music?";
+  }
+
+  if (/how are you|how’s it going|what’s up/.test(msg)) {
+    return "I'm just tuning my circuits 🎛️ — how can I help you today?";
+  }
+
+  if (/genre|style|music type/.test(msg)) {
+    return "🎧 I'm into everything from techno to jazz! What's your jam?";
+  }
+
+  if (/instrument|gear|setup|equipment/.test(msg)) {
+    return "🎸 Gear talk? Count me in! Do you use analog synths or digital setups?";
+  }
+
+  if (/recommend|suggest|advise/.test(msg)) {
+    return "🎵 Sure! Tell me what kind of vibe you're looking for and I’ll suggest something.";
+  }
+
+  if (/favorite|best|top.*song|track|artist/.test(msg)) {
+    return "🎤 I don’t play favorites, but I hear Tame Impala and Aphex Twin are quite the legends!";
+  }
+
+  if (/beat|loop|tempo|bpm/.test(msg)) {
+    return "⏱️ Tempo control is key! Do you prefer chill grooves or fast-paced rhythms?";
+  }
+
+  if (/ai|bot|who.*you|what.*you/.test(msg)) {
+    return "🤖 I’m MelodyMatch Bot – your AI buddy for all things music. Ask me anything!";
+  }
+
+  // Fallback replies – randomize a bit
+  const defaultReplies = [
+    "🎶 I’m always down to chat music. What’s on your mind?",
+    "🎹 Curious about something? I’ve got ideas!",
+    "💬 Music talk? Let’s go! Ask me anything.",
+    "📀 I live for sound. Got questions about genres, gear, or production?",
+  ];
+
+  return defaultReplies[Math.floor(Math.random() * defaultReplies.length)];
+};
+
 
 export default initializeSocket;

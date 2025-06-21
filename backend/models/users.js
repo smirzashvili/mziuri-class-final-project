@@ -53,6 +53,9 @@ const UsersSchema = new mongoose.Schema({
   }],
   isGuest: {
     type: Boolean
+  },
+  isBot: {
+    type: Boolean
   }
 });
 

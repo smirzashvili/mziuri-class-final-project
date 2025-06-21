@@ -12,6 +12,8 @@ import { Server } from 'socket.io';
 import http from 'http';
 import Messages from './models/messages.js';
 import initializeSocket from './socket/socket.js';
+import Users from './models/users.js';
+import { hashPassword } from './utils/bcrypt.js';
 
 const app = express()
 
