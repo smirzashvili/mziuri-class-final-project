@@ -35,7 +35,6 @@ function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(userData)
     if (userData && Object.keys(userData).length > 0) {
       setState(prevState => ({
         ...prevState,

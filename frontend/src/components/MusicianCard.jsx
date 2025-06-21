@@ -69,7 +69,6 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
   const handleMouseUp = () => {
     document.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('mouseup', handleMouseUp);
-    console.log(positionX.current)
     if (positionX.current > 200) {
       onLike();
     } else if (positionX.current < -200) {

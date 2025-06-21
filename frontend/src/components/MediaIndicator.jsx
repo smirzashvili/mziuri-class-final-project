@@ -53,7 +53,6 @@ function MediaIndicator({ currentMediaIndex, currentMediaRef, medias, onHandleNe
                 if (elapsed < duration) {
                     indicatorAnimationIdRef.current = requestAnimationFrame(animateImageProgress);
                 } else {
-                    console.log('2312312')
                     onHandleNextMedia();
                 }
             };

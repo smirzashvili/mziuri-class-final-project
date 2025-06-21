@@ -10,7 +10,7 @@ import { SoundProvider } from './context/SoundContext.jsx';
 import { ChatNotificationsProvider } from './context/ChatNotificationsContext.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <>
     <Router>
       <UserProvider>
         <LoaderProvider>
@@ -26,5 +26,5 @@ createRoot(document.getElementById('root')).render(
         </LoaderProvider>
       </UserProvider>
     </Router>
-  </StrictMode>
+  </>
 );

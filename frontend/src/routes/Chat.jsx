@@ -232,7 +232,6 @@ function Chat() {
           })}
         </div>
       </div>
-      {console.log(activeChatRoom)}
       <ChatRoom
         chatRoom={activeChatRoom}
         onSendMessage={sendMessage}

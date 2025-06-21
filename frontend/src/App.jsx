@@ -36,7 +36,6 @@ function App() {
         // guest user functinality
         try {
           const guestRes = await api.getGuestUser();
-          console.log(guestRes)
           if (guestRes.data) {
             login(guestRes.data);
           }
