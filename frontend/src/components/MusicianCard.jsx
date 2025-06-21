@@ -9,11 +9,11 @@ import MediaIndicator from './MediaIndicator';
 import { useSound } from '../context/SoundContext'; // 👈
 
 function MusicianCard({ musicianData, onLike, onDislike }) {
-  const media = [
-    'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  const [media, setMedia] = useState([
     'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+    'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
-  ];
+  ]);
   const [infoActive, setInfoActive] = useState(false);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const currentMediaRef = useRef()
@@ -33,6 +33,13 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
   }, [currentMediaIndex]);
 
   useEffect(() => {
+    //TEST
+    setMedia([
+      media[0] === 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4' ? 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' : 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+      'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
+    ])
+    //
     setCurrentMediaIndex(0);
     setInfoActive(false);   
     setRotation(0);              
