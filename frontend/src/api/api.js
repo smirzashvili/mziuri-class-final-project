@@ -82,6 +82,18 @@ export const forgotPasswordUser = async (data) => {
   }
 }
 
+export const getGuestUser = async () => {
+  try {
+    const response = await axios.post(`http://localhost:3003/api/users/get-guest`, null, {
+      withCredentials: true,
+    })
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.err || "Something went wrong";
+    throw new Error(message);
+  }
+};
+
 
 export const contact = async (data) => {
   try {

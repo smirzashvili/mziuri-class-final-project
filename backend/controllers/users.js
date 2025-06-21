@@ -129,6 +129,41 @@ export const forgotPasswordUser = async (req, res) => {
 
 }
 
+export const getGuestUser = async (req, res) => {
+    try {
+        const randomNum = Math.floor(100000 + Math.random() * 900000); // 6-digit number
+        const guestUsername = `guest${randomNum}`;
+        const guestEmail = `guest${randomNum}@guest.local`;
+        const dummyPassword = await hashPassword(`guest_password_${randomNum}`);
+        const newGuest = new Users({
+            fullName: guestUsername,
+            email: guestEmail,
+            city: "Tbilisi",
+            password: dummyPassword,
+            gender: "Male",
+            favoriteGenre: "ROCK",
+            favoriteInstrument: "Organ",
+            date: '2002-02-26',
+            avatarIndex: Math.floor(Math.random() * 4) + 1,
+            bio: "Yes, I am a demo musician to create digital journeys 🕺",
+            isGuest: true
+        });
+
+        await newGuest.save();
+
+        const token = jwt.sign({ id: newGuest._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
+        res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
+
+        const userObj = newGuest.toObject();
+        delete userObj.password;
+
+        return res.status(201).json({ data: userObj });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ err: "Something went wrong" });
+    }
+};
+
 export const resetPasswordUser = async (req, res) => {
     try {
         const { password } = req.body;

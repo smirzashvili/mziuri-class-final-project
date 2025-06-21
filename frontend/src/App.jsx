@@ -27,14 +27,22 @@ function App() {
   useEffect(() => {
     const getUserInfo = async () => {
       try {
-        const {data} = await api.getToken();
-        const res = await api.getUser(data);
+        const { data: tokenData } = await api.getToken();
+        const res = await api.getUser(tokenData);
         if (res.data) {
-          login(res.data)
-          // navigate('/explore');
+          login(res.data);
         }
-      } catch(error) {
-        console.error(error)
+      } catch (error) {
+        // guest user functinality
+        try {
+          const guestRes = await api.getGuestUser();
+          console.log(guestRes)
+          if (guestRes.data) {
+            login(guestRes.data);
+          }
+        } catch (guestErr) {
+          console.error('Failed to log in as guest', guestErr);
+        }
       }
     };
     getUserInfo();

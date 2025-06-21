@@ -50,7 +50,10 @@ const UsersSchema = new mongoose.Schema({
   matches: [{ type: 
     mongoose.Schema.Types.ObjectId, 
     ref: 'Users' 
-  }]
+  }],
+  isGuest: {
+    type: Boolean
+  }
 });
 
 export default mongoose.model("Users", UsersSchema);
