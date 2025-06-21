@@ -8,7 +8,7 @@ const initializeSocket = (io) => {
     socket.on('get_all_chatrooms', async (userId) => {
       try {
         const chatRooms = await ChatRoom.find({ participants: userId })
-          .populate('participants', 'fullName _id')
+          .populate('participants', 'fullName _id gender avatarIndex')
           .lean();
 
         const chatRoomsWithLastMessage = await Promise.all(chatRooms.map(async (room) => {

@@ -57,6 +57,6 @@ const UsersSchema = new mongoose.Schema({
   isBot: {
     type: Boolean
   }
-});
+}, { timestamps: true });
 
 export default mongoose.model("Users", UsersSchema);

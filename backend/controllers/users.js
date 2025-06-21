@@ -146,7 +146,7 @@ export const getGuestUser = async (req, res) => {
             email: guestEmail,
             city: "Tbilisi",
             password: dummyPassword,
-            gender: "Male",
+            gender: "male",
             favoriteGenre: "ROCK",
             favoriteInstrument: "Organ",
             date: '2002-02-26',
