@@ -38,13 +38,14 @@ app.use(cors({
     credentials: true // Allow cookies to be sent
 }));
 
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, 'dist')));
+
 app.use(helmet())
 app.use(express.json())
 app.use(cookieParser()); //to access cookies in node.js
 app.use(compression())
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, 'dist')));
 
 // app.use('/api/todos', auth, TodosRouter)
 app.use('/api/users', UsersRouter)
