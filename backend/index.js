@@ -39,17 +39,17 @@ app.use(cors({
     credentials: true // Allow cookies to be sent
 }));
 
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      mediaSrc: ["'self'", "*"],
-      imgSrc: ["'self'", "*", "data:"],  // note: no quotes around data: here
-      connectSrc: ["'self'", "*"],
-      scriptSrc: ["'self'", "*"],
-    } 
-  }
-}));
+// app.use(helmet({
+//   contentSecurityPolicy: {
+//     directives: {
+//       defaultSrc: ["'self'", "*"],
+//       mediaSrc: ["'self'", "*"],
+//       imgSrc: ["'self'", "*", "data:"],  // note: no quotes around data: here
+//       connectSrc: ["'self'", "*"],
+//       scriptSrc: ["'self'", "*"],
+//     } 
+//   }
+// }));
 app.use(express.json())
 app.use(cookieParser()); //to access cookies in node.js
 app.use(compression())
