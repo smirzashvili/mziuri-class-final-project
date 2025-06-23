@@ -17,7 +17,7 @@ const app = express()
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // React frontend
+    origin: ["http://localhost:5173", "https://demo.melodymatch.onrender.com"], // React frontend
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -38,17 +38,20 @@ app.use(cors({
     credentials: true // Allow cookies to be sent
 }));
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, 'dist')));
-
 app.use(helmet())
 app.use(express.json())
 app.use(cookieParser()); //to access cookies in node.js
 app.use(compression())
 
-
 // app.use('/api/todos', auth, TodosRouter)
 app.use('/api/users', UsersRouter)
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 // Socket.IO setup
 initializeSocket(io); // Call the function to set up socket listeners
