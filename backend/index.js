@@ -19,7 +19,7 @@ const app = express()
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173", "https://demo.melodymatch.onrender.com"], // React frontend
+    origin: ["http://localhost:5173", "https://demo-melodymatch.onrender.com"], // React frontend
     credentials: true
   }
 });
@@ -35,7 +35,7 @@ const limiter = rateLimit({
 app.use(limiter)
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://demo.melodymatch.onrender.com"], // React frontend
+    origin: ["http://localhost:5173", "https://demo-melodymatch.onrender.com"], // React frontend
     credentials: true // Allow cookies to be sent
 }));
 
