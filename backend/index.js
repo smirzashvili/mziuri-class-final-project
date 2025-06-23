@@ -44,7 +44,6 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       mediaSrc: ["'self'", "*"],
-      videoSrc: ["'self'", "*"],
       imgSrc: ["'self'", "*", "data:"],  // note: no quotes around data: here
       connectSrc: ["'self'", "*"],
       scriptSrc: ["'self'", "*"],
