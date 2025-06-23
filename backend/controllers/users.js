@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
         await newUser.save()
         
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
-        res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
         
         const userObj = newUser.toObject();
         delete userObj.password;
@@ -56,7 +56,7 @@ export const loginUser = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
-        res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
         const userObj = user.toObject();
         delete userObj.password;
@@ -99,8 +99,6 @@ export const getUser = async (req, res) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         const userId = decoded.id;
-
-        console.log(userId)
 
         const userData = await Users.findById(userId)
             .select('-password')
@@ -158,7 +156,7 @@ export const getGuestUser = async (req, res) => {
         await newGuest.save();
 
         const token = jwt.sign({ id: newGuest._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
-        res.cookie('token', token, { httpOnly: true, secure: false, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
         const userObj = newGuest.toObject();
         delete userObj.password;
@@ -339,7 +337,6 @@ const checkAndCreateChatroomWithBot = async (userId) => {
         participants: { $all: [userId, bot._id] }
     });
 
-    console.log(botRoom)
     if (!botRoom) {
         botRoom = new ChatRooms({ participants: [userId, bot._id] });
         await botRoom.save();
