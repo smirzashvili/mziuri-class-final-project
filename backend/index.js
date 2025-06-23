@@ -47,6 +47,7 @@ app.use(helmet({
       videoSrc: ["'self'", "*"],
       imgSrc: ["'self'", "*", "data:"],  // note: no quotes around data: here
       connectSrc: ["'self'", "*"],
+      script: ["'self'", "*"],
     } 
   }
 }));
