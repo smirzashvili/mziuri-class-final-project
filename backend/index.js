@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import logger from './middlewares/logger.js'
 import cookieParser from 'cookie-parser';
 import connectDB from './db/connection.js'
 import UsersRouter from './routes/users.js';
@@ -10,10 +9,8 @@ import helmet from "helmet";
 import compression from 'compression';
 import { Server } from 'socket.io';
 import http from 'http';
-import Messages from './models/messages.js';
 import initializeSocket from './socket/socket.js';
-import Users from './models/users.js';
-import { hashPassword } from './utils/bcrypt.js';
+import path from 'path';
 
 const app = express()
 
@@ -45,6 +42,9 @@ app.use(helmet())
 app.use(express.json())
 app.use(cookieParser()); //to access cookies in node.js
 app.use(compression())
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // app.use('/api/todos', auth, TodosRouter)
 app.use('/api/users', UsersRouter)
