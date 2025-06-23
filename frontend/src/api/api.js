@@ -3,7 +3,7 @@ import axios from 'axios';
 export const registerUser = async (data) => {
   try {
     const response = await axios.post(
-      'http://localhost:3003/api/users/register',
+      '/api/users/register',
       JSON.stringify(data),
       {
         headers: { 'Content-Type': 'application/json' },
@@ -20,7 +20,7 @@ export const registerUser = async (data) => {
 export const loginUser = async (data) => {
   try {
     const response = await axios.post(
-      'http://localhost:3003/api/users/login',
+      '/api/users/login',
       JSON.stringify(data), 
       {
         headers: { 'Content-Type': 'application/json' },
@@ -36,7 +36,7 @@ export const loginUser = async (data) => {
 
 export const logoutUser = async () => {
   try {
-    const response = await axios.post('http://localhost:3003/api/users/logout', null, {
+    const response = await axios.post('/api/users/logout', null, {
       withCredentials: true,
     });
     return response.data;
@@ -48,7 +48,7 @@ export const logoutUser = async () => {
 
 export const getToken = async () => {
   try {
-    const response = await axios.post(`http://localhost:3003/api/users/get-token`, null, {
+    const response = await axios.post(`/api/users/get-token`, null, {
       withCredentials: true,
     })
     return response.data;
@@ -60,7 +60,7 @@ export const getToken = async () => {
 
 export const getUser = async (token) => {
   try {
-    const response = await axios.get(`http://localhost:3003/api/users/get`, {
+    const response = await axios.get(`/api/users/get`, {
       headers: { Authorization: token },
     });
     return response.data;
@@ -72,7 +72,7 @@ export const getUser = async (token) => {
 
 export const forgotPasswordUser = async (data) => {
   try {
-    const response = await axios.put(`http://localhost:3003/api/users/forgot-password`, data, {
+    const response = await axios.put(`/api/users/forgot-password`, data, {
       withCredentials: true,
     })
     return response.data;
@@ -84,7 +84,7 @@ export const forgotPasswordUser = async (data) => {
 
 export const getGuestUser = async () => {
   try {
-    const response = await axios.post(`http://localhost:3003/api/users/get-guest`, null, {
+    const response = await axios.post(`/api/users/get-guest`, null, {
       withCredentials: true,
     })
     return response.data;
@@ -98,7 +98,7 @@ export const getGuestUser = async () => {
 export const contact = async (data) => {
   try {
     const response = await axios.post(
-      'http://localhost:3003/api/users/contact',
+      '/api/users/contact',
       data,
       {
         headers: { 'Content-Type': 'application/json' },
@@ -115,7 +115,7 @@ export const contact = async (data) => {
 export const updateUser = async (data) => {
   try {
     const response = await axios.put(
-      'http://localhost:3003/api/users/update',
+      '/api/users/update',
       JSON.stringify(data), 
       {
         headers: { 'Content-Type': 'application/json' },
@@ -132,7 +132,7 @@ export const updateUser = async (data) => {
 
 export const discover = async (userId) => {
   try {
-    const response = await axios.get(`http://localhost:3003/api/users/discover/${userId}`, {
+    const response = await axios.get(`/api/users/discover/${userId}`, {
       withCredentials: true,
     });
     return response.data;
@@ -145,7 +145,7 @@ export const discover = async (userId) => {
 export const like = async (userId, targetUserId) => {
   try {
     const response = await axios.post(
-      `http://localhost:3003/api/users/${targetUserId}/like`,
+      `/api/users/${targetUserId}/like`,
       JSON.stringify({ userId: userId }),
       {
         headers: { 'Content-Type': 'application/json' },
@@ -162,7 +162,7 @@ export const like = async (userId, targetUserId) => {
 export const dislike = async (userId, targetUserId) => {
   try {
     const response = await axios.post(
-      `http://localhost:3003/api/users/${targetUserId}/dislike`,
+      `/api/users/${targetUserId}/dislike`,
       JSON.stringify({ userId: userId }),
       {
         headers: { 'Content-Type': 'application/json' },
