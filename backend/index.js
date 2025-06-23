@@ -11,6 +11,8 @@ import { Server } from 'socket.io';
 import http from 'http';
 import initializeSocket from './socket/socket.js';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { URL } from 'url';
 
 const app = express()
 
@@ -18,7 +20,6 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: ["http://localhost:5173", "https://demo.melodymatch.onrender.com"], // React frontend
-    methods: ["GET", "POST"],
     credentials: true
   }
 });
@@ -34,11 +35,20 @@ const limiter = rateLimit({
 app.use(limiter)
 
 app.use(cors({
-    origin: "http://localhost:5173",    
+    origin: ["http://localhost:5173", "https://demo.melodymatch.onrender.com"], // React frontend
     credentials: true // Allow cookies to be sent
 }));
 
-app.use(helmet())
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      mediaSrc: ["'self'", "*"],
+      videoSrc: ["'self'", "*"],
+      imgSrc: ["'self'", "*", "data:"],  // note: no quotes around data: here
+    }
+  }
+}));
 app.use(express.json())
 app.use(cookieParser()); //to access cookies in node.js
 app.use(compression())
@@ -46,10 +56,11 @@ app.use(compression())
 // app.use('/api/todos', auth, TodosRouter)
 app.use('/api/users', UsersRouter)
 
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
