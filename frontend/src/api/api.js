@@ -62,6 +62,7 @@ export const getUser = async (token) => {
   try {
     const response = await axios.get(`/api/users/get`, {
       headers: { Authorization: token },
+      withCredentials: true,
     });
     return response.data;
   } catch (error) {
