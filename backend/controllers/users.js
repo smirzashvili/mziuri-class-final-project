@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
         await newUser.save()
         
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
-        res.cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
         
         const userObj = newUser.toObject();
         delete userObj.password;
@@ -56,7 +56,7 @@ export const loginUser = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
-        res.cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
         const userObj = user.toObject();
         delete userObj.password;
@@ -108,6 +108,7 @@ export const getUser = async (req, res) => {
 
         return res.status(200).json({ data: userData });
     } catch (err) {
+        console.log(err)
         return res.status(500).json({ err: "Something went wrong" });
     }
 };
@@ -156,7 +157,7 @@ export const getGuestUser = async (req, res) => {
         await newGuest.save();
 
         const token = jwt.sign({ id: newGuest._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
-        res.cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
         const userObj = newGuest.toObject();
         delete userObj.password;
