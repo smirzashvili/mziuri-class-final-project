@@ -117,5 +117,5 @@ initializeSocket(io); // Call the function to set up socket listeners
 
 server.listen(process.env.PORT || 3003, () => {
     console.log('server has started')
-    connectDB(process.env.CONNECTION_STRING)
+    connectDB(process.env.CONNECTION_STRING) 
 })
