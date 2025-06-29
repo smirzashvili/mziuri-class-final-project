@@ -25,7 +25,7 @@ const io = new Server(server, {
   cors: {
     origin: ["http://localhost:5173", "https://demo-melodymatch.onrender.com"], // React frontend
     credentials: true
-  }
+  } 
 });
 
 dotenv.config()
