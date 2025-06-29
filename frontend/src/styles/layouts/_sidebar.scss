@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 
 .sidebar {
-    @include dimension(5vw, 100vh);
+    @include dimension(5vw, 100dvh);
     min-width: 83px;
     background-color: var(--white);
     position: fixed;

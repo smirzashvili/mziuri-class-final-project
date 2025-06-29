@@ -245,9 +245,13 @@ export const discover = async (req, res) => {
 
         const user = await Users.findById(userId);
 
-        const exclude = [];//[...user.likedUsers, ...user.dislikedUsers, user._id];
+        const exclude = [...user.likedUsers, ...user.dislikedUsers, user._id];
         const usersToShow = await Users.aggregate([
-            { $match: { _id: { $nin: exclude } } },
+            { $match: { 
+                _id: { $nin: exclude },
+                isBot: { $ne: true },
+                // isGuest: { $ne: true } 
+            } },
             { $sample: { size: 1 } } // get one random user
         ]);
 
@@ -262,16 +266,16 @@ export const like = async (req, res) => {
         const { userId } = req.body; // user who is liking
         const { targetId } = req.params; // user who is being liked
 
-        // if (userId === targetId) return res.status(400).json({ err: "Cannot like yourself" });
+        if (userId === targetId) return res.status(400).json({ err: "Cannot like yourself" });
 
         const user = await Users.findById(userId);
         const targetUser = await Users.findById(targetId);
 
         console.log(targetUser.likedUsers, userId, targetUser.likedUsers.includes(userId))
 
-        // if (!user || !targetUser) return res.status(404).json({ err: "User not found" });
+        if (!user || !targetUser) return res.status(404).json({ err: "User not found" });
 
-        // if (user.likedUsers.includes(targetId)) return res.status(400).json({ err: "Already liked" });
+        if (user.likedUsers.includes(targetId)) return res.status(400).json({ err: "Already liked" });
 
         user.likedUsers.push(targetId);
 
@@ -312,14 +316,14 @@ export const dislike = async (req, res) => {
         const { userId } = req.body; // user who is disliking
         const { targetId } = req.params; // user who is being disliked
 
-        // if (userId === targetId) return res.status(400).json({ err: "Cannot dislike yourself" });
+        if (userId === targetId) return res.status(400).json({ err: "Cannot dislike yourself" });
 
         const user = await Users.findById(userId);
         const targetUser = await Users.findById(targetId);
 
-        // if (!user || !targetUser) return res.status(404).json({ err: "User not found" });
+        if (!user || !targetUser) return res.status(404).json({ err: "User not found" });
 
-        // if (user.dislikedUsers.includes(targetId)) return res.status(400).json({ err: "Already disliked" });
+        if (user.dislikedUsers.includes(targetId)) return res.status(400).json({ err: "Already disliked" });
 
         user.dislikedUsers.push(targetId);
         await user.save();

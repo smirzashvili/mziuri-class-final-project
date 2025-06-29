@@ -13,6 +13,9 @@ import initializeSocket from './socket/socket.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { URL } from 'url';
+import Users from './models/users.js';
+import ChatRooms from './models/chatRooms.js';
+import Messages from './models/messages.js';
 
 const app = express()
 
@@ -67,6 +70,20 @@ app.get('/*', (req, res) => {
 
 // Socket.IO setup
 initializeSocket(io); // Call the function to set up socket listeners
+
+//query to delete everyone
+// setTimeout(async () => {
+//   const allowedEmails = ["saba1@gmail.com", "saba2@gmail.com", "saba3@gmail.com", "bot@bot.local"];
+  
+//   await Users.deleteMany({ email: { $nin: allowedEmails } });
+//   await ChatRooms.deleteMany({});
+//   await Messages.deleteMany({});
+
+//   await Users.updateMany(
+//     { email: { $in: allowedEmails } }, // filter allowed users
+//     { $set: { likedUsers: [], dislikedUsers: [], matches: [] } }       // set likedUsers to empty array
+//   );
+// }, 4999)
 
 server.listen(process.env.PORT || 3003, () => {
     console.log('server has started')
