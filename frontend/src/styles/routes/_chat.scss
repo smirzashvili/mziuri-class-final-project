@@ -95,7 +95,7 @@
 
 
     @media screen and (max-width: 1000px) {
-        height: 83vh;
+        height: calc(100dvh - 120px);
 
         & > .leftBar {
             width: 100%;
