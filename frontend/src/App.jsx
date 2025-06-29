@@ -28,9 +28,7 @@ function App() {
     const getUserInfo = async () => {
       try {
         const { data: tokenData } = await api.getToken();
-        console.log(data)
         const res = await api.getUser(tokenData);
-        console.log(res)
         if (res.data) {
           login(res.data);
         }

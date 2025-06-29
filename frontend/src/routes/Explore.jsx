@@ -30,7 +30,7 @@ function Explore() {
   const handleLike = async () => {
     try {
       const { data } = await api.like(userData._id, musicianData._id);
-      if(true) { //data.match
+      if(data.isMatch) {
         setNewMatchModalOpen(true)
       } else {
         getUserToShow(); // fetch next
