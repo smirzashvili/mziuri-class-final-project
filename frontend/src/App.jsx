@@ -14,6 +14,7 @@ function App() {
 
   const [isNavigationScreenVisible, setIsNavigationScreenVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [isAppReady, setIsAppReady] = useState(false);
 
   useDocumentTitle();
   useScrollTop();
@@ -43,9 +44,13 @@ function App() {
           console.error('Failed to log in as guest', guestErr);
         }
       }
+      setIsAppReady(true);
     };
     getUserInfo();
   }, []);
+
+
+  if (!isAppReady) return null;
 
   return (
     <div className={`app ${loggedIn ? 'loggedIn' : ''}`}>
