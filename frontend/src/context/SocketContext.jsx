@@ -12,7 +12,7 @@ export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:3003', {
+    const newSocket = io('https://demo-melodymatch.onrender.com/', {
       withCredentials: true,
     });
     setSocket(newSocket);
