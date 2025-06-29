@@ -9,13 +9,18 @@ import NewMatchModal from '../modals/NewMatchModal';
 
 function Explore() {
   const [musicianData, setMusicianData] = useState();
+  const [noUsersText, setNoUsersText] = useState();
   const { userData } = useUserData();
   const [newMatchModalOpen, setNewMatchModalOpen] = useState(false)
 
   const getUserToShow = async () => {
     try {
+      setNoUsersText(null)
       const { data } = await api.discover(userData._id);
       setMusicianData(data);
+      if(!data) {
+        setNoUsersText('no users to show')
+      } 
     } catch (error) {
       console.error('Error fetching musician:', error);
     }
@@ -51,30 +56,33 @@ function Explore() {
 
   return (
     <div className="explore">
-      <div className='docs'>
-          <IconButton
-            icon={Heart}
-            size={"calc(12px * var(--app-scale))"}
+      {musicianData ? 
+        <>
+          <div className='docs'>
+              <IconButton
+                icon={Heart}
+                size={"calc(12px * var(--app-scale))"}
+              />
+              or swipe right to Like,
+              <IconButton
+                icon={Close}
+                size={"calc(12px * var(--app-scale))"}
+              />
+              or swipe left to Dislike,
+              <IconButton
+                icon={Refresh}
+                size={"calc(12px * var(--app-scale))"}
+              />
+              to Refresh Content
+          </div>
+          <MusicianCard 
+            musicianData={musicianData} 
+            onLike={handleLike}
+            onDislike={handleDislike}
           />
-          or swipe right to Like,
-          <IconButton
-            icon={Close}
-            size={"calc(12px * var(--app-scale))"}
-          />
-          or swipe left to Dislike,
-          <IconButton
-            icon={Refresh}
-            size={"calc(12px * var(--app-scale))"}
-          />
-          to Refresh Content
-      </div>
-      {musicianData && (
-        <MusicianCard 
-          musicianData={musicianData} 
-          onLike={handleLike}
-          onDislike={handleDislike}
-        />
-      )}
+        </>
+        : noUsersText ? 'no users to show' : ''
+      }
 
       {/* MODAL */}
       <NewMatchModal 

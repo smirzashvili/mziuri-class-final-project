@@ -151,10 +151,20 @@ export const getGuestUser = async (req, res) => {
             date: '2002-02-26',
             avatarIndex: Math.floor(Math.random() * 4) + 1,
             bio: "Yes, I am a demo musician to create digital journeys 🕺",
-            isGuest: true
+            isGuest: true,
+            media: [
+                'https://images.unsplash.com/photo-1623410439361-22ac19216577?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1692107304287-4eb0e5c4c550?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            ]
         });
 
         await newGuest.save();
+
+        // Update other users
+        await Users.updateMany(
+            { isTest: { $ne: true }, isBot: { $ne: true } },
+            { $addToSet: { likedUsers: newGuest._id } }
+        );
 
         const token = jwt.sign({ id: newGuest._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
@@ -247,13 +257,17 @@ export const discover = async (req, res) => {
 
         const exclude = [...user.likedUsers, ...user.dislikedUsers, user._id];
         const usersToShow = await Users.aggregate([
-            { $match: { 
-                _id: { $nin: exclude },
-                isBot: { $ne: true },
-                // isGuest: { $ne: true } 
-            } },
-            { $sample: { size: 1 } } // get one random user
+            { 
+                $match: { 
+                    _id: { $nin: exclude }, //exclude liked
+                    isBot: { $ne: true }, //exclude bot
+                    isGuest: { $ne: true }, //exclude guests
+                    isTest: { $ne: true }, //exclude tests
+                } 
+            },
+            { $sample: { size: 1 } }
         ]);
+
 
         return res.status(200).json({ data: usersToShow[0] })
     } catch (err) {

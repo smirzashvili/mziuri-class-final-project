@@ -9,11 +9,7 @@ import MediaIndicator from './MediaIndicator';
 import { useSound } from '../context/SoundContext'; // 👈
 
 function MusicianCard({ musicianData, onLike, onDislike }) {
-  const [media, setMedia] = useState([
-    'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
-    'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
-  ]);
+  // const [media, setMedia] = useState(musicianData.media)
   const [infoActive, setInfoActive] = useState(false);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const currentMediaRef = useRef()
@@ -34,11 +30,11 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
 
   useEffect(() => {
     //TEST
-    setMedia([
-      media[0] === 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4' ? 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' : 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
-      'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
-    ])
+    // setMedia([
+    //   media[0] === 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4' ? 'https://videos.pexels.com/video-files/2794235/2794235-hd_1920_1080_24fps.mp4' : 'https://videos.pexels.com/video-files/2794235/2794235-hd_1920_1080_24fps.mp4',
+    //   'https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    //   'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
+    // ])
     //
     setCurrentMediaIndex(0);
     setInfoActive(false);   
@@ -115,7 +111,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
   };
 
   const handleNextMedia = () => {
-    setCurrentMediaIndex((prevIndex) => prevIndex !== media.length - 1 ? prevIndex + 1 : prevIndex);
+    setCurrentMediaIndex((prevIndex) => prevIndex !== musicianData.media.length - 1 ? prevIndex + 1 : prevIndex);
   };
 
   const handleRefresh = () => {
@@ -153,7 +149,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
       >
         <MediaIndicator 
           key={refreshKey}
-          medias={media} 
+          medias={musicianData.media} 
           currentMediaIndex={currentMediaIndex} 
           currentMediaRef={currentMediaRef}
           onHandleNextMedia={handleNextMedia}
@@ -164,9 +160,9 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
           className={`media`}
         >
           <>
-            {media[currentMediaIndex].match(/\.(mp4|webm|ogg)$/i) ? (
+            {musicianData?.media[currentMediaIndex]?.match(/\.(mp4|webm|ogg)$/i) ? (
               <video
-                src={media[currentMediaIndex]}
+                src={musicianData.media[currentMediaIndex]}
                 autoPlay
                 preload="metadata" // or "auto" or "none"
                 muted={!soundOn}
@@ -176,7 +172,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
               />
             ) : (
               <img
-                src={media[currentMediaIndex]}
+                src={musicianData.media[currentMediaIndex]}
                 ref={currentMediaRef}
                 onLoad={() => setMediaLoaded(true)}
                 // onLoadedMetadata={handleMediaLoadedMetadata}

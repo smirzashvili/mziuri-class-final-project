@@ -56,7 +56,13 @@ const UsersSchema = new mongoose.Schema({
   },
   isBot: {
     type: Boolean
-  }
+  },
+  isTest: {
+    type: Boolean
+  },
+  media: [{ 
+    type: String, 
+  }],
 }, { timestamps: true });
 
 export default mongoose.model("Users", UsersSchema);

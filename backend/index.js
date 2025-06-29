@@ -16,6 +16,7 @@ import { URL } from 'url';
 import Users from './models/users.js';
 import ChatRooms from './models/chatRooms.js';
 import Messages from './models/messages.js';
+import {hashPassword} from './utils/bcrypt.js'
 
 const app = express()
 
@@ -71,9 +72,12 @@ app.get('/*', (req, res) => {
 // Socket.IO setup
 initializeSocket(io); // Call the function to set up socket listeners
 
-//query to delete everyone
+//query to delete guests
 // setTimeout(async () => {
-//   const allowedEmails = ["saba1@gmail.com", "saba2@gmail.com", "saba3@gmail.com", "bot@bot.local"];
+//   const allowedEmails = [
+//     "test1@gmail.com", "test2@gmail.com", "test3@gmail.com", "bot@bot.local", 
+//     "wilsonmalon@gmail.com", "anishprajapati@gmail.com", "leonardozorzi@gmail.com", "anastasiakhardina@gmail.com", "angelinabishep@gmail.com"
+//   ];
   
 //   await Users.deleteMany({ email: { $nin: allowedEmails } });
 //   await ChatRooms.deleteMany({});
@@ -83,6 +87,32 @@ initializeSocket(io); // Call the function to set up socket listeners
 //     { email: { $in: allowedEmails } }, // filter allowed users
 //     { $set: { likedUsers: [], dislikedUsers: [], matches: [] } }       // set likedUsers to empty array
 //   );
+// }, 4999)
+
+//query to add user
+// setTimeout(async () => {
+//   const hashedPassword = await hashPassword('angelinabishep@gmail.com')
+
+//   const newUser = new Users({
+//       fullName: 'Angelina Bishep',
+//       email: 'angelinabishep@gmail.com',
+//       city: 'Tbilisi',
+//       password: hashedPassword,
+//       gender: 'female',
+//       favoriteGenre: 'Punk',
+//       favoriteInstrument: 'Bass',
+//       date: '1997-01-26',
+//       bio: "Portraits. Concerts. Reports.",
+//       avatarIndex: 2,
+//       media: [
+//         'https://images.unsplash.com/photo-1547390531-4f359384980b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+//         'https://images.unsplash.com/photo-1547391856-d4a48f1e394f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+//         'https://images.unsplash.com/photo-1543573981-f8599fecdbc8?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+//       ],
+//   });
+
+//   await newUser.save()
+
 // }, 4999)
 
 server.listen(process.env.PORT || 3003, () => {

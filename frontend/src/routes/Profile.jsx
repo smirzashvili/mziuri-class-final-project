@@ -40,7 +40,33 @@ function Profile() {
         ...prevState,
         ...userData
       }));
-      setUploadedMedias(userData.media || Array(9).fill(null)); // Optional if you're loading media too
+
+      if (userData.media && userData.media.length > 0) {
+        const promises = userData.media.map(async (url) => {
+          if (!url) return null;
+          try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const mimeType = blob.type;
+            const extension = mimeType.split('/')[1];
+            return new File([blob], `file.${extension}`, { type: mimeType });
+          } catch (error) {
+            console.error('Error fetching media:', error);
+            return null;
+          }
+        });
+
+        Promise.all(promises).then(files => {
+          const filled = files.concat(Array(9 - files.length).fill(null));
+          setUploadedMedias(filled);
+          setState(prev => ({
+            ...prev,
+            media: filled
+          }));
+        });
+      } else {
+        setUploadedMedias(Array(9).fill(null));
+      }
     }
   }, [userData]);
 
