@@ -123,7 +123,7 @@ export const forgotPasswordUser = async (req, res) => {
         }
 
         const access_token = jwt.sign({ id: user._id }, process.env.JWT_RESET_PASS_SECRET_KEY, { expiresIn: '15m' });
-        const url = `http://localhost:5173/reset-password/${access_token}`  
+        const url = `https://demo-melodymatch.onrender.com/reset-password/${access_token}`  
 
         await sendResetPasswordMail(email, url)
 
