@@ -73,6 +73,11 @@ ul {
     color: var(--white);
 }
 
+button, a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 .app {
     height: 100vh;
 

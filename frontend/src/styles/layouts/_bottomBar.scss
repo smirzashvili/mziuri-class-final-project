@@ -34,6 +34,22 @@
                     filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
                 }
             }
+
+            position: relative;
+            .unreadMessagesCount {
+                position: absolute;
+                top: calc(-6px * var(--app-scale));
+                right: calc(0px * var(--app-scale));
+                background-color: var(--primary-green);
+                color: white;
+                padding: calc(4px * var(--app-scale)) calc(8px * var(--app-scale));
+                border-radius: 100%;
+                font-size: calc(10px * var(--app-scale));
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+            }
         }
     }
 
