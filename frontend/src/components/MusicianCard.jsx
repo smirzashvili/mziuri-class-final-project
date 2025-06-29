@@ -86,6 +86,30 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
     setRotation(0);
   };
 
+  const handleTouchStart = (e) => {
+    startPositionX.current = e.touches[0].clientX;
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
+  };
+
+  const handleTouchMove = (e) => {
+    const dx = e.touches[0].clientX - startPositionX.current;
+    positionX.current = dx;
+    setRotation(dx / 20);
+  };
+
+  const handleTouchEnd = () => {
+    document.removeEventListener('touchmove', handleTouchMove);
+    document.removeEventListener('touchend', handleTouchEnd);
+    if (positionX.current > 200) {
+      onLike();
+    } else if (positionX.current < -200) {
+      onDislike();
+    }
+    positionX.current = 0;
+    setRotation(0);
+  };
+
   const handlePrevMedia = () => {
     setCurrentMediaIndex((prevIndex) => prevIndex !== 0 ? prevIndex - 1 : prevIndex);
   };
@@ -124,6 +148,7 @@ function MusicianCard({ musicianData, onLike, onDislike }) {
       <div 
         className='card'
         onMouseDown={handleMouseDown} 
+        onTouchStart={handleTouchStart}
         style={{transform: `translateX(${positionX.current}px) rotate(${rotation}deg)`}}
       >
         <MediaIndicator 

@@ -3,6 +3,7 @@
 .explore {
     @include flexbox(column, center, center, calc(32px * var(--app-scale)));
     margin: calc(52px * var(--app-scale)) 0;
+    overflow: hidden;
 
     .docs {
         display: flex;

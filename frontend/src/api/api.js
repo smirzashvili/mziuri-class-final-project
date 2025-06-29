@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = "";
+const baseUrl = "http://localhost:3003"
 
 export const registerUser = async (data) => {
   try {
