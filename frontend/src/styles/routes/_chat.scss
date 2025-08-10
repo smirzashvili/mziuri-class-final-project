@@ -58,15 +58,19 @@
                         & > p:nth-child(2) {
                             font-size: calc(14px * var(--app-scale));
                             color: var(--darker-grey);
-                            @include flexbox(row, flex-start, center, calc(6px * var(--app-scale)));
+                            // @include flexbox(row, flex-start, center, calc(6px * var(--app-scale)));
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
+                            display: inline-block; // ensures ellipsis works
+                            max-width: 200px;
+                            // min-width: 0;     // CRUCIAL for flex ellipsis to work
                             // width: 120px;
 
                             & > .icon {
                                 width: calc(10px * var(--app-scale));
                                 height: calc(10px * var(--app-scale));
+                                margin: calc(-4px * var(--app-scale)) calc(4px * var(--app-scale)) 0 0;
                             }
     
                             & > .greenCircle {

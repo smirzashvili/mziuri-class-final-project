@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChatRoom, UserAvatar } from '../components';
 import MessageSend from '../assets/icons/messageSend.svg';
 import MessageReceive from '../assets/icons/messageReceive.svg';
@@ -23,6 +23,8 @@ function Chat() {
   const { refreshUnreadCount } = useChatData();
   const location = useLocation();
   const openWithUserId = location.state?.openWithUserId;
+  const [initialOpenWithUserId] = useState(openWithUserId); // snapshot once
+  const hasSelectedInitialChat = useRef(false);
 
   useEffect(() => {
     if (!socket || !userData?._id) return;
@@ -103,24 +105,20 @@ function Chat() {
   }, [socket, activeChatRoomId]);
 
   useEffect(() => {
-    if (!chatRooms.length) return;
+    if (!chatRooms.length || hasSelectedInitialChat.current) return;
 
-    // If navigating from "Send Message" button
-    if (openWithUserId) {
+    if (initialOpenWithUserId) {
       const roomWithThatUser = chatRooms.find(room =>
-        room.participants.some(p => p._id === openWithUserId)
+        room.participants.some(p => p._id === initialOpenWithUserId)
       );
-
-      if (roomWithThatUser) {
-        setActiveChatRoomId(roomWithThatUser._id);
-      } else {
-        // fallback to first room
-        setActiveChatRoomId(chatRooms[0]._id);
-      }
+      setActiveChatRoomId(roomWithThatUser?._id || chatRooms[0]._id);
     } else if (!activeChatRoomId) {
       setActiveChatRoomId(chatRooms[0]._id);
     }
-  }, [chatRooms, activeChatRoomId, openWithUserId]);
+
+    hasSelectedInitialChat.current = true;
+  }, [chatRooms, initialOpenWithUserId, activeChatRoomId]);
+
 
   // Fetch messages when user selects a chat
   useEffect(() => {
@@ -185,6 +183,11 @@ function Chat() {
     setIsChatRoomVisible(true)
   }, [activeChatRoomId])
 
+  const handleSelectChatroom = (id) => {
+    setActiveChatRoomId(id);
+    hasSelectedInitialChat.current = true; // prevent override on next update
+  }
+
   return (
     <div className='chat'>
       <div className={`leftBar ${isChatRoomVisible ? 'mob-hidden' : 'mob-visible'}`}>
@@ -203,7 +206,7 @@ function Chat() {
               <div
                 key={item._id || index}
                 className={`item ${activeChatRoomId  === item._id ? 'active' : ''}`}
-                onClick={() => activeChatRoomId  !== item._id && setActiveChatRoomId(item._id)}
+                onClick={() => activeChatRoomId  !== item._id && handleSelectChatroom(item._id)}
               >
                 <div>
                   <UserAvatar 
